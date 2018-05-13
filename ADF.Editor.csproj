@@ -289,10 +289,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ADF.Plugins.csproj">
-      <Project>{EBAD0FF1-008D-8AA8-76DF-83A0E18277E8}</Project>
-      <Name>ADF.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="ADF.csproj">
       <Project>{4B9E0E1B-3BED-C545-DC08-910307395E8B}</Project>
       <Name>ADF</Name>
@@ -311,6 +307,8 @@
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasyTouchInspector.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasyTouchMenu.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\HTGUILayout.cs" />
+    <Compile Include="Assets\Editor\TexturePacker\AtlasData.cs" />
+    <Compile Include="Assets\Editor\TexturePacker\TexturePacker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyTouch\Readme_first.txt" />
@@ -384,6 +382,7 @@
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+    <None Include="Assets\Scripts\Test\XMLDemo.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

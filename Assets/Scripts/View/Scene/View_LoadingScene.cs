@@ -15,11 +15,15 @@ namespace View {
 		private AsyncOperation _AsyOper;
 
 		private void Start() {
+			//调试进入指定的关卡
+			GlobalParaMgr.NextSceneName = SceneEnum.Level1;	//进入第一关卡
+
 			StartCoroutine("LoadingSceneProgress");
+
 		}
 
 		/// <summary>
-		/// 显示进度条
+		/// 显示进度条（有待改善）
 		/// </summary>
 		private void Update() {
 			//实际测试时的合适最大长度

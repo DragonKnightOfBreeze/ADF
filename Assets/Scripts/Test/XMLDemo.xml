@@ -1,0 +1,27 @@
+﻿<ProjectDialogsInfo>
+  
+  <Dialogs language="SC" version="1.0">
+    <Number>1</Number>
+    <Speaker>勇者</Speaker>
+    <Content>我是谁？我在哪里？</Content>
+  </Dialogs>
+
+  <Dialogs language="SC" version="1.0">
+    <Number>2</Number>
+    <Speaker>导游</Speaker>
+    <Content>你好，欢迎来到亚特兰蒂斯地下城堡！</Content>
+  </Dialogs>
+  
+  <Dialogs language="SC" version="1.0">
+    <Number>3</Number>
+    <Speaker>勇者</Speaker>
+    <Content>我怎么来到这个鬼地方了？</Content>
+  </Dialogs>
+
+  <Dialogs language="SC" version="1.0">
+    <Number>4</Number>
+    <Speaker>导游</Speaker>
+    <Content>勇者，我想你是穿越了。</Content>
+  </Dialogs>
+
+</ProjectDialogsInfo>
