@@ -48,7 +48,7 @@ namespace Global {
 				return _DicSceneEnumLib[sceneEnum];
 			}
 			else {
-				Debug.LogWarning(GetType() + "/GetStrByEnumScene()/_DicSceneEnumLib.Count <= 0!");
+				// // Debug.LogWarning(GetType() + "/GetStrByEnumScene()/_DicSceneEnumLib.Count <= 0!");
 				return null;
 			}
 		}

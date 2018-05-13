@@ -1,14 +1,19 @@
 ﻿//模型层，玩家的核心数据
 //模型层中都是定义的类，而非真正意义上的脚本
-
+//当属性改变时，要自动在显示层里显示出来
 //这些数据后期要持久化到XML
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Global;
+
 namespace Model {
 	public class Mod_PlayerKernelData {
+		//定一一个事件：玩家的核心数值事件
+		public static event del_PlayerKernalModel Eve_PlayerKernalData;
+
 
 		private float _FloHealth;       //生命值
 		private float _FloMana;         //魔法值
@@ -16,9 +21,10 @@ namespace Model {
 		private float _FloDefence;      //防御力
 		private float _FloDexterity;    //敏捷度
 
-		private float _FloMaxHealth;	//以下为最大值
+		private float _FloMaxHealth;    //以下为最大值
 		private float _FloMaxMana;
-		private float _FloTotalAttack;	//以下为实际值（总的）
+
+		private float _FloTotalAttack;  //以下为实际值（总的）
 		private float _FloTotalDefence;
 		private float _FloTotalDexterity;
 
@@ -32,9 +38,14 @@ namespace Model {
 			get {
 				return _FloHealth;
 			}
-
 			set {
 				_FloHealth = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("Health", Health);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float Mana {
@@ -44,6 +55,12 @@ namespace Model {
 
 			set {
 				_FloMana = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("Mana", Mana);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float Attack {
@@ -53,6 +70,12 @@ namespace Model {
 
 			set {
 				_FloAttack = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("Attack", Attack);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float Defence {
@@ -62,6 +85,12 @@ namespace Model {
 
 			set {
 				_FloDefence = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("Defence", Defence);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float Dexterity {
@@ -71,6 +100,12 @@ namespace Model {
 
 			set {
 				_FloDexterity = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("Dexterity", Dexterity);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 
@@ -81,6 +116,12 @@ namespace Model {
 
 			set {
 				_FloMaxHealth = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("MaxHealth", MaxHealth);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float MaxMana {
@@ -90,13 +131,19 @@ namespace Model {
 
 			set {
 				_FloMaxMana = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("MaxMana", MaxMana);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
+
 		public float TotalAttack {
 			get {
 				return _FloTotalAttack;
 			}
-
 			set {
 				_FloTotalAttack = value;
 			}
@@ -117,6 +164,7 @@ namespace Model {
 
 			set {
 				_FloTotalDexterity = value;
+
 			}
 		}
 
@@ -127,6 +175,12 @@ namespace Model {
 
 			set {
 				_FloAttackByItem = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("AttackByItem", AttackByItem);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float DefenceByItem {
@@ -136,6 +190,12 @@ namespace Model {
 
 			set {
 				_FloDefenceByItem = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DefenceByItem", DefenceByItem);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 		public float DexterityByItem {
@@ -145,6 +205,12 @@ namespace Model {
 
 			set {
 				_FloDexterityByItem = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (Eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DexterityByItem", DexterityByItem);
+					Eve_PlayerKernalData(kv);
+				}
 			}
 		}
 
@@ -154,7 +220,7 @@ namespace Model {
 		private Mod_PlayerKernelData() { }
 
 		//定义公共构造函数
-		public Mod_PlayerKernelData(float health, float mana, float attack,float defence,float dexterity,float maxHealth,float maxMana,float maxAttack,float maxDefence,float maxDexterity, float attackByItem,float defenceByItem,float dexterityByItem) {
+		public Mod_PlayerKernelData(float health, float mana, float attack,float defence,float dexterity,float maxHealth,float maxMana, float attackByItem,float defenceByItem,float dexterityByItem) {
 			this._FloHealth = health;
 			this._FloMana = mana;
 			this._FloAttack = attack;
@@ -162,9 +228,6 @@ namespace Model {
 			this._FloDexterity = dexterity;
 			this._FloMaxHealth = maxHealth;
 			this._FloMaxMana = maxMana;
-			this._FloTotalAttack = maxAttack;
-			this._FloTotalDefence = maxDefence;
-			this._FloTotalDexterity = maxDexterity;
 			this._FloAttackByItem = attackByItem;
 			this._FloDefenceByItem = defenceByItem;
 			this._FloDexterityByItem = dexterityByItem;

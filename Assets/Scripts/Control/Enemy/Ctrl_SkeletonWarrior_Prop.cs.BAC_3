@@ -1,0 +1,126 @@
+﻿//控制层，敌人：骷髅战士的属性
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using Global;
+using Kernel;
+
+namespace Control {
+
+	public class Ctrl_SkeletonWarrior_Prop : MonoBehaviour {
+		
+
+		//private bool _IsAlive = true; //敌人是否生存
+
+		public int IntMaxHP = 40;   //敌人的最大生命数值
+		private float _FloCurHp;    //敌人的当前生命数值
+
+		public int IntATK = 10;		//敌人的攻击力
+		public int IntDEF = 2;         //敌人的防御力
+
+		public int IntEnemyEXP = 5; //英雄的经验数值
+
+
+		public float FloMoveSpeed = 5f;   //敌人移动速度
+		public float FloRotationSpeed = 1f; //敌人旋转速度
+
+
+		//这个状态仅作判断，不是实时（真实）状态；
+		//持续播放的动画持续判断，单次播放的动画只做1次判断
+		//对于单次播放的动画，确定要播放后，就回到Idle状态
+		//如果要得到实时（真实）状态，不如使用：
+		//_MyAnimator.GetCurrentAnimatorStateInfo(0).IsName(CurrentState.ToString());
+		private EnemyActionState _CurrentState = EnemyActionState.Idle; //敌人的当前动画状态
+
+		//private SinglePlayState _CurSinglePlayState = SinglePlayState.Init;
+
+		public EnemyActionState CurrentState {
+			get {
+				return _CurrentState;
+			}
+			set {
+				_CurrentState = value;
+			}
+		}
+
+		//public SinglePlayState CurSinglePlayState {
+		//	get {
+		//		return _CurSinglePlayState;
+		//	}
+
+		//	set {
+		//		_CurSinglePlayState = value;
+		//	}
+		//}
+
+		void Start() {
+			_FloCurHp = IntMaxHP;
+
+			//判断是否存活
+			StartCoroutine("CheckLifeContinue");
+		}
+
+		
+
+		/// <summary>
+		/// 伤害处理
+		/// </summary>
+		/// <param name="heroAtk"></param>
+		public void OnHurt(int heroAtk) {
+			
+			//if (!gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(EnemyActionState.Hurt.ToString())) {
+
+				_CurrentState = EnemyActionState.Hurt;
+
+				Debug.Log("进行伤害处理！");
+
+				int hurtValue;
+				if (heroAtk > IntDEF) {
+					hurtValue = heroAtk - IntDEF;
+				}
+				else {
+					hurtValue = 1;
+				}
+				//Debug.Log("当前HP 1 ：" + _FloCurHp);
+				//_FloCurHp -= hurtValue;
+				//Debug.Log("当前HP：" + _FloCurHp);
+
+				if (_FloCurHp - hurtValue > 0) {
+					_FloCurHp -= hurtValue;
+					Debug.Log("当前HP：" + _FloCurHp);
+				}
+				else {
+					_FloCurHp = 0;
+				}
+			//}
+		}
+
+		/// <summary>
+		/// 检查是否存活
+		/// </summary>
+		/// <returns></returns>
+		IEnumerator CheckLifeContinue() {
+			//协程需要重复执行
+			while (true) {
+				//这里需要加以改动
+				if (_FloCurHp <= 0) {
+					//if (!gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(EnemyActionState.Hurt.ToString())) {
+					if (_CurrentState != EnemyActionState.Dead) {
+						_CurrentState = EnemyActionState.Dead;
+
+						Destroy(this.gameObject, 5f);   //销毁对象（敌人死亡），5s的延迟
+						Ctrl_HeroProperty.Instance.AddEXP(IntEnemyEXP); //玩家获得经验值
+						Ctrl_HeroProperty.Instance.AddKillNum();    //增加玩家的杀敌数量
+
+						//}
+					}
+				}
+
+				yield return new WaitForFixedUpdate();        //每1帧判断1次									  
+			}
+		}
+
+	}
+}

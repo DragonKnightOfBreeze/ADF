@@ -29,7 +29,7 @@ namespace Control {
 		/// 点击“新的旅程”
 		/// </summary>
 		internal void ClickNewGame() {
-			print(GetType() + "/ClickNewGame()");
+			// // Debug.Log(GetType() + "/ClickNewGame()");
 			//进入“登录”场景
 			StartCoroutine("EnterNextScene");
 

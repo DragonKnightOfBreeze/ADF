@@ -27,18 +27,15 @@ namespace Model {
 		/// <param name="DEX"></param>
 		/// <param name="maxHP"></param>
 		/// <param name="maxMP"></param>
-		/// <param name="maxATK"></param>
-		/// <param name="maxDEF"></param>
-		/// <param name="maxDEX"></param>
 		/// <param name="ATKByI"></param>
 		/// <param name="DEFByI"></param>
 		/// <param name="DEXByI"></param>
-		public Mod_PlayerKernelDataProxy(float HP, float MP, float ATK, float DEF, float DEX, float maxHP, float maxMP, float maxATK, float maxDEF, float maxDEX, float ATKByI, float DEFByI, float DEXByI) : base(HP, MP, ATK, DEF, DEX, maxHP, maxMP, maxATK, maxDEF, maxDEX, ATKByI, DEFByI, DEXByI) { 
+		public Mod_PlayerKernelDataProxy(float HP, float MP, float ATK, float DEF, float DEX, float maxHP, float maxMP, float ATKByI, float DEFByI, float DEXByI) : base(HP, MP, ATK, DEF, DEX, maxHP, maxMP, ATKByI, DEFByI, DEXByI) { 
 			if(_Instance == null) {
 				_Instance = this;
 			}
 			else {
-				Debug.LogError(GetType() + "Mod_PlayerKernelDataProxy()，不允许构造函数实例化，请检查！");
+				// // Debug.LogError(GetType() + "Mod_PlayerKernelDataProxy()，不允许构造函数实例化，请检查！");
 			}
 		}
 
@@ -50,7 +47,7 @@ namespace Model {
 			if(_Instance !=null) {
 				return _Instance;
 			} else {
-				Debug.LogWarning("GetInstance()，请先调用构造函数");
+				// // Debug.LogWarning("GetInstance()，请先调用构造函数");
 			}
 			return null;
 		}
@@ -66,10 +63,14 @@ namespace Model {
 		public void DeHealth(float enemyAttackValue) {
 			float damageValue =  enemyAttackValue - (base.Defence + base.DefenceByItem);
 			//最小伤害判断
-			if(damageValue >= ENEMY_MIN_ATK) {
+			if (damageValue >= ENEMY_MIN_ATK) {
 				base.Health -= damageValue;
-			} else {
-				base.Health -= ENEMY_MIN_ATK;
+			}
+			else {
+				base.Health -= ENEMY_MIN_ATK;	
+			}
+			if (damageValue >= base.Health) {
+				base.Health = 0;
 			}
 		}
 
@@ -115,7 +116,7 @@ namespace Model {
 		#endregion
 
 
-		 #region  魔法数值操作
+		#region  魔法数值操作
 
 		/// <summary>
 		/// 减少魔法数值（例如：使用魔法）
@@ -195,9 +196,20 @@ namespace Model {
 			}	
 		}
 
-		//得到当前的实际攻击力
-		public float GetCurTotalATK() {
-			return base.TotalAttack;
+		/// <summary>
+		/// 增加攻击力
+		/// </summary>
+		/// <param name="inATK"></param>
+		public void InATK(float inATK) {
+			base.Attack += inATK;
+		}
+
+		/// <summary>
+		/// 得到当前的攻击力
+		/// </summary>
+		/// <returns></returns>
+		public float GetCurATK() {
+			return base.Attack;
 		}
 
 		#endregion
@@ -223,9 +235,21 @@ namespace Model {
 			}
 		}
 
-		//得到当前的实际防御力
-		public float GetCurTotalDEF() {
-			return base.TotalDefence;
+		/// <summary>
+		/// 增加防御力
+		/// </summary>
+		/// <param name="inDEF"></param>
+		public void InDEF(float inDEF) {
+			base.Defence += inDEF;
+		}
+
+
+		/// <summary>
+		/// 得到当前的防御力
+		/// </summary>
+		/// <returns></returns>
+		public float GetCurDEF() {
+			return base.Defence;
 		}
 
 		#endregion
@@ -251,13 +275,44 @@ namespace Model {
 			}
 		}
 
-		//得到当前的实际敏捷度
-		public float GetCurTotalDEX() {
-			return base.TotalDexterity;
+		/// <summary>
+		/// 增加敏捷度
+		/// /// </summary>
+		/// <param name="inDEX"></param>
+		public void InDEX(float inDEX) {
+			base.Dexterity += inDEX;
+		}
+
+		/// <summary>
+		/// 得到当前的敏捷度
+		/// </summary>
+		/// <returns></returns>
+		public float GetCurDEX() {
+			return base.Dexterity;
 		}
 
 		#endregion
 
+
+		/// <summary>
+		/// 显示所有初始数值
+		/// 这他妈到底有什么用？
+		/// </summary>
+		public void DisplayAllOriginalValues() {
+			base.Health = base.Health;
+			base.Mana = base.Mana;
+			base.Attack = base.Attack;
+			base.Defence = base.Defence;
+			base.Dexterity = base.Dexterity;
+
+			base.MaxHealth = base.MaxHealth;
+			base.MaxMana = base.MaxMana;
+
+			base.AttackByItem = base.AttackByItem;
+			base.DefenceByItem = base.DefenceByItem;
+			base.DexterityByItem = base.DexterityByItem;
+
+		}
 
 	}
 }

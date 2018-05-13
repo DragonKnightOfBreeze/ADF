@@ -11,6 +11,8 @@ using Kernel;
 namespace Control {
 	public class Ctrl_HeroMovingCtrlByKey : BaseControl {
 
+# if UNITY_STANDALONE_WIN || UNITY_EDITOR
+
 		public float FloHeroMovingSpeed = 5f;   //英雄的移动速度，可能要在外部定义
 
 		public AnimationClip Anc_Idle;      //动画剪辑_休闲
@@ -77,11 +79,13 @@ namespace Control {
 			//下面的语句应该只会执行一次。
 			//使用bool值判定，岂不美哉？
 			else if (_IsMoved == true){
-				Debug.Log("重置到Idle状态");
+				// // Debug.Log("重置到Idle状态");
 				Ctrl_HeroAnimationCtrl.Instance.SetCurrentActionState(HeroActionState.Idle);
 				_IsMoved = false;
 			}
 		}
+
+#endif
 
 	}
 }

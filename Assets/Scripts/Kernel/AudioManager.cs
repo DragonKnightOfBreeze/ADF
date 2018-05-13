@@ -77,7 +77,7 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayBackground()] audioClip==null !");
+                // // Debug.LogWarning("[AudioManager.cs/PlayBackground()] audioClip==null !");
             }
         }
 
@@ -90,7 +90,7 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayBackground()] strAudioName==null !");
+                // // Debug.LogWarning("[AudioManager.cs/PlayBackground()] strAudioName==null !");
             }
         }
 
@@ -98,7 +98,7 @@ namespace Kernel
         /// 播放音效_音频源A
         /// </summary>
         /// <param name="audioClip">音频剪辑</param>
-        private static void PlayAudioEffectA(AudioClip audioClip)
+        public static void PlayAudioEffectA(AudioClip audioClip)
         {
             //处理全局音效音量
             _AudioSource_AudioEffectA.volume = AudioEffectVolumns;
@@ -110,15 +110,50 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
             }
         }
 
-        /// <summary>
-        /// 播放音效_音频源B
-        /// </summary>
-        /// <param name="audioClip">音频剪辑</param>
-        private static void PlayAudioEffectB(AudioClip audioClip)
+		/// <summary>
+		/// 是否正在播放音效_音频源A
+		/// </summary>
+		/// <param name="audioClip">音频剪辑</param>
+		public static bool IsPlayAudioEffectA(AudioClip audioClip) {
+			//处理全局音效音量
+			_AudioSource_AudioEffectA.volume = AudioEffectVolumns;
+
+			if (audioClip) {
+				_AudioSource_AudioEffectA.clip = audioClip;
+				return _AudioSource_AudioEffectA.isPlaying;
+			}
+			else {
+				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// 停止播放音效_音频源A
+		/// </summary>
+		/// <param name="audioClip">音频剪辑</param>
+		public static void StopAudioEffectA(AudioClip audioClip) {
+			//处理全局音效音量
+			_AudioSource_AudioEffectA.volume = AudioEffectVolumns;
+
+			if (audioClip) {
+				_AudioSource_AudioEffectA.clip = audioClip;
+				_AudioSource_AudioEffectA.Stop();
+			}
+			else {
+				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+			}
+		}
+
+		/// <summary>
+		/// 播放音效_音频源B
+		/// </summary>
+		/// <param name="audioClip">音频剪辑</param>
+		public static void PlayAudioEffectB(AudioClip audioClip)
         {
             //处理全局音效音量
             _AudioSource_AudioEffectB.volume = AudioEffectVolumns;
@@ -130,7 +165,7 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] audioClip==null ! Please Check! ");
+                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] audioClip==null ! Please Check! ");
             }
         }
 
@@ -146,15 +181,30 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] strAudioEffctName==null ! Please Check! ");
+                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] strAudioEffctName==null ! Please Check! ");
             }
         }
 
-        /// <summary>
-        /// 播放音效_音频源B
-        /// </summary>
-        /// <param name="strAudioEffctName">音效名称</param>
-        public static void PlayAudioEffectB(string strAudioEffctName)
+		/// <summary>
+		/// 停止播放音效_音频源A
+		/// </summary>
+		/// <param name="strAudioEffctName">音效名称</param>
+		public static void StopAudioEffectA(string strAudioEffctName) {
+			if (!string.IsNullOrEmpty(strAudioEffctName)) {
+				StopAudioEffectA(_DicAudioClipLib[strAudioEffctName]);
+			}
+			else {
+				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] strAudioEffctName==null ! Please Check! ");
+			}
+		}
+
+
+
+		/// <summary>
+		/// 播放音效_音频源B
+		/// </summary>
+		/// <param name="strAudioEffctName">音效名称</param>
+		public static void PlayAudioEffectB(string strAudioEffctName)
         {
             if (!string.IsNullOrEmpty(strAudioEffctName))
             {
@@ -162,9 +212,11 @@ namespace Kernel
             }
             else
             {
-                Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] strAudioEffctName==null ! Please Check! ");
+                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] strAudioEffctName==null ! Please Check! ");
             }
         }
+
+
 
         /// <summary>
         /// 改变背景音乐音量

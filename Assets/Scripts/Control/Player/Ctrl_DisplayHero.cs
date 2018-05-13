@@ -17,7 +17,7 @@ namespace Control {
 		public AnimationClip AniAttack;     //动画剪辑~攻击
 		private Animation _AniCurrentAnimation; //当前动画
 
-		private float _FloInternalTimes = 3f;    //间隔时间
+		private float _FlointernalTimes = 3f;    //间隔时间
 		private int _IntRandomPlayNum;				//随机动作编号
 
 
@@ -29,9 +29,9 @@ namespace Control {
 		/// 算法：每隔3秒钟，随机播放一个人物动作。
 		/// </summary>
 		void Update() {
-			_FloInternalTimes -= Time.deltaTime;	//累减
-			if(_FloInternalTimes <= 0) {
-				_FloInternalTimes = 3f;
+			_FlointernalTimes -= Time.deltaTime;	//累减
+			if(_FlointernalTimes <= 0) {
+				_FlointernalTimes = 3f;
 				//得到随机数
 				_IntRandomPlayNum = Random.Range(1, 4);
 				DislpayHeroPlaying(_IntRandomPlayNum);
