@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--通过修改这个文档，来定制化系统日志功能-->
+<!--本质上类似于Typora、VSCode等软件的自定义设置功能-->
+<!--注：Unity对手机端XML的读取必须要使用WWW服务-->
+
+<!--游戏项目整体配置核心参数-->
+<SystemConfigInfo>
+  
+  <!--Log日志核心参数-->
+  <LogPath>D:\ADFLog.txt</LogPath>
+  
+  <!--日志的状态：!-->
+  <!--开发模式 Develop，特殊模式 Special，部署模式 Deploy，停止模式 Stop -->
+  <LogState>Develop</LogState>
+  
+  <!--日志的最大容量-->
+  <LogMaxCapacity>2000</LogMaxCapacity>
+  
+  <!--日志的缓存处理，数字越大，性能越高-->
+  <LogMaxCacheNumber>1</LogMaxCacheNumber>
+
+  <!--其他系统核心参数-->
+
+</SystemConfigInfo>

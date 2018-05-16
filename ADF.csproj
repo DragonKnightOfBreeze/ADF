@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -445,6 +447,13 @@
     <Compile Include="Assets\Scripts\Global\GlobalParaMgr.cs" />
     <Compile Include="Assets\Scripts\Kernel\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataFormat.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataAnalysisMgr.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Exception\XMLAnalysisException.cs" />
+    <Compile Include="Assets\Scripts\Kernel\KernelParameter.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Logger\ConfigManager.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Logger\IConfigManager.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Logger\Log.cs" />
     <Compile Include="Assets\Scripts\Kernel\PoolManager\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\PoolManager\Pools.cs" />
     <Compile Include="Assets\Scripts\Kernel\ResourceMgr.cs" />
@@ -539,7 +548,14 @@
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
     <None Include="Assets\Scripts\Test\XMLDemo.xml" />
+    <None Include="Assets\StreamingAssets\SystemConfigInfo.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\StreamingAssets\SystemDialogsInfo.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

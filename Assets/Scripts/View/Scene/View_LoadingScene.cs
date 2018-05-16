@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Global;
+using Kernel;
 
 namespace View {
 	public class View_LoadingScene : MonoBehaviour {
@@ -15,6 +16,31 @@ namespace View {
 		private AsyncOperation _AsyOper;
 
 		private void Start() {
+
+			/*
+
+			//测试Log日志系统
+			//面向接口编程
+			IConfigManager configMgr = new ConfigManager(KernelParameter.SystemConfigInfo_LogPath,KernelParameter.SystemConfigInfo_RootNodeName);
+
+			string strLogPath = configMgr.AppSetting["LogPath"];
+			string strLogState = configMgr.AppSetting["LogState"];
+			string strLogMaxCapacity = configMgr.AppSetting["LogMaxCapacity"];
+			string strLogCacheNumber = configMgr.AppSetting["LogCacheNumber"];
+			print("LogPath：" + strLogPath);
+			print("LogState：" + strLogState);
+			print("LogMaxCapacity：" + strLogMaxCapacity);
+			print("LogCacheNumber：" + strLogCacheNumber);
+
+			*/
+
+			//测试Log.cs类（让构造函数运行起来）
+			//Log.Write("我的企业日志系统开始运行了，第一次测试");
+
+			//测试XML解析程序
+			DialogDataAnalysisMgr.GetInstance().SetXMLPathAndRooNodeName(KernelParameter.DialogConfig_Path,KernelParameter.DialogConfig_RootNodeName);
+
+
 			//调试进入指定的关卡
 			GlobalParaMgr.NextSceneName = SceneEnum.Level1;	//进入第一关卡
 

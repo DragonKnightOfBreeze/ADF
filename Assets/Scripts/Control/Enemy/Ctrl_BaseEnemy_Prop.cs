@@ -57,6 +57,8 @@ namespace Control {
 		private void OnEnable() {
 			//判断是否存活
 			StartCoroutine("CheckLifeContinue");
+			//重置生命值为最大生命值
+			_FloCurHp = IntMaxHP;
 		}
 
 		private void OnDisable() {
@@ -65,15 +67,15 @@ namespace Control {
 		}
 
 
-		/// <summary>
-		/// 在子类中运行的方法
-		/// </summary>
-		public void RunMethodInChildren() {
-			_FloCurHp = IntMaxHP;
+		///// <summary>
+		///// 在子类中运行的方法
+		///// </summary>
+		//public void RunMethodInChildren() {
+		//	_FloCurHp = IntMaxHP;
 
-			////判断是否存活
-			//StartCoroutine("CheckLifeContinue");
-		}
+		//	////判断是否存活
+		//	//StartCoroutine("CheckLifeContinue");
+		//}
 
 
 

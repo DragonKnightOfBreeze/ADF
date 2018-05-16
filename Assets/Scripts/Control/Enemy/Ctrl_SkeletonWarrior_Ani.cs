@@ -33,6 +33,8 @@ namespace Control{
 
 
 		private void OnEnable() {
+			//播放出现特效
+			StartCoroutine("EnemyShowParticleEffect");
 			//播放动画
 			StartCoroutine("PlayAnimation");
 			//开启单次模式
@@ -213,6 +215,15 @@ namespace Control{
 		public IEnumerator AniEvent_SkeletonWawrrior_Hurt() {
 			StartCoroutine(base.LoadParticalEffect("ParticleProps/Enemy_Hurt", this.transform, Vector3.zero, 2f));
 			yield break;
+		}
+
+
+		/// <summary>
+		/// 敌人出现特效
+		/// （待优化，使用对象缓冲池技术）
+		/// </summary>
+		public void EnemyShowParticleEffect() {
+			StartCoroutine(base.LoadParticalEffect("ParticleProps/Enemy_Show2", this.transform, Vector3.zero, 3f));
 		}
 	}
 }
