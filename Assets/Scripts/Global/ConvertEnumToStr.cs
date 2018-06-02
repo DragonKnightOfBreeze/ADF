@@ -18,12 +18,13 @@ namespace Global {
 		/// </summary>
 		private ConvertEnumToStr() {
 			_DicSceneEnumLib = new Dictionary<SceneEnum, string> {
-			{ SceneEnum.StartScene, "1_StartScene" },
-			{ SceneEnum.LoginScene, "2_LoginScene" },
-			{ SceneEnum.LoadingScene, "LoadingScene" },
-			{SceneEnum.Level1,"3_Level1" },
-			{SceneEnum.Level2,"4_Level2" },
-			{SceneEnum.Level3,"5_Level3" }
+				{ SceneEnum.StartScene, "1_StartScene" },
+				{ SceneEnum.LoginScene, "2_LoginScene" },
+				{ SceneEnum.LoadingScene, "LoadingScene" },
+				{SceneEnum.Level1,"3_Level1" },
+				{SceneEnum.Level2,"4_Level2" },
+				{SceneEnum.Level3,"5_Level3" },
+				{SceneEnum.TestScene,"102_TestDialogScene" }
 			};
 		}
 

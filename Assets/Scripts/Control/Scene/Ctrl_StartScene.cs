@@ -51,7 +51,7 @@ namespace Control {
 			FadeInAndOut.Instance.SetSceneToBlack();
 			yield return new WaitForSeconds(1.5f);
 			//调用父类的方法，简化代码
-			base.EnterNextScene(SceneEnum.StartScene);
+			base.EnterNextScene(SceneEnum.LoginScene);
 		}
 	}
 }

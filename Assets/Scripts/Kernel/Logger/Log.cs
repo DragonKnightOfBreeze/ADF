@@ -13,7 +13,8 @@ using System.Collections.Generic;
 
 using System;				//C#的核心命名空间
 using System.IO;			//文件读写命名空间
-using System.Threading;		//多线程命名空间
+using System.Threading;     //多线程命名空间
+
 
 namespace Kernel {
 	
@@ -93,10 +94,10 @@ namespace Kernel {
 			//IConfigManager configMgr = new ConfigManager(KernelParameter.SystemConfigInfo_LogPath, KernelParameter.SystemConfigInfo_RootNodeName);
 			//_LogPath = configMgr.AppSetting[LOG_LogPath];
 
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
 
 			//日志文件路径
-			IConfigManager configMgr = new ConfigManager(KernelParameter.SystemConfigInfo_LogPath, KernelParameter.SystemConfigInfo_RootNodeName);
+			IConfigManager configMgr = new ConfigManager(KernelParameter.GetLogPath(), KernelParameter.GetLogPath());
 			_LogPath = configMgr.AppSetting[LOG_LogPath];
 			//日志状态
 			strLogState = configMgr.AppSetting[LOG_LogState];
@@ -153,7 +154,7 @@ namespace Kernel {
 				_LogMaxCacheNumber = LOG_DEFAULT_NumMaxCacheNumber;		//
 			}
 
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
 
 			//创建文件
 			if(!File.Exists(_LogPath)) {

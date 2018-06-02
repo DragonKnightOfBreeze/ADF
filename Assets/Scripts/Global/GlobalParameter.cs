@@ -91,7 +91,8 @@ namespace Global {
 		Level1,
 		Level2,
 		Level3,
-		BaseScene
+		BaseScene,
+		TestScene
 	}
 
 	/// <summary>
@@ -190,6 +191,7 @@ namespace Global {
 	//使用参数来区别不同的控制类型，区分不同的输入，实现多播委托 
 	public delegate void del_PlayerControlWithStr(string controlType);
 
+
 	/// <summary>
 	/// 键值更新类（对于人物属性来说）
 	/// </summary>
@@ -197,6 +199,8 @@ namespace Global {
 	//两种参数：类别和数值
 	//参数实际上是一个类，构造函数带有键、值两个参数
 	public delegate void del_PlayerKernalModel(KeyValuesUpdate kv);
+
+
 
 	//键值对（键来区分不同的类别，值可以通过委托得到数据）
 	public class KeyValuesUpdate {

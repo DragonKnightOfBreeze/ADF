@@ -15,7 +15,7 @@ namespace Control {
 		/// <param name="sceneEnumName">场景名称（枚举）</param>
 		protected void EnterNextScene(SceneEnum sceneEnumName) {
 			GlobalParaMgr.NextSceneName = sceneEnumName; //转到下一个场景
-			Application.LoadLevel(ConvertEnumToStr.GetInstance().GetStrByEnumScene(SceneEnum.Level1));
+			Application.LoadLevel(ConvertEnumToStr.GetInstance().GetStrByEnumScene(GlobalParaMgr.NextSceneName));
 		}
 
 		/// <summary>
@@ -24,7 +24,7 @@ namespace Control {
 		/// <param name="listEnemies">敌人列表（为了脱藕独立使用）</param>
 		/// <param name="traNearestEnemy">最近的敌人（为了脱藕独立使用）</param>
 		/// <param name="attackArea">攻击范围</param>
-		/// <param name="attackValue">攻击倍率</param>
+		/// <param name="attackMultiple">攻击倍率</param>
 		/// <param name="isDirection">是否有方向性</param>
 		protected void AttackEnemy(List<GameObject> listEnemies, Transform traNearestEnemy, float attackArea, float attackMultiple = 1f, bool isDirection = true) {
 
@@ -75,6 +75,7 @@ namespace Control {
 
 		/// <summary>
 		/// 粒子特效加载的公共方法
+		/// 更好的方式：使用对象缓冲池技术
 		/// </summary>
 		/// <param name="PEName"></param>
 		/// <param name="traPaticalPrefab"></param>

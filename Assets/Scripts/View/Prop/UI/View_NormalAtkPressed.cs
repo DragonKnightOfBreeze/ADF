@@ -31,7 +31,7 @@ namespace View {
 
 			//防止使用次数过多
 
-			if (UnityHelper.GetInstance().GetSmallTime(Ctrl_HeroAnimationCtrl.Instance.WaitTime +GlobalParameter.CHECK_TIME)) {
+			if (UnityHelper.GetInstance().GetSmallTime(Ctrl_HeroAnimationCtrl.Instance.WaitTime )) {
 				Ctrl_HeroAttackByET.Instance.ResponseATKByNormal();
 			}
 		}

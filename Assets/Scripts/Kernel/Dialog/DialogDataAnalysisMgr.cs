@@ -56,7 +56,7 @@ namespace Kernel {
 		/// <param name="xmlRootNodeName"></param>
 		public void SetXMLPathAndRooNodeName(string xmlPath,string xmlRootNodeName) {
 			//参数检查
-			if(string.IsNullOrEmpty(xmlPath) && string.IsNullOrEmpty(xmlRootNodeName)) {
+			if(!string.IsNullOrEmpty(xmlPath) && !string.IsNullOrEmpty(xmlRootNodeName)) {
 				_StrXMLPath = xmlPath;
 				_StrXMLRootNodeName = xmlRootNodeName;
 			}
@@ -68,8 +68,7 @@ namespace Kernel {
 		/// </summary>
 		/// <returns></returns>
 		public List<DialogDataFormat> GetAllXmlDataArray() {
-			//参数检查
-			if(_DialogDataArray != null && string.IsNullOrEmpty(_StrXMLRootNodeName)) {
+			if(_DialogDataArray != null && !string.IsNullOrEmpty(_StrXMLRootNodeName)) {
 				return _DialogDataArray;
 			}
 			else {
@@ -83,7 +82,8 @@ namespace Kernel {
 		IEnumerator Start() {
 			//需要等待XML路径与XML根节点名称，进行赋值
 			yield return new WaitForSeconds(DELAY_TIME);
-			if(string.IsNullOrEmpty(_StrXMLPath) && string.IsNullOrEmpty(_StrXMLRootNodeName)) {
+			if(!string.IsNullOrEmpty(_StrXMLPath) && !string.IsNullOrEmpty(_StrXMLRootNodeName)) {
+				
 				StartCoroutine("ReadXMLConfigByWWW");
 			}
 			else {
@@ -100,9 +100,9 @@ namespace Kernel {
 		IEnumerator ReadXMLConfigByWWW() {
 			WWW www = new WWW(_StrXMLPath);
 			while (www.isDone) {    //如果下载完毕
-				yield return www;
 				//初始化XML配置
 				InitXMLConfig(www,_StrXMLRootNodeName);
+				yield return www;
 			}
 		}
 
@@ -113,8 +113,9 @@ namespace Kernel {
 		/// <param name="www"></param>
 		/// <param name="rootNodeName"></param>
 		private void InitXMLConfig(WWW www,string rootNodeName) {
+
 			//参数检查
-			if(_DialogDataArray == null || string.IsNullOrEmpty(www.text)) {
+			if (_DialogDataArray == null || string.IsNullOrEmpty(www.text)) {
 				Debug.LogError(GetType() + "/InitXMLConfig()"+ "\t空参数异常");
 					return;
 			}
@@ -131,7 +132,7 @@ namespace Kernel {
 			xmlDoc.LoadXml(stringReader.ReadToEnd());
 
 			//选择单个结点
-			XmlNodeList nodes =  xmlDoc.SelectSingleNode(_StrXMLRootNodeName).ChildNodes;
+			XmlNodeList nodes =  xmlDoc.SelectSingleNode(rootNodeName).ChildNodes;
 			foreach (XmlElement xe in nodes) {
 				//实例化“XML解析实体类”
 				DialogDataFormat data = new DialogDataFormat();
@@ -144,6 +145,8 @@ namespace Kernel {
 				data.DiaPerson = xe.GetAttribute(XML_ATTR_5);
 				data.DiaContent = xe.GetAttribute(XML_ATTR_6);
 
+				//写入缓存数组
+				_DialogDataArray.Add(data);
 			}
 		}
 

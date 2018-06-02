@@ -20,8 +20,8 @@ namespace View {
 		//有延迟的开始方法
 		IEnumerator Start() {
 
-			yield return new WaitForSeconds(0.2f);
-			//大招的是否启用控制
+			yield return new WaitForSeconds(GlobalParameter.WAIT_FOR_SECONDS_ON_START);
+			//大招的按钮是否启用控制
 			goUIMagicAtk_A.GetComponent<View_AtkButtonCDEffect>().EnableSelf();
 			goUIMagicAtk_B.GetComponent<View_AtkButtonCDEffect>().EnableSelf();
 			goUIMagicAtk_C.GetComponent<View_AtkButtonCDEffect>().DisableSelf();

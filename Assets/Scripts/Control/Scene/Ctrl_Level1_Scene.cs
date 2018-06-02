@@ -85,7 +85,6 @@ namespace Control {
 			for (int i = 1; i <= spawnNum; i++) {
 				yield return new WaitForSeconds(2.5f);
 
-			
 				//定义克隆体随机出现的位置
 				Transform traEnemySpawnPosition = GetRandomEnemySpawnPosition();
 				//在“对象缓冲池“”中激活指定的对象
@@ -150,15 +149,15 @@ namespace Control {
 			int intRandomNum = UnityHelper.GetInstance().GetRandomNum(1, 10);
 			//20%的可能性
 			if (intRandomNum <=2 ) {
-				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior";
+				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior_Etite";
 			}
 			//80%的可能性
-			else if(intRandomNum >= 3) {
-				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior_Etite";
+			else {
+				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior";
 			}
 			return strEnemyTypePath;
 		}
-
+		
 
 
 		/// <summary>
@@ -170,7 +169,5 @@ namespace Control {
 
 			StartCoroutine(base.LoadParticalEffect("ParticleProps/Enemy_Show2", goEnemy.transform, new Vector3(0f, 0f, 0f), 6f, strAudioEffect: "EnemyDisplayEffect"));
 		}
-
-		
 	}
 }

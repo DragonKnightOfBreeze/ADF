@@ -38,7 +38,7 @@ namespace Control {
 		/// </summary>
 		public void EnterNextScene() {
 			//使用父类的方法，简化代码
-			base.EnterNextScene(SceneEnum.LoginScene);
+			base.EnterNextScene(SceneEnum.LoadingScene);
 		}
 
 

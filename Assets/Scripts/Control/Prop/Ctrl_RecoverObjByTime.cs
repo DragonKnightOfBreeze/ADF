@@ -11,7 +11,7 @@ namespace Control {
 
 	public class Ctrl_RecoverObjByTime : BaseControl {
 
-		public float FloRecoverTIme = 1f; //回收时间
+		public float FloRecoverTime = 1f; //回收时间
 
 		//根据脚本生命周期
 		//也可以采用类似方式，控制动画播放同步、AI判断间隔同步、输入同步等同步问题
@@ -30,7 +30,7 @@ namespace Control {
 		/// <param name="goName"></param>
 		/// <returns></returns>
 		IEnumerator RecoverGameobjectByTime(string goName) {
-			yield return new WaitForSeconds(FloRecoverTIme);
+			yield return new WaitForSeconds(FloRecoverTime);
 			PoolManager.PoolsArray[goName].RecoverGameObject(this.gameObject);
 		}
 	}

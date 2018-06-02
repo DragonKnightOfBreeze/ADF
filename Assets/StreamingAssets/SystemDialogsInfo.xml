@@ -43,7 +43,7 @@
            Content ="是的。" ></Dialogs>
   <Dialogs SectionNum="4" SectionName="NPC2对话" Index="3"  Side="NPC" Person="克洛斯"  
            Content ="预言家洛祭司早就料到会这样，命我前来等候送你三件宝物！" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="4"  Side="Hero" Person="李逍遥" 
+  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="4"  Side="Hero" Person="李逍遥"  
            Content ="什么宝物，先谢你了" ></Dialogs>
   <Dialogs SectionNum="4" SectionName="NPC2对话" Index="5"  Side="NPC" Person="克洛斯" 
            Content ="要谢就谢先知洛祭司吧。请打开您的背包，装备上这三件宝物。" ></Dialogs>

@@ -15,7 +15,9 @@ namespace View {
 		private float _FloProgressNumber;   //进度数值
 		private AsyncOperation _AsyOper;
 
-		private void Start() {
+		IEnumerator Start() {
+
+			#region 测试内容
 
 			/*
 
@@ -34,16 +36,47 @@ namespace View {
 
 			*/
 
+
 			//测试Log.cs类（让构造函数运行起来）
 			//Log.Write("我的企业日志系统开始运行了，第一次测试");
 
-			//测试XML解析程序
-			DialogDataAnalysisMgr.GetInstance().SetXMLPathAndRooNodeName(KernelParameter.DialogConfig_Path,KernelParameter.DialogConfig_RootNodeName);
+
+			/* 测试XML解析程序 */
+			Log.ClearLogFileAndCacheData();
+			//参数赋值
+			DialogDataAnalysisMgr.GetInstance().SetXMLPathAndRooNodeName(KernelParameter.GetDialogConfigPath(),KernelParameter.GetDialogConfigRootNodeName());
+			//等待参数设置完毕（要比DialogDataAnalysisMgr的延迟方法慢）
+			yield return new WaitForSeconds(0.5f);		//很重要
+
+			//得到XML中所有的数据
+			List<DialogDataFormat> DialogsDataArray = DialogDataAnalysisMgr.GetInstance().GetAllXmlDataArray();
+			//foreach (DialogDataFormat data in DialogsDataArray) {
+			//	Log.Write("");		//空一行
+			//	Log.Write("SectionNum: " + data.DiaSectionNum);
+			//	Log.Write("SectionName: " + data.DiaSectionName);
+			//	Log.Write("Index: " + data.DiaIndex);
+			//	Log.Write("Side: "+ data.DiaSide);
+			//	Log.Write("Person: " + data.DiaPerson);
+			//	Log.Write("Content:" + data.DiaContent);
+			//}
+			//Log.SyncLogArrayToFile();
+			
 
 
-			//调试进入指定的关卡
-			GlobalParaMgr.NextSceneName = SceneEnum.Level1;	//进入第一关卡
+			/* 测试给“对话数据管理器”加载数据 */
 
+			bool boolResult =  DialogDataMgr.GetInstance().LoadAllDialogData(DialogsDataArray);
+			if (!boolResult) {
+				Log.Write(GetType() + "/Start()/对话数据管理器加载数据失败");
+			}
+			GlobalParaMgr.NextSceneName = SceneEnum.TestScene;  //进入测试场景
+
+			#endregion
+
+
+
+			//进入指定的关卡
+			//GlobalParaMgr.NextSceneName = SceneEnum.Level1;  //进入第一关卡
 			StartCoroutine("LoadingSceneProgress");
 
 		}
@@ -53,7 +86,7 @@ namespace View {
 		/// </summary>
 		private void Update() {
 			//实际测试时的合适最大长度
-			if (_FloProgressNumber <= 0.434) {	
+			if (_FloProgressNumber <= 1) {	
 				_FloProgressNumber += 0.01F;
 			}
 			SliLoadingSlider.value = _FloProgressNumber;   //改变进度条长度
