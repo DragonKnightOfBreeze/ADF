@@ -19,7 +19,7 @@ namespace Control {
 		public float MoveSpeed = 6.4f;   //敌人移动速度
 		public float RotationSpeed = 1f; //敌人旋转速度
 
-		private void OnEnable() {
+		protected override void OnEnable() {
 			base.IntMaxHP = MaxHP;
 			base.IntATK = ATK;
 			base.IntDEF = DEF;
@@ -29,7 +29,12 @@ namespace Control {
 			base.FloMoveSpeed = MoveSpeed;
 			base.FloRotationSpeed = RotationSpeed;
 
-			//base.RunMethodInChildren();
+			base.OnEnable();
 		}
+
+		protected override void OnDisable() {
+			base.OnDisable();
+		}
+
 	}
 }

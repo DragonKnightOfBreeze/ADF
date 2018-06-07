@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -337,6 +339,67 @@
     <Compile Include="Assets\EasyTouch\Plugins\MovingJoystick.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\VirtualScreen.cs" />
     <Compile Include="Assets\Resources\Models\SwordsMan\SwordsManResources\SwordsEffectResoures\Scripts\NcEffect\NcUvAnimation.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\Arrow\arrowControl.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\csPoint\csPoint.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\Efx_LvUp\Effects_02\AnimationSpeed.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\Efx_LvUp\FollowTarget.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\Elite\elite.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\EnemySpawnEff\fireexp.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\EffectScriptSample_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcDetachObject_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcDisableDelayActive_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcDontActive_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcEffectAniBehaviour_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcEffectBehaviour_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcRandomTimerTool_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcRepeatTimerTool_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcTimerTool_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NcTransformTool_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\common\NsRenderManager_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcAddForce_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcAttachPrefab_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcAttachSound_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcAutoDestruct_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcBillboard_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcCurveAnimation_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcDelayActive_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcDetachParent_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcDuplicator_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcParticleSystem_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcRotation_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcSpriteAnimation_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcSpriteFactory_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcSpriteTexture_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\FightingParticalSystem\Scripts\NcEffect\NcTilingTexture_B.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\groundBrokeRed\DestroyForTime.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\EffectScriptSample.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcDetachObject.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcDisableDelayActive.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcDontActive.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcEffectAniBehaviour.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcEffectBehaviour.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcRandomTimerTool.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcRepeatTimerTool.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcTimerTool.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NcTransformTool.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\Common\NsRenderManager.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcAddForce.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcAttachPrefab.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcAttachSound.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcAutoDestruct.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcBillboard.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcCurveAnimation.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcDelayActive.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcDetachParent.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcDuplicator.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcParticleSystem.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcRotation.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcSpriteAnimation.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcSpriteFactory.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcSpriteTexture.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcTilingTexture.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\IGSoft_Resources\Scripts\NcEffect\NcUvAnimation.cs" />
+    <Compile Include="Assets\Resources\ParticleProps\SkillThunders\thunderDestory.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Scripts\ActivateEffects.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Scripts\FollowTrackingCamera.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Scripts\HashIDs.cs" />
@@ -379,19 +442,24 @@
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_MakeObjRotation.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_RecoverObjByTime.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_Level1_Scene.cs" />
+    <Compile Include="Assets\Scripts\Control\Scene\Ctrl_LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_LoginScene.cs" />
+    <Compile Include="Assets\Scripts\Control\Scene\Ctrl_MajorCity.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_StartScene.cs" />
     <Compile Include="Assets\Scripts\Global\ConvertEnumToStr.cs" />
     <Compile Include="Assets\Scripts\Global\DialogUIMgr.cs" />
     <Compile Include="Assets\Scripts\Global\FadeInAndOut.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParameter.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParaMgr.cs" />
+    <Compile Include="Assets\Scripts\Global\SmallLayerCtrl.cs" />
     <Compile Include="Assets\Scripts\Kernel\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataAnalysisMgr.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataFormat.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataMgr.cs" />
+    <Compile Include="Assets\Scripts\Kernel\EventTriggerListener.cs" />
     <Compile Include="Assets\Scripts\Kernel\Exception\XMLAnalysisException.cs" />
+    <Compile Include="Assets\Scripts\Kernel\iTween.cs" />
     <Compile Include="Assets\Scripts\Kernel\KernelParameter.cs" />
     <Compile Include="Assets\Scripts\Kernel\Logger\ConfigManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\Logger\IConfigManager.cs" />
@@ -399,7 +467,9 @@
     <Compile Include="Assets\Scripts\Kernel\PoolManager\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\PoolManager\Pools.cs" />
     <Compile Include="Assets\Scripts\Kernel\ResourceMgr.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Trigger\TriggerDisplayAndHide.cs" />
     <Compile Include="Assets\Scripts\Kernel\UnityHelper.cs" />
+    <Compile Include="Assets\Scripts\Kernel\XmlOperation.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerExtendedData.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerExtendedDataProxy.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerKernelData.cs" />
@@ -410,19 +480,29 @@
     <Compile Include="Assets\Scripts\Test\TestDialogInfo.cs" />
     <Compile Include="Assets\Scripts\Test\TestDialogUI.cs" />
     <Compile Include="Assets\Scripts\Test\XMLAnalysis.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\GuideMgr.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\GuideMoving.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\IGuiderTrigger.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\TriggerDialogs.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\TriggerOperET.cs" />
+    <Compile Include="Assets\Scripts\View\Guide\TriggerOperVitualKey.cs" />
     <Compile Include="Assets\Scripts\View\Player\View_DisplayPlayInfo.cs" />
     <Compile Include="Assets\Scripts\View\Player\View_PlayerInfoResponse.cs" />
+    <Compile Include="Assets\Scripts\View\Player\View_PlayerInfoResponse_InMajorCity.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\MajorCity\View_Panel_Skill.cs" />
     <Compile Include="Assets\Scripts\View\Prop\UI\View_AtkButtonCDEffect.cs" />
     <Compile Include="Assets\Scripts\View\Prop\UI\View_NormalAtkPressed.cs" />
     <Compile Include="Assets\Scripts\View\Scene\View_Level1.cs" />
     <Compile Include="Assets\Scripts\View\Scene\View_LoadingScene.cs" />
     <Compile Include="Assets\Scripts\View\Scene\View_LoginScene.cs" />
     <Compile Include="Assets\Scripts\View\Scene\View_StartScene.cs" />
+    <Compile Include="Assets\TexturePacker\AtlasData.cs" />
+    <Compile Include="Assets\TexturePacker\TexturePacker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyTouch\Readme_first.txt" />
-    <None Include="Assets\Editor\ParticleProps\FightingParticalSystem\ToolResources\DefaultShaderMaterials Unlisted\Caizhi\EffectShader\FXMaker_Mask Additive.shader" />
-    <None Include="Assets\Editor\ParticleProps\FireBall\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
+    <None Include="Assets\Resources\ParticleProps\FightingParticalSystem\ToolResources\DefaultShaderMaterials Unlisted\Caizhi\EffectShader\FXMaker_Mask Additive.shader" />
+    <None Include="Assets\Resources\ParticleProps\FireBall\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlurEffectConeTaps.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlur.shader" />

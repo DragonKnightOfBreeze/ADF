@@ -54,14 +54,14 @@ namespace Control {
 
 		/* 使用对象缓冲池技术后，协程方法应该根据脚本生命周期开始和结束 */
 
-		private void OnEnable() {
-			//判断是否存活
-			StartCoroutine("CheckLifeContinue");
+		protected virtual void OnEnable() {
 			//重置生命值为最大生命值
 			_FloCurHp = IntMaxHP;
+			//判断是否存活
+			StartCoroutine("CheckLifeContinue");
 		}
 
-		private void OnDisable() {
+		protected virtual void OnDisable() {
 			//停止判断是否存活
 			StopCoroutine("CheckLifeContinue");
 		}
@@ -84,10 +84,9 @@ namespace Control {
 		/// </summary>
 		/// <param name="heroAtk"></param>
 		public void OnHurt(int heroAtk) {
-
 			_CurrentState = EnemyActionState.Hurt;
 
-			// // Debug.Log("进行伤害处理！");
+			//Debug.Log("进行伤害处理！");
 			int hurtValue;
 			if (heroAtk > IntDEF) {
 				hurtValue = heroAtk - IntDEF;
@@ -97,10 +96,10 @@ namespace Control {
 
 			if (_FloCurHp - hurtValue > 0) {
 				_FloCurHp -= hurtValue;
-				// // Debug.Log("当前HP：" + _FloCurHp);
 			} else {
 				_FloCurHp = 0;
 			}
+			//Debug.Log("当前HP：" + _FloCurHp);
 		}
 
 		/// <summary>
@@ -115,15 +114,17 @@ namespace Control {
 					if (_CurrentState != EnemyActionState.Dead) {
 						_CurrentState = EnemyActionState.Dead;
 
+						Ctrl_HeroProperty.Instance.AddEXP(IntEnemyEXP); //玩家获得经验值
+						Ctrl_HeroProperty.Instance.AddKillNum();    //增加玩家的杀敌数量
+
 						//Destroy(this.gameObject, 5f);   //销毁对象（敌人死亡），5s的延迟
 						StartCoroutine("RecoverEnemies");	//回收对象（作为代替）
 
-						Ctrl_HeroProperty.Instance.AddEXP(IntEnemyEXP); //玩家获得经验值
-						Ctrl_HeroProperty.Instance.AddKillNum();    //增加玩家的杀敌数量
+						
 	
 					}
 				}
-				yield return new WaitForFixedUpdate();        //每1帧判断1次				  
+				yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);	//每0.02s判断一次        
 			}
 		}
 

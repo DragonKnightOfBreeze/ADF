@@ -3,53 +3,28 @@
 
 <Dialogs_CN>
   
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="1"  Side="Hero" Person="李逍遥" 
-           Content ="我这是在哪里啊？" ></Dialogs>
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="2"  Side="NPC" Person="洛祭司"  
-           Content ="年轻人，这里是冒险者的乐园，欢迎来到亚特兰蒂斯大陆的地下城堡。" ></Dialogs>
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="3"  Side="Hero" Person="李逍遥"  
-           Content ="什么，什么... 你又是谁？" ></Dialogs>
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="4"  Side="NPC" Person="洛祭司" 
-           Content ="我叫洛祭司，亚特兰蒂斯大陆的预言家。呵呵，在你讲更多疑问前，先解决掉眼前的麻烦吧。" ></Dialogs>
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="5"  Side="Hero" Person="李逍遥" 
-           Content ="你是指哥布林吗？ 它们只是乌合之众罢了。" ></Dialogs>
-  <Dialogs SectionNum="1" SectionName="开场对白" Index="6"  Side="NPC" Person="洛祭司" 
-           Content ="奥，看来你信心满满嘛。 那么就来先熟悉一下基本操作吧。" ></Dialogs>
-  <Dialogs SectionNum="2" SectionName="新手指导" Index="1"  Side="NPC" Person="爱丽丝"  
-           Content ="你好，我是爱丽丝。" ></Dialogs>
-  <Dialogs SectionNum="2" SectionName="新手指导" Index="2"  Side="NPC" Person="爱丽丝" 
-           Content ="你先试一下最基本操作。" ></Dialogs>
-  <Dialogs SectionNum="2" SectionName="新手指导" Index="3"  Side="NPC" Person="爱丽丝" 
-           Content ="请触摸屏幕左边的摇杆，来回移动" ></Dialogs>
-  <Dialogs SectionNum="2" SectionName="新手指导" Index="4"  Side="NPC" Person="爱丽丝" 
-           Content ="小心前面的敌人，点击右边的虚拟按键，来攻击吧" ></Dialogs>
-  <Dialogs SectionNum="2" SectionName="新手指导" Index="5"  Side="NPC" Person="爱丽丝" 
-           Content ="好了，游戏的最基本操作，我就先介绍到这。" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="1"  Side="NPC" Person="摩西" 
-           Content ="英雄！这里是亚特兰蒂斯大陆的地下城堡区，你怎么会来到这里？" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="2"  Side="Hero" Person="李逍遥" 
-           Content ="自从上古大爆炸以来，先祖就命我来找到发动灾难之源的“奥斯魔兽”，并铲除之。" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="3"  Side="NPC" Person="摩西" 
-           Content ="年轻人，你太狂妄了，以你一己之力岂能为之，你赶快回去吧。" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="4"  Side="Hero" Person="李逍遥"  
-           Content ="是洛祭司让你说这些的吗？" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="5"  Side="NPC" Person="摩西"  
-           Content ="好吧，既然我说服不了你，你好自为之吧。但我劝你千万不要去亚特兰蒂斯大陆地下城堡的核心区域，你会九死一生的！" ></Dialogs>
-  <Dialogs SectionNum="3" SectionName="NPC1对话" Index="6"  Side="Hero" Person="李逍遥"  
-           Content ="谢了，但我还是会去的!" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="1"  Side="NPC" Person="克洛斯"  
-           Content ="大侠：听说你去亚特兰蒂斯大陆地下城堡的核心区域" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="2"  Side="Hero" Person="李逍遥"  
-           Content ="是的。" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="3"  Side="NPC" Person="克洛斯"  
-           Content ="预言家洛祭司早就料到会这样，命我前来等候送你三件宝物！" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="4"  Side="Hero" Person="李逍遥"  
-           Content ="什么宝物，先谢你了" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="5"  Side="NPC" Person="克洛斯" 
-           Content ="要谢就谢先知洛祭司吧。请打开您的背包，装备上这三件宝物。" ></Dialogs>
-  <Dialogs SectionNum="4" SectionName="NPC2对话" Index="6"  Side="Hero" Person="李逍遥"  
-           Content ="好的，先谢了！" ></Dialogs>
-  <Dialogs SectionNum="5" SectionName="测试对话段" Index="1"  Side="Hero" Person="李逍遥"  
-           Content ="大家好，这是测试语句！！！" ></Dialogs>
-  
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="1"  Side="Hero" Person="李逍遥"		Content ="我这是在哪里啊？" ></Dialogs>
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="2"  Side="NPC" Person="洛祭司"		Content ="年轻人，这里是冒险者的乐园，欢迎来到亚特兰蒂斯大陆的地下城堡。" ></Dialogs>
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="3"  Side="Hero" Person="李逍遥" 		Content ="什么，什么... 你又是谁？" ></Dialogs>
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="4"  Side="NPC" Person="洛祭司"		Content ="我叫洛祭司，亚特兰蒂斯大陆的预言家。呵呵，在你讲更多疑问前，先解决掉眼前的麻烦吧。"></Dialogs>
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="5"  Side="Hero" Person="李逍遥"		Content ="你是指骷髅兵吗？ 它们只是乌合之众罢了。" ></Dialogs>
+  <Dialogs SectionNum="1" SectionName="开场对白" Index="6"  Side="NPC" Person="洛祭司"		Content ="奥，看来你信心满满嘛。 那么就来先熟悉一下基本操作吧。" ></Dialogs>
+  <Dialogs SectionNum="2" SectionName="新手指导介绍ET" Index="1"  Side="NPC" Person="爱丽丝"		Content ="你好，我是爱丽丝。" ></Dialogs>
+  <Dialogs SectionNum="2" SectionName="新手指导介绍ET" Index="2"  Side="NPC" Person="爱丽丝"		Content ="你先试一下最基本操作。" ></Dialogs>
+  <Dialogs SectionNum="2" SectionName="新手指导介绍ET" Index="3"  Side="NPC" Person="爱丽丝"		Content ="请触摸屏幕左边的摇杆，来回移动" ></Dialogs>
+  <Dialogs SectionNum="3" SectionName="新手指导介绍虚拟按键" Index="1"  Side="NPC" Person="爱丽丝"		Content ="点击右边的虚拟按键，使用手中的武器进行攻击吧" ></Dialogs>
+  <Dialogs SectionNum="4" SectionName="新手指导介绍完毕" Index="1"  Side="NPC" Person="爱丽丝"		Content ="好了，游戏的最基本操作，我就先介绍到这。" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="1"  Side="NPC" Person="摩西"			Content ="英雄！这里是亚特兰蒂斯大陆的地下城堡区，你怎么会来到这里？" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="2"  Side="Hero" Person="李逍遥"		Content ="自从上古大爆炸以来，先祖就命我来找到发动灾难之源的“奥斯魔兽”，并铲除之。" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="3"  Side="NPC" Person="摩西"			Content ="年轻人，你太狂妄了，以你一己之力岂能为之，你赶快回去吧。" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="4"  Side="Hero" Person="李逍遥"		Content ="是洛祭司让你说这些的吗？" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="5"  Side="NPC" Person="摩西"			Content ="好吧，既然我说服不了你，你好自为之吧。但我劝你千万不要去亚特兰蒂斯大陆地下城堡的核心区域，你会九死一生的！" ></Dialogs>
+  <Dialogs SectionNum="5" SectionName="NPC1对话" Index="6"  Side="Hero" Person="李逍遥"		Content ="谢了，但我还是会去的!" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="1"  Side="NPC" Person="克洛斯"		Content ="大侠：听说你去亚特兰蒂斯大陆地下城堡的核心区域" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="2"  Side="Hero" Person="李逍遥"		Content ="是的。" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="3"  Side="NPC" Person="克洛斯"		Content ="预言家洛祭司早就料到会这样，命我前来等候送你三件宝物！" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="4"  Side="Hero" Person="李逍遥"		Content ="什么宝物，先谢你了" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="5"  Side="NPC" Person="克洛斯"		Content ="要谢就谢先知洛祭司吧。请打开您的背包，装备上这三件宝物。" ></Dialogs>
+  <Dialogs SectionNum="6" SectionName="NPC2对话" Index="6"  Side="Hero" Person="李逍遥"		Content ="好的，先谢了！" ></Dialogs>
+	
 </Dialogs_CN>

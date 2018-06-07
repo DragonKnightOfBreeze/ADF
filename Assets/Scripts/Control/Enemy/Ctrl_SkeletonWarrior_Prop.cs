@@ -10,7 +10,7 @@ using Kernel;
 namespace Control {
 
 	public class Ctrl_SkeletonWarrior_Prop : Ctrl_BaseEnemy_Prop {
-		public int MaxHP = 40;   //敌人的最大生命数值
+		public int MaxHP = 30;   //敌人的最大生命数值
 		public int ATK = 8;     //敌人的攻击力
 		public int DEF = 2;         //敌人的防御力
 
@@ -19,7 +19,7 @@ namespace Control {
 		public float MoveSpeed = 5f;   //敌人移动速度
 		public float RotationSpeed = 1f; //敌人旋转速度
 
-		private void OnEnable() {
+		protected override void OnEnable() {
 			base.IntMaxHP = MaxHP;
 			base.IntATK = ATK;
 			base.IntDEF = DEF;
@@ -29,7 +29,12 @@ namespace Control {
 			base.FloMoveSpeed = MoveSpeed;
 			base.FloRotationSpeed = RotationSpeed;
 
-			//base.RunMethodInChildren();
+			base.OnEnable();
 		}
+
+		protected override void OnDisable() {
+			base.OnDisable();
+		}
+
 	}
 }

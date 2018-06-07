@@ -21,8 +21,10 @@ namespace View {
 
 
 		private void Start() {
-			//获取玩家的类型（系统默认）
-			GlobalParaMgr.playerType = PlayerType.Sworder;
+			////获取玩家的类型（系统默认）
+			//GlobalParaMgr.playerType = PlayerType.Sworder;
+			//用户名称默认数值（默认是“亚瑟”）
+			inpUserName.text = GlobalParaMgr.PlayerName;
 		}
 
 		/// <summary>
@@ -61,7 +63,7 @@ namespace View {
 		/// </summary>
 		public void SubmitInfo() {
 			//获取用户名称（跨场景赋值）
-			GlobalParaMgr.PlayerName = inpUserName.name;
+			GlobalParaMgr.PlayerName = inpUserName.text;
 			//获取玩家的类型（默认为剑士）
 			//跳转下一个场景（由控制层处理）
 			//玩家操作完毕后自动跳转

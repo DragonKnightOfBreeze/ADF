@@ -17,15 +17,17 @@ namespace Kernel {
 		NPCSide,		//NPC
 	}
 
+	//为什么这里加public会出现参数可访问性错误？？？
 
 	class DialogDataMgr {
 
 		private static DialogDataMgr _Instance;		//本类的实例
-
 		private static List<DialogDataFormat> _AllDialogDataArray;	//所有的对话数据集合
 		private static List<DialogDataFormat> _CurDialogCacheArray; //当前对话缓存的集合
-		private static int _IntIndexByDialogSection;		//对话序号（某个段落）
+		private static int _IntIndexByDialogSection;        //对话序号（某个段落）
 
+		//原对话“段落编号”(Add Function:后来增加的内容)
+		private static int _OriginalDialogSectionNum = 1;
 
 
 		/// <summary>
@@ -92,6 +94,16 @@ namespace Kernel {
 			if (diaSectionNum < 0) {
 				return false;
 			}
+			//段落编号增大后，需要保留上一个“对话段落编号”，以方便后续逻辑处理
+			//###改进### 只要是不相等。
+			if(diaSectionNum != _OriginalDialogSectionNum) {
+				//重置“内部序号”（后续应该会执行一个自加操作）
+				_IntIndexByDialogSection = 0;
+				//清空“对话缓存”（已经是下一个了）
+				_CurDialogCacheArray.Clear();
+				//把当前的段落编号记录下来（不一定非要是连续的段落编号）
+				_OriginalDialogSectionNum = diaSectionNum;
+			}
 
 			//如果当前缓存不为空
 			if(_CurDialogCacheArray != null && _CurDialogCacheArray.Count > 0) {
@@ -109,8 +121,8 @@ namespace Kernel {
 			}
 
 			//得到对话信息
-			GetDialogInfoRecoder(diaSectionNum, out diaSide, out diaPerson, out diaContent);
-			return true;
+			bool isEnd = GetDialogInfoRecoder(diaSectionNum, out diaSide, out diaPerson, out diaContent);
+			return isEnd;
 		}
 
 
@@ -120,6 +132,7 @@ namespace Kernel {
 		/// 开发思路：
 		///		对于输入的“段落编号”，首先在“当前对话数据集合”中进行查询
 		///		如果找到，直接返回结果；如果不能找到，则在“全部对话数据集合”中进行查询
+		///	实际测试中发现：有时候不能及时找到，显示的还是默认的内容
 		/// </summary>
 		/// <param name="diaSectionNum">输入：段落编号</param>
 		/// <param name="diaSide">输出：对话方</param>
@@ -157,6 +170,7 @@ namespace Kernel {
 							diaPerson = _CurDialogCacheArray[i].DiaPerson;
 							diaContent = _CurDialogCacheArray[i].DiaContent;
 
+							Log.Write("当前对话数据集合中查找");
 							return true;
 						}
 					}
@@ -185,7 +199,8 @@ namespace Kernel {
 
 							//把当前段落编号中的数据，写入“当前段落缓存集合”
 							LoadToCacheArrayBySectionNum(diaSectionNum);
-						
+
+							Log.Write("全部对话数据集合中查找");
 							return true;
 						}
 					}
@@ -193,6 +208,7 @@ namespace Kernel {
 			}
 
 			//根据当前段落编号，无法查询数据结果，则返回false
+			Log.Write("未查找到！");
 			return false;
 		}
 

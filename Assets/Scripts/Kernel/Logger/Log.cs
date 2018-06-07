@@ -97,7 +97,7 @@ namespace Kernel {
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
 
 			//日志文件路径
-			IConfigManager configMgr = new ConfigManager(KernelParameter.GetLogPath(), KernelParameter.GetLogPath());
+			IConfigManager configMgr = new ConfigManager(KernelParameter.GetLogPath(), KernelParameter.GetLogRootNodeName());
 			_LogPath = configMgr.AppSetting[LOG_LogPath];
 			//日志状态
 			strLogState = configMgr.AppSetting[LOG_LogState];

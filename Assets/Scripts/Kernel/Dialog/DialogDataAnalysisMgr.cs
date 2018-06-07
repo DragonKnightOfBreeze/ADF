@@ -135,15 +135,16 @@ namespace Kernel {
 			XmlNodeList nodes =  xmlDoc.SelectSingleNode(rootNodeName).ChildNodes;
 			foreach (XmlElement xe in nodes) {
 				//实例化“XML解析实体类”
-				DialogDataFormat data = new DialogDataFormat();
+				DialogDataFormat data = new DialogDataFormat {
 
-				/* 得到属性 */
-				data.DiaSectionNum = Convert.ToInt32(xe.GetAttribute(XML_ATTR_1));
-				data.DiaSectionName = xe.GetAttribute(XML_ATTR_2);
-				data.DiaIndex = Convert.ToInt32(xe.GetAttribute(XML_ATTR_3));
-				data.DiaSide = xe.GetAttribute(XML_ATTR_4);
-				data.DiaPerson = xe.GetAttribute(XML_ATTR_5);
-				data.DiaContent = xe.GetAttribute(XML_ATTR_6);
+					/* 得到属性 */
+					DiaSectionNum = Convert.ToInt32(xe.GetAttribute(XML_ATTR_1)),
+					DiaSectionName = xe.GetAttribute(XML_ATTR_2),
+					DiaIndex = Convert.ToInt32(xe.GetAttribute(XML_ATTR_3)),
+					DiaSide = xe.GetAttribute(XML_ATTR_4),
+					DiaPerson = xe.GetAttribute(XML_ATTR_5),
+					DiaContent = xe.GetAttribute(XML_ATTR_6)
+				};
 
 				//写入缓存数组
 				_DialogDataArray.Add(data);

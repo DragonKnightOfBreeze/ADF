@@ -78,6 +78,7 @@ namespace Control {
 		/// 敌人的思考协程
 		/// 较简单的方法：不断得到相对位置
 		/// 注意正在播放的动画状态和设置的动画状态的同步问题！
+		/// 当敌人进入受伤等硬直状态时需要重置该协程
 		/// </summary>
 		/// <returns></returns>
 		IEnumerator ThinkProcess() {
@@ -177,6 +178,7 @@ namespace Control {
 
 		/// <summary>
 		/// 敌人的移动协程
+		/// 当敌人进入受伤等硬直状态时需要重置该协程
 		/// </summary>
 		/// <returns></returns>
 		IEnumerator MovingProcess() {

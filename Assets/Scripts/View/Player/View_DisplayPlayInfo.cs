@@ -14,9 +14,11 @@ namespace View {
 
 		//屏幕上的信息显示
 		public Text Txt_PlayerName; //玩家的姓名
+		//Modify：
+		public Text Txt_PlayerNameByDetail;	//详细面板的玩家姓名
+
 		public Slider Sli_HP;		//玩机的生命值条
 		public Slider Sli_MP;		//玩家的魔法值条
-
 
 		public Text Txt_LevelByScreen;   //等级
 		public Text Txt_HPByScreen;			//生命值
@@ -24,7 +26,6 @@ namespace View {
 		public Text Txt_EXPByScreen;        //经验值
 		public Text Txt_GoldByScreen;       //金币
 		public Text Txt_DiamondByScreen;    //钻石
-
 
 		//玩家详细信息
 		public Text Txt_Level;	//等级
@@ -76,6 +77,7 @@ namespace View {
 			//玩家的姓名处理
 			if (string.IsNullOrEmpty(GlobalParaMgr.PlayerName)) {
 				Txt_PlayerName.text = GlobalParaMgr.PlayerName;
+				Txt_PlayerNameByDetail.text = GlobalParaMgr.PlayerName; 
 			}
 				
 		}

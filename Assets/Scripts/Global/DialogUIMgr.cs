@@ -1,5 +1,8 @@
 ﻿//公共层，通用对话UI管理器
-
+//对话模块中最上层的脚本
+//只要在加载场景对应的脚本中，将其他三个脚本的对应加载和初始化语句写好，
+//就可以在其他脚本中，使用DialogUIMgr.Instance.DisplayNextDialog方法
+//以在对话页面预置体中，显示正确的下一条语句
 
 using System;
 using System.Collections.Generic;
@@ -51,13 +54,12 @@ namespace Global {
 
 
 		/// <summary>
-		/// 显示下一条对话，返回真表示对话继续
+		/// 显示下一条对话，返回真表示对话结束
 		/// </summary>
 		/// <param name="diaType"></param>
 		/// <param name="SectionNum"></param>
 		/// <returns>
-		/// true: 对话继续（与教程中的相反）
-		/// false: 对话结束
+		/// true: 对话结束
 		/// </returns>
 		public bool DisplayNextDialog(DialogType diaType,int SectionNum) {
 			bool isDialogEnd = false;		//会话是否结束
@@ -80,7 +82,7 @@ namespace Global {
 				isDialogEnd = true;
 			}
 
-			return !isDialogEnd;
+			return isDialogEnd;
 		}
 
 
@@ -145,13 +147,17 @@ namespace Global {
 					//显示人名
 					//if (!string.IsNullOrEmpty(strPerson) && !string.IsNullOrEmpty(strContent)) {
 						//Txt_PersonName.text = strPerson;
-						Txt_DoubleDialogContent.text = strContent;
+						Txt_SingleDialogContent.text = strContent;
 					//}
 					break;
 
 				case DialogType.Double:
-					//显示人名
+					//显示人名，对话信息
 					if (!string.IsNullOrEmpty(strPerson) && !string.IsNullOrEmpty(strContent)) {
+						//Modify：使英雄的名字正确显示
+						if (diaSide == DialogSide.HeroSide) {
+							Txt_PersonName.text = GlobalParaMgr.PlayerName;
+						}
 						Txt_PersonName.text = strPerson;
 						Txt_DoubleDialogContent.text = strContent;
 					}

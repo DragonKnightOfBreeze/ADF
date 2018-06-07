@@ -87,8 +87,9 @@ namespace Control {
 
 				//定义克隆体随机出现的位置
 				Transform traEnemySpawnPosition = GetRandomEnemySpawnPosition();
+				GameObject goEnemy = GetRandomEnemyType();
 				//在“对象缓冲池“”中激活指定的对象
-				PoolManager.PoolsArray["_Enemies"].GetGameObject(goSkeletonWarrior, traEnemySpawnPosition.position, Quaternion.identity);
+				PoolManager.PoolsArray["_Enemies"].GetGameObject(goEnemy, traEnemySpawnPosition.position, Quaternion.identity);
 				//克隆敌人出现的特效
 				
 			}
@@ -142,20 +143,17 @@ namespace Control {
 		/// 得到敌人的随机种类
 		/// </summary>
 		/// <returns></returns>
-		public string GetRandomEnemyType() {
-
-			string strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior";
+		public GameObject GetRandomEnemyType() {
 
 			int intRandomNum = UnityHelper.GetInstance().GetRandomNum(1, 10);
 			//20%的可能性
 			if (intRandomNum <=2 ) {
-				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior_Etite";
+				return goSkeletonWarrior_Etite;
 			}
 			//80%的可能性
 			else {
-				strEnemyTypePath = "Prefabs/Enemy/SkeletonWarrior";
+				return goSkeletonWarrior;
 			}
-			return strEnemyTypePath;
 		}
 		
 
