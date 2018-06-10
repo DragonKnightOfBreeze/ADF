@@ -30,20 +30,20 @@ namespace Test {
 
 		private void Awake() {
 			//多播委托，核心数值事件注册
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayHP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayMP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayMaxHP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayMaxMP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayATK;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayDEF;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayDEX;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayHP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayMP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayMaxHP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayMaxMP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayATK;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayDEF;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayDEX;
 
 			//多播委托，扩展数值事件注册
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayEXP;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayLevel;							  
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayKillNum;							
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayGold;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayDiamond;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayEXP;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayLevel;							  
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayKillNum;							
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayGold;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayDiamond;
 		}
 
 		// Use this for initialization
@@ -64,23 +64,23 @@ namespace Test {
 		public void InHP() {
 			//调用模型层的方法
 			// // Debug.Log("调用了InHP方法");
-			Mod_PlayerKernelDataProxy.GetInstance().InHealth(30);
+			Mod_PlayerKernelDataProxy.GetInstance().AddCurHP(30);
 		}
 
 		public void DeHP() {
 			//调用模型层的方法
-			Mod_PlayerKernelDataProxy.GetInstance().DeHealth(20);
+			Mod_PlayerKernelDataProxy.GetInstance().SubCurHP(20);
 		}
 
 		public void InMP() {
 			//调用模型层的方法
-			Mod_PlayerKernelDataProxy.GetInstance().InMana(60);
+			Mod_PlayerKernelDataProxy.GetInstance().AddCurMP(60);
 
 		}
 
 		public void DeMP() {
 			//调用模型层的方法
-			Mod_PlayerKernelDataProxy.GetInstance().DeMana(60);
+			Mod_PlayerKernelDataProxy.GetInstance().SubCurMP(60);
 		}
 
 

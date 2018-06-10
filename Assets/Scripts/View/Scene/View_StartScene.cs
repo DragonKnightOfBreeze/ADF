@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using Control;	//视图层调用控制层
 
 namespace View {
@@ -26,5 +27,10 @@ namespace View {
 			//调用控制层的开始场景方法，进入“继续旅程”
 			Ctrl_StartScene.Instance.ClickGameContinue();
 		}
+
+		public void ClickGameExit() {
+			Ctrl_PlayerUIResponse.Instance.ExitGame();
+		}
+
 	}
 }

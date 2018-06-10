@@ -43,11 +43,11 @@ namespace Model {
 		/// <summary>
 		/// 增加经验值
 		/// </summary>
-		public void AddEXP(int expValue) {
-			base.EXP += expValue;
+		public void AddEXP(int addValue) {
+			base.EXP += addValue;
 			//经验值达到一定阶段，会自动提升当前等级
-			//……
-			Mod_UpgradeLevelRule.GetInstance().UpGradeLevelCondition(base.EXP);
+			//***可能还可以改进？***
+			Mod_UpgradeLevelRule.GetInstance().LevelUpCondition(base.EXP);
 		}
 
 		/// <summary>
@@ -84,17 +84,17 @@ namespace Model {
 		#region 等级处理
 
 		/// <summary>
-		/// 提升当前等级
+		/// 提升等级
 		/// </summary>
 		public void AddLevel() {
 			++base.Level;
 			//等级提升，玩家的各种属性都会有所提升。
-			//...
-			Mod_UpgradeLevelRule.GetInstance().UpgradeLevelOperation((LevelName)base.Level);	//数值型转换成枚举类型
+			//***肯定需要加以改进***
+			Mod_UpgradeLevelRule.GetInstance().LevelUpOperation((LevelName)base.Level);	//数值型转换成枚举类型
 		}
 
 		/// <summary>
-		/// 得到当前等级
+		/// 得到等级
 		/// </summary>
 		public int GetLevel() {
 			return base.Level;
@@ -106,11 +106,26 @@ namespace Model {
 		#region 金币处理
 
 		/// <summary>
-		/// 增加一定数量的金币数量
+		/// 增加一定数量的金币
 		/// </summary>
-		/// <param name="goldNumber"></param>
-		public void AddGold(int goldNumber) {
-			base.Gold += Mathf.Abs(goldNumber);
+		/// <param name="number"></param>
+		public void AddGold(int number) {
+			base.Gold += Mathf.Abs(number);
+		}
+
+		/// <summary>
+		/// 减少一定数量的金币
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns>金币是否足够</returns>
+		public bool SubGold(int number) {
+			//一般情况
+			if (base.Gold >= Mathf.Abs(number)) {
+				base.Gold -= Mathf.Abs(number);
+				return true;
+			}
+			//如果金币数量不足
+			return false;
 		}
 
 		/// <summary>
@@ -125,17 +140,32 @@ namespace Model {
 
 
 		#region 钻石处理
-
+		
 		/// <summary>
-		/// 增加一定数量的钻石数量
+		/// 增加一定数量的钻石
 		/// </summary>
-		/// <param name="diamondNumber"></param>
-		public void AddDiamond(int diamondNumber) {
-			base.Diamond += Mathf.Abs(diamondNumber);
+		/// <param name="number"></param>
+		public void AddDiamond(int number) {
+			base.Diamond += Mathf.Abs(number);
 		}
 
 		/// <summary>
-		/// 得到当前钻石数量
+		/// 减少一定数量的钻石
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns>是否可减</returns>
+		public bool SubDiamond(int number) {
+			//如果结果不为负数
+			if (base.Diamond >= Mathf.Abs(number)) {
+				base.Diamond -= Mathf.Abs(number);
+				return true;
+			}
+			return false;
+
+		}
+
+		/// <summary>
+		/// 得到当前的钻石数量
 		/// </summary>
 		/// <returns></returns>
 		public int GetDiamond() {

@@ -118,7 +118,7 @@ namespace Control {
 						Ctrl_HeroProperty.Instance.AddKillNum();    //增加玩家的杀敌数量
 
 						//Destroy(this.gameObject, 5f);   //销毁对象（敌人死亡），5s的延迟
-						StartCoroutine("RecoverEnemies");	//回收对象（作为代替）
+						StartCoroutine("Recover");	//回收对象（作为代替）
 
 						
 	
@@ -132,13 +132,13 @@ namespace Control {
 		/// 回收对象（敌人）
 		/// </summary>
 		/// <returns></returns>
-		IEnumerator RecoverEnemies() {
+		IEnumerator Recover() {
 			yield return new WaitForSeconds(5f);
 			//敌人回收前的状态重置
 			_FloCurHp = IntMaxHP;
 			_CurrentState = EnemyActionState.Idle;
 			//回收对象
-			PoolManager.PoolsArray["_Enemies"].RecoverGameObject(this.gameObject);
+			PoolManager.PoolsArray["_"].RecoverGameObject(this.gameObject);
 			 
 
 		}

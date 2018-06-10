@@ -43,12 +43,11 @@ namespace Control {
 		//动画句柄
 		private Animation _AnimationHandle;
 		//定义动画单次开关（按一次键，只攻击一次）
-		private bool _IsSinglePlay = true;
+		//private bool _IsSinglePlay = true;
 
-		private float fwRate = 1f;
-		private static float waitTime= 0;   //等待时间
-		private static float accTime = 2f;    //加快速度
-
+		private float _FwRate = 1f;			//攻击的前进距离
+		private static float _RecheckTime= 0;   //再次判断时间
+		private static float _AccTime = 2f;    //加快速度
 
 		//定义动画连招
 		private NormalAtkComboState _CurAtkCombo = NormalAtkComboState.NormalAtk1;
@@ -59,12 +58,12 @@ namespace Control {
 			get { return _CurrentActionState;}
 		}
 
-		public float WaitTime {
+		public float ReCheckTime {
 			get {
-				return waitTime;
+				return _RecheckTime;
 			}
 			set {
-				waitTime = value;
+				_RecheckTime = value;
 			}
 		}
 
@@ -82,7 +81,7 @@ namespace Control {
 
 		private void Awake() {
 			//事件注册（等级提升）
-			Mod_PlayerKernelDataProxy.Eve_PlayerKernalData += LevelUp;
+			Mod_PlayerKernelDataProxy.eve_PlayerKernalData += LevelUp;
 			Instance = this;
 		}
 
@@ -96,9 +95,9 @@ namespace Control {
 
 
 			//加快普通连招的播放速度
-			_AnimationHandle[Anc_NormalAtk1.name].speed = accTime;
-			_AnimationHandle[Anc_NormalAtk2.name].speed = accTime;
-			_AnimationHandle[Anc_NormalAtk3.name].speed = accTime;
+			_AnimationHandle[Anc_NormalAtk1.name].speed = _AccTime;
+			_AnimationHandle[Anc_NormalAtk2.name].speed = _AccTime;
+			_AnimationHandle[Anc_NormalAtk3.name].speed = _AccTime;
 
 			//启动协程，控制主角动画
 			StartCoroutine("CtrlHeroAnimationState");
@@ -119,21 +118,21 @@ namespace Control {
 		IEnumerator  CtrlHeroAnimationState() {
 			while(true) {
 
-				WaitTime = 0;
+				ReCheckTime = GlobalParameter.CHECK_TIME;
 				switch (CurrentActionState) {
 					case HeroActionState.None:
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
+						yield return new WaitForSeconds(ReCheckTime);
 						break;
 
 					case HeroActionState.Idle:
 						//播放动画
 						_AnimationHandle.CrossFade(Anc_Idle.name);
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
+						yield return new WaitForSeconds(ReCheckTime);
 						break;
 
 					case HeroActionState.Running:
 						_AnimationHandle.CrossFade(Anc_Running.name);
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
+						yield return new WaitForSeconds(ReCheckTime);
 						break;
 
 					case HeroActionState.NormalAtk:
@@ -157,15 +156,14 @@ namespace Control {
 								break;
 						}
 
-						ForwardWhileHurt(fwRate);
+						ForwardWhileHurt(_FwRate);
 						//StartCoroutine(SinglePlay(Anc_CurNormalAtk));
-
-						// // Debug.Log("单次动画控制");
-						WaitTime = Anc_CurNormalAtk.length / accTime;
+						
 						_AnimationHandle.CrossFade(Anc_CurNormalAtk.name);
 						//协程的等待值（总是和执行的动画长度保持一致）
 						//这个等待时间必须写且写在无限循环里面，并且应该恰好足够长，否则调试时Unity会卡死（死循环）
-						yield return new WaitForSeconds(WaitTime);
+						ReCheckTime = Anc_CurNormalAtk.length / _AccTime;
+						yield return new WaitForSeconds(ReCheckTime);
 						SetCurrentActionState(HeroActionState.Idle);
 
 						break;
@@ -174,10 +172,9 @@ namespace Control {
 						//StartCoroutine(SinglePlay(Anc_MagicAtkA));
 
 						// // Debug.Log("单次动画控制");
-						WaitTime = Anc_MagicAtkA.length / accTime;
 						_AnimationHandle.CrossFade(Anc_MagicAtkA.name);
-
-						yield return new WaitForSeconds(WaitTime);
+						ReCheckTime = Anc_MagicAtkA.length / _AccTime;
+						yield return new WaitForSeconds(ReCheckTime);
 						SetCurrentActionState(HeroActionState.Idle);
 						
 						break;
@@ -186,21 +183,16 @@ namespace Control {
 						//StartCoroutine(SinglePlay(Anc_MagicAtkB));
 
 						// // Debug.Log("单次动画控制");
-						WaitTime = Anc_MagicAtkB.length / accTime;
+						ReCheckTime = Anc_MagicAtkB.length / _AccTime;
 						_AnimationHandle.CrossFade(Anc_MagicAtkB.name);
-
-						yield return new WaitForSeconds(WaitTime);
+						yield return new WaitForSeconds(ReCheckTime);
 						SetCurrentActionState(HeroActionState.Idle);
 						break;
 
 					default:
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
+						yield return new WaitForSeconds(ReCheckTime);
 						break;
 				}//switch_end
-
-				////协程的等待值（总是和执行的动画长度保持一致）
-				////这个等待时间必须写且写在无限循环里面，并且应该恰好足够长，否则调试时Unity会卡死（死循环）
-				//yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);	
 			}
 		}
 
@@ -327,7 +319,7 @@ namespace Control {
 
 			GameObject goHeroLevelUp = ResourceMgr.GetInstance().LoadAsset("ParticleProps/Hero_LevelUp",true);
 			//增加音效
-			AudioManager.PlayAudioEffectA("LevelUp");
+			AudioManager.PlayAudioEffect("LevelUp");
 
 		
 

@@ -2,6 +2,11 @@
 //“模块加载”
 //优化游戏性能
 
+//对于触发器立方体的两边，分别触发，交换触发
+
+//待完善：如果玩家在进入触发器后，又向后离开了触发器的情况
+//待优化：检查玩家离开触发器时的朝向，如果这样取消加载后面的贴图
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,19 +18,24 @@ namespace Kernel {
 		//标签：英雄
 		public string TagNameByHero = "Player";
 		//标签：需要显示的游戏对象
-		public string TagNameByDisplayObject = "TagNameDisplayName";
+		public string TagNameByBeforeObject = "TagNameDisplayName";
 		//标签：需要隐藏的游戏对象
-		public string TagNameByHideObject = "TagNameHideName";  
+		public string TagNameByAfterObject = "TagNameHideName";
 
-		private GameObject[] GoDisplayObjectArray;	//需要显示的游戏对象
-		private GameObject[] GoHideObjectArray;     //需要隐藏的游戏对象
+
+		private static bool _IsPassed = false;
+
+		private GameObject[] GoBeforeObjectArray;	//需要显示的游戏对象
+		private GameObject[] GoAfterObjectArray;     //需要隐藏的游戏对象
 
 		private void Start() {
 			//得到需要显示的游戏对象
-			GoDisplayObjectArray = GameObject.FindGameObjectsWithTag(TagNameByDisplayObject);
+			GoBeforeObjectArray = GameObject.FindGameObjectsWithTag(TagNameByBeforeObject);
 			//得到需要隐藏的游戏对象
-			GoHideObjectArray = GameObject.FindGameObjectsWithTag(TagNameByHideObject);
+			GoAfterObjectArray = GameObject.FindGameObjectsWithTag(TagNameByAfterObject);
 		}
+
+
 
 		/// <summary>
 		/// 进入触发检测
@@ -34,24 +44,59 @@ namespace Kernel {
 		private void OnTriggerEnter(Collider coll) {
 			//发现英雄（如果发现，就显示需要显示的游戏对象）
 			if(coll.gameObject.tag == TagNameByHero) {
-				foreach (GameObject goItem in GoDisplayObjectArray) {
-					goItem.SetActive(true);
+				if (!_IsPassed) { 
+					foreach (GameObject goItem in GoAfterObjectArray) {
+						goItem.SetActive(true);
+						
+					}
+				}
+				else {
+					foreach (GameObject goItem in GoBeforeObjectArray) {
+						goItem.SetActive(true);
+						
+					}
 				}
 			}
 		}
+		
 
 		/// <summary>
 		/// 离开触发检测
 		/// </summary>
 		/// <param name="coll"></param>
 		private void OnTriggerExit(Collider coll) {
-			//发现英雄
+			//发现英雄（如果发现，就显示需要显示的游戏对象）
 			if (coll.gameObject.tag == TagNameByHero) {
-				foreach (GameObject goItem in GoHideObjectArray) {
-					goItem.SetActive(false);
+				if (!_IsPassed) {
+					if (true) {  //如果玩家没有返回
+						foreach (GameObject goItem in GoBeforeObjectArray) {
+							goItem.SetActive(false);
+							_IsPassed = true;
+						}
+					}
+					//else {  //如果玩家返回了
+					//	foreach (GameObject goItem in GoAfterObjectArray) {
+					//		goItem.SetActive(false);
+					//	}
+					//}
+				}
+				else {
+					if (true) {  //如果玩家没有返回
+						foreach (GameObject goItem in GoAfterObjectArray) {
+							goItem.SetActive(false);
+							_IsPassed = false;
+						}
+					}
+					//else {  //如果玩家返回了
+					//	foreach (GameObject goItem in GoBeforeObjectArray) {
+					//		goItem.SetActive(false);
+					//	}
 				}
 			}
 		}
 
+
+
 	}
 }
+

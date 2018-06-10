@@ -40,6 +40,9 @@ namespace Kernel {
 		//点击背景图片，调用的是重载后的OnPointerClick方法
 		//接着该方法会在空值检查后调用onClick事件
 		//而onClick事件在之后的脚本中又会注册加入一些方法，例如DisplayNextDialogRecord
+
+		#region 重载后的方法
+
 		public override void OnPointerClick(PointerEventData eventData) {
 			if (onClick != null) {
 				onClick(gameObject);
@@ -47,8 +50,6 @@ namespace Kernel {
 			//简化后的代码在C# 4.0 中不可用
 			//onClick?.Invoke(gameObject);
 		}
-
-		
 
 		public override void OnPointerDown(PointerEventData eventData) {
 			if (onDown != null) {
@@ -85,6 +86,10 @@ namespace Kernel {
 				onUndateSelected(gameObject);
 			}
 		}
+
+		#endregion
+
+
 
 
 	}

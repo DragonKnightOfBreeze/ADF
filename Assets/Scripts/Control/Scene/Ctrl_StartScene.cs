@@ -25,6 +25,7 @@ namespace Control {
 		}
 
 
+
 		/// <summary>
 		/// 点击“新的旅程”
 		/// </summary>
@@ -35,12 +36,14 @@ namespace Control {
 
 		}
 
+
 		/// <summary>
 		/// 点击“继续旅程”
 		/// </summary>
 		internal void ClickGameContinue() {
 			print(GetType() + "/ClickGameCOntinue()");
 		}
+
 
 		/// <summary>
 		/// 进入下一个场景（登录场景）
@@ -52,6 +55,17 @@ namespace Control {
 			yield return new WaitForSeconds(1.5f);
 			//调用父类的方法，简化代码
 			base.EnterNextScene(SceneEnum.LoginScene);
+		}
+
+		IEnumerator EnterNextScene_Continue() {
+			//读取游戏进度，游戏全局参数读取
+			SaveAndLoading.GetInstance().LoadingGame_GlobalParameter();
+			//场景淡出（场景变暗）
+			FadeInAndOut.Instance.SetSceneToBlack();
+			yield return new WaitForSeconds(1.5f);
+			//调用父类的方法，简化代码
+			base.EnterNextScene(GlobalParaMgr.NextSceneName);
+			//base.EnterNextScene(SceneEnum.MajorCity);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Global;
+using System;
 
 namespace Kernel {
 
@@ -41,7 +42,7 @@ namespace Kernel {
 		/// <param name="path">路径</param>
 		/// <param name="isCatch"></param>
 		/// <returns></returns>
-		private T LoadResource<T>(string path, bool isCatch) where T : UnityEngine.Object {
+		public T LoadResource<T>(string path, bool isCatch) where T : UnityEngine.Object {
 
 			//如果路径对应的值在哈希表中，就从哈希表汇中返回，并确定类型
 			if (ht.Contains(path)) {	

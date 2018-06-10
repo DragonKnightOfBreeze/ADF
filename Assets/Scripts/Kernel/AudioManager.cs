@@ -1,12 +1,18 @@
-﻿/***
- * 
- *  核心层： 音频管理类
- * 
- *  功能：   项目中音频剪辑统一管理。
- * 
- * 
- * 
- */
+﻿//核心层， 音频管理类
+ 
+//功能：   
+//项目中音频剪辑统一管理。
+
+//注意：
+//需要添加3个空的AudioSource组件，分别存放背景音乐、音效1、音效2（播放时才确定赋值）
+
+//音频剪辑数组：用于实现播放方法重载，放入的音频剪辑，可以通过音频剪辑的名字来播放，不需要提供路径
+//3个（或更多）空的音频资源（音频源数组）：用于实现音频剪辑的便捷播放，
+//背景音乐只能同时播放一个，且重复播放。音效不重复播放
+
+//如果不需要利用音频剪辑的名字访问，完全可以不挂载。
+
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;                 //泛型集合命名空间
@@ -20,10 +26,10 @@ namespace Kernel
         public static float AudioEffectVolumns = 1F;                     //音效音量
 
         private static Dictionary<string, AudioClip> _DicAudioClipLib;   //音频库
-        private static AudioSource[] _AudioSourceArray;                  //音频源数组
+        private static AudioSource[] _AudioSourceArray;                  //音频源数组（实现重载）
         private static AudioSource _AudioSource_BackgroundAudio;         //背景音乐
-        private static AudioSource _AudioSource_AudioEffectA;            //音效源A
-        private static AudioSource _AudioSource_AudioEffectB;            //音效源B
+        private static AudioSource _AudioSource_AudioEffect_A;            //音效源A
+        private static AudioSource _AudioSource_AudioEffect_B;            //音效源B
 
         /// <summary>
         /// 音效库资源加载
@@ -39,8 +45,8 @@ namespace Kernel
             //处理音频源
             _AudioSourceArray = this.GetComponents<AudioSource>();
             _AudioSource_BackgroundAudio = _AudioSourceArray[0];
-            _AudioSource_AudioEffectA = _AudioSourceArray[1];
-            _AudioSource_AudioEffectB = _AudioSourceArray[2];
+            _AudioSource_AudioEffect_A = _AudioSourceArray[1];
+            _AudioSource_AudioEffect_B = _AudioSourceArray[2];
 
             //从数据持久化中得到音量数值
             if (PlayerPrefs.GetFloat("AudioBackgroundVolumns") >= 0)
@@ -51,197 +57,176 @@ namespace Kernel
             if (PlayerPrefs.GetFloat("AudioEffectVolumns") >= 0)
             {
                 AudioEffectVolumns = PlayerPrefs.GetFloat("AudioEffectVolumns");
-                _AudioSource_AudioEffectA.volume = AudioEffectVolumns;
-                _AudioSource_AudioEffectB.volume = AudioEffectVolumns;
+                _AudioSource_AudioEffect_A.volume = AudioEffectVolumns;
+                _AudioSource_AudioEffect_B.volume = AudioEffectVolumns;
             }
         }//Start_end
 
-        /// <summary>
-        /// 播放背景音乐
-        /// </summary>
-        /// <param name="audioClip">音频剪辑</param>
-        public static void PlayBackground(AudioClip audioClip)
-        {
+
+
+		#region 【背景音乐的控制方法】
+
+		/// <summary>
+		/// 播放背景音乐（可避免重复播放）
+		/// </summary>
+		/// <param name="audioClip">音频剪辑</param>
+		public static void PlayBackground(AudioClip audioClip) {
             //防止背景音乐的重复播放。
-            if (_AudioSource_BackgroundAudio.clip == audioClip)
-            {
+            if (_AudioSource_BackgroundAudio.clip == audioClip) {
                 return;
             }
             //处理全局背景音乐音量
             _AudioSource_BackgroundAudio.volume = AudioBackgroundVolumns;
-            if (audioClip)
-            {
+            if (audioClip) {
                 _AudioSource_BackgroundAudio.loop = true;
-                _AudioSource_BackgroundAudio.clip = audioClip;
+				//将音频剪辑放入到音频源字典中去，在0号位（背景音乐）
+				_AudioSource_BackgroundAudio.clip = audioClip;
+				//播放音频源
                 _AudioSource_BackgroundAudio.Play();
             }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayBackground()] audioClip==null !");
-            }
-        }
-
-        //播放背景音乐
-        public static void PlayBackground(string strAudioName)
-        {
-            if (!string.IsNullOrEmpty(strAudioName))
-            {
-                PlayBackground(_DicAudioClipLib[strAudioName]);
-            }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayBackground()] strAudioName==null !");
-            }
-        }
-
-        /// <summary>
-        /// 播放音效_音频源A
-        /// </summary>
-        /// <param name="audioClip">音频剪辑</param>
-        public static void PlayAudioEffectA(AudioClip audioClip)
-        {
-            //处理全局音效音量
-            _AudioSource_AudioEffectA.volume = AudioEffectVolumns;
-
-            if (audioClip)
-            {
-                _AudioSource_AudioEffectA.clip = audioClip;
-                _AudioSource_AudioEffectA.Play();
-            }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+            else {
+                Debug.LogWarning("AudioManager.cs：背景音乐剪辑为空，请检查！");
             }
         }
 
 		/// <summary>
-		/// 是否正在播放音效_音频源A
+		/// 播放背景音乐
 		/// </summary>
-		/// <param name="audioClip">音频剪辑</param>
-		public static bool IsPlayAudioEffectA(AudioClip audioClip) {
-			//处理全局音效音量
-			_AudioSource_AudioEffectA.volume = AudioEffectVolumns;
+		/// <param name="strAudioName">背景音乐（名字）</param>
+		public static void PlayBackground(string strAudioName) {
+            if (!string.IsNullOrEmpty(strAudioName)) {
+                PlayBackground(_DicAudioClipLib[strAudioName]);
+            }
+            else   {
+				Debug.LogWarning("AudioManager.cs：音频剪辑为空，请检查！");
+			}
+        }
 
+		/// <summary>
+		/// 改变背景音乐音量
+		/// </summary>
+		/// <param name="floAudioBGVolumns"></param>
+		public static void SetAudioBackgroundVolumns(float floAudioBGVolumns) {
+			_AudioSource_BackgroundAudio.volume = floAudioBGVolumns;
+			AudioBackgroundVolumns = floAudioBGVolumns;
+			//数据持久化
+			PlayerPrefs.SetFloat("AudioBackgroundVolumns", floAudioBGVolumns);
+		}
+
+		#endregion
+
+
+
+		#region 【音效A的控制方法】
+
+		/// <summary>
+		/// 播放音效_音频源A
+		/// </summary>
+		/// <param name="audioClip">音频剪辑A</param>
+		/// <param name="isReplaced">是否替换正在播放的音频剪辑</param>
+		public static void PlayAudioEffect_A(AudioClip audioClip,bool isReplaced = false) {
+			//处理全局音效音量
+			_AudioSource_AudioEffect_A.volume = AudioEffectVolumns;
 			if (audioClip) {
-				_AudioSource_AudioEffectA.clip = audioClip;
-				return _AudioSource_AudioEffectA.isPlaying;
+				//如果不需要替换播放，且当前正在播放音频资源A；
+				if (!isReplaced && _AudioSource_AudioEffect_A.isPlaying) {
+					return;
+				}
+				else{
+					//将音频剪辑A放入到音频源字典中去，在1号位（音效1）
+					_AudioSource_AudioEffect_A.clip = audioClip;
+					_AudioSource_AudioEffect_A.Play();
+				}
 			}
 			else {
-				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+				Debug.LogWarning("AudioManager.cs：音频剪辑为空，请检查！");
+			}
+		}
+
+		/// <summary>
+		/// 播放音效_音频源A
+		/// </summary>
+		/// <param name="strAudioEffctName">音效剪辑A（名字）</param>
+		public static void PlayAudioEffect(string strAudioEffctName,bool isReplaced = false) {
+            if (!string.IsNullOrEmpty(strAudioEffctName)) {
+                PlayAudioEffect_A(_DicAudioClipLib[strAudioEffctName],isReplaced);
+            }
+            else {
+				Debug.LogWarning("AudioManager.cs：音频为空，请检查！");
+			}
+        }
+
+		/// <summary>
+		/// 音频资源A，是否正在播放指定音效_音频源
+		/// </summary>
+		/// <param name="audioClip">指定音频剪辑</param>
+		public static bool IsPlayingAudioEffect_A(AudioClip audioClip) {
+			if (audioClip) {
+				if (audioClip == _AudioSource_AudioEffect_A.clip) {
+					return _AudioSource_AudioEffect_A.isPlaying;
+				}
+				return false;
+			}
+			else {
+				Debug.LogWarning("AudioManager.cs：音频为空，请检查！");
 				return false;
 			}
 		}
 
 		/// <summary>
-		/// 停止播放音效_音频源A
+		/// 停止播放音效_音频源
+		/// </summary>
+		public static void StopAudioEffect_A() {
+			_AudioSource_AudioEffect_A.Stop();
+		}
+
+		/// <summary>
+		/// 改变音效音量
+		/// </summary>
+		/// <param name="floAudioEffectVolumns"></param>
+		public static void SetAudioEffectVolumns(float floAudioEffectVolumns) {
+			_AudioSource_AudioEffect_A.volume = floAudioEffectVolumns;
+			_AudioSource_AudioEffect_B.volume = floAudioEffectVolumns;
+			AudioEffectVolumns = floAudioEffectVolumns;
+			//数据持久化
+			PlayerPrefs.SetFloat("AudioEffectVolumns", floAudioEffectVolumns);
+		}
+
+		#endregion
+
+
+
+		/// <summary>
+		/// 播放音效_音频源B
+		/// </summary>
+		/// <param name="strAudioEffctName">音效名称</param>
+		public static void PlayAudioEffectB(string strAudioEffctName) {
+			if (!string.IsNullOrEmpty(strAudioEffctName)) {
+				PlayAudioEffectB(_DicAudioClipLib[strAudioEffctName]);
+			}
+			else {
+
+				Debug.LogWarning("AudioManager.cs：音频为空，请检查！");
+			}
+		}
+
+		/// <summary>
+		/// 播放音效_音频源B
 		/// </summary>
 		/// <param name="audioClip">音频剪辑</param>
-		public static void StopAudioEffectA(AudioClip audioClip) {
+		public static void PlayAudioEffectB(AudioClip audioClip) {
 			//处理全局音效音量
-			_AudioSource_AudioEffectA.volume = AudioEffectVolumns;
+			_AudioSource_AudioEffect_B.volume = AudioEffectVolumns;
 
 			if (audioClip) {
-				_AudioSource_AudioEffectA.clip = audioClip;
-				_AudioSource_AudioEffectA.Stop();
+				_AudioSource_AudioEffect_B.clip = audioClip;
+				_AudioSource_AudioEffect_B.Play();
 			}
 			else {
-				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] audioClip==null ! Please Check! ");
+				Debug.LogWarning("AudioManager.cs：音频为空，请检查！");
 			}
 		}
 
-		/// <summary>
-		/// 播放音效_音频源B
-		/// </summary>
-		/// <param name="audioClip">音频剪辑</param>
-		public static void PlayAudioEffectB(AudioClip audioClip)
-        {
-            //处理全局音效音量
-            _AudioSource_AudioEffectB.volume = AudioEffectVolumns;
-
-            if (audioClip)
-            {
-                _AudioSource_AudioEffectB.clip = audioClip;
-                _AudioSource_AudioEffectB.Play();
-            }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] audioClip==null ! Please Check! ");
-            }
-        }
-
-        /// <summary>
-        /// 播放音效_音频源A
-        /// </summary>
-        /// <param name="strAudioEffctName">音效名称</param>
-        public static void PlayAudioEffectA(string strAudioEffctName)
-        {
-            if (!string.IsNullOrEmpty(strAudioEffctName))
-            {
-                PlayAudioEffectA(_DicAudioClipLib[strAudioEffctName]);
-            }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] strAudioEffctName==null ! Please Check! ");
-            }
-        }
-
-		/// <summary>
-		/// 停止播放音效_音频源A
-		/// </summary>
-		/// <param name="strAudioEffctName">音效名称</param>
-		public static void StopAudioEffectA(string strAudioEffctName) {
-			if (!string.IsNullOrEmpty(strAudioEffctName)) {
-				StopAudioEffectA(_DicAudioClipLib[strAudioEffctName]);
-			}
-			else {
-				// // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectA()] strAudioEffctName==null ! Please Check! ");
-			}
-		}
-
-
-
-		/// <summary>
-		/// 播放音效_音频源B
-		/// </summary>
-		/// <param name="strAudioEffctName">音效名称</param>
-		public static void PlayAudioEffectB(string strAudioEffctName)
-        {
-            if (!string.IsNullOrEmpty(strAudioEffctName))
-            {
-                PlayAudioEffectB(_DicAudioClipLib[strAudioEffctName]);
-            }
-            else
-            {
-                // // Debug.LogWarning("[AudioManager.cs/PlayAudioEffectB()] strAudioEffctName==null ! Please Check! ");
-            }
-        }
-
-
-
-        /// <summary>
-        /// 改变背景音乐音量
-        /// </summary>
-        /// <param name="floAudioBGVolumns"></param>
-        public static void SetAudioBackgroundVolumns(float floAudioBGVolumns)
-        {
-            _AudioSource_BackgroundAudio.volume = floAudioBGVolumns;
-            AudioBackgroundVolumns = floAudioBGVolumns;
-            //数据持久化
-            PlayerPrefs.SetFloat("AudioBackgroundVolumns", floAudioBGVolumns);
-        }
-
-        /// <summary>
-        /// 改变音效音量
-        /// </summary>
-        /// <param name="floAudioEffectVolumns"></param>
-        public static void SetAudioEffectVolumns(float floAudioEffectVolumns)
-        {
-            _AudioSource_AudioEffectA.volume = floAudioEffectVolumns;
-            _AudioSource_AudioEffectB.volume = floAudioEffectVolumns;
-            AudioEffectVolumns = floAudioEffectVolumns;
-            //数据持久化
-            PlayerPrefs.SetFloat("AudioEffectVolumns", floAudioEffectVolumns);
-        }
     }//Class_end
 }
 

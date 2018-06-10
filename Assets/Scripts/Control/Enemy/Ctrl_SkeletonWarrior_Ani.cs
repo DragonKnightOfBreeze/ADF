@@ -203,7 +203,7 @@ namespace Control{
 		/// </summary>
 		public void AtkHeroByAnimationEvent() {
 			
-			_HeroProperty.DeHealth(_MyProperty.IntATK);		//英雄减少敌人的攻击力值的生命值
+			_HeroProperty.SubCurHP(_MyProperty.IntATK);		//英雄减少敌人的攻击力值的生命值
 		}
 
 

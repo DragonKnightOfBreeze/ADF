@@ -12,204 +12,196 @@ using Global;
 namespace Model {
 	public class Mod_PlayerKernelData {
 		//定一一个事件：玩家的核心数值事件
-		public static event del_PlayerKernalModel Eve_PlayerKernalData;
+		public static event del_PlayerKernalModel eve_PlayerKernalData;
 
 
-		private float _FloHealth;       //生命值
-		private float _FloMana;         //魔法值
-		private float _FloAttack;       //攻击力
-		private float _FloDefence;      //防御力
-		private float _FloDexterity;    //敏捷度
+		private float _FloCurHP;       //生命值
+		private float _FloCurMP;         //魔法值
+		private float _FloATK;       //攻击力
+		private float _FloDEF;      //防御力
+		private float _FloDEX;    //敏捷度
 
-		private float _FloMaxHealth;    //以下为最大值
-		private float _FloMaxMana;
+		private float _FloMaxHP;    //以下为最大值
+		private float _FloMaxMP;
 
-		private float _FloTotalAttack;  //以下为实际值（总的）
-		private float _FloTotalDefence;
-		private float _FloTotalDexterity;
+		private float _FloTotalATK;  //以下为实际值（总的）
+		private float _FloTotalDEF;
+		private float _FloTotalDEX;
 
-		private float _FloAttackByItem = 0f; //物品（包括武器）的攻击力
-		private float _FloDefenceByItem = 0f;//物品（包括武器）的防御力
-		private float _FloDexterityByItem = 0f;//物品（包括武器）的敏捷度
+		private float _FloATKByItem = 0f; //物品（包括武器）的攻击力
+		private float _FloDEFByItem = 0f;//物品（包括武器）的防御力
+		private float _FloDEXByItem = 0f;//物品（包括武器）的敏捷度
 
 		//Ctrl + 两次M，一切都清静了！
 		//属性信息
-		public float Health {
+		public float CurHP {
 			get {
-				return _FloHealth;
+				return _FloCurHP;
 			}
 			set {
-				_FloHealth = value;
+				_FloCurHP = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("Health", Health);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("CurHP", CurHP);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float Mana {
+		public float CurMP {
 			get {
-				return _FloMana;
+				return _FloCurMP;
 			}
-
 			set {
-				_FloMana = value;
+				_FloCurMP = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("Mana", Mana);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("CurMP", CurMP);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float Attack {
+		public float ATK {
 			get {
-				return _FloAttack;
+				return _FloATK;
 			}
 
 			set {
-				_FloAttack = value;
+				_FloATK = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("Attack", Attack);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("ATK", ATK);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float Defence {
+		public float DEF {
 			get {
-				return _FloDefence;
+				return _FloDEF;
 			}
-
 			set {
-				_FloDefence = value;
+				_FloDEF = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("Defence", Defence);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DEF", DEF);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float Dexterity {
+		public float DEX {
 			get {
-				return _FloDexterity;
+				return _FloDEX;
 			}
-
 			set {
-				_FloDexterity = value;
-				//事件调用
+				_FloDEX = value;
+				//事件调用（在初始化数据，或者更新数据的时候）
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("Dexterity", Dexterity);
-					Eve_PlayerKernalData(kv);
-				}
-			}
-		}
-
-		public float MaxHealth {
-			get {
-				return _FloMaxHealth;
-			}
-
-			set {
-				_FloMaxHealth = value;
-				//事件调用
-				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("MaxHealth", MaxHealth);
-					Eve_PlayerKernalData(kv);
-				}
-			}
-		}
-		public float MaxMana {
-			get {
-				return _FloMaxMana;
-			}
-
-			set {
-				_FloMaxMana = value;
-				//事件调用
-				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("MaxMana", MaxMana);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DEX", DEX);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
 
-		public float TotalAttack {
+		public float MaxHP {
 			get {
-				return _FloTotalAttack;
+				return _FloMaxHP;
 			}
 			set {
-				_FloTotalAttack = value;
-			}
-		}
-		public float TotalDefence {
-			get {
-				return _FloTotalDefence;
-			}
-
-			set {
-				_FloTotalDefence = value;
-			}
-		}
-		public float TotalDexterity {
-			get {
-				return _FloTotalDexterity;
-			}
-
-			set {
-				_FloTotalDexterity = value;
-
-			}
-		}
-
-		public float AttackByItem {
-			get {
-				return _FloAttackByItem;
-			}
-
-			set {
-				_FloAttackByItem = value;
+				_FloMaxHP = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("AttackByItem", AttackByItem);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("MaxHP", MaxHP);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float DefenceByItem {
+		public float MaxMP {
 			get {
-				return _FloDefenceByItem;
+				return _FloMaxMP;
 			}
-
 			set {
-				_FloDefenceByItem = value;
+				_FloMaxMP = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("DefenceByItem", DefenceByItem);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("MaxMP", MaxMP);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
-		public float DexterityByItem {
+
+		public float TotalATK {
 			get {
-				return _FloDexterityByItem;
+				return _FloTotalATK;
+			}
+			set {
+				_FloTotalATK = value;
+			}
+		}
+		public float TotalDEF {
+			get {
+				return _FloTotalDEF;
+			}
+			set {
+				_FloTotalDEF = value;
+			}
+		}
+		public float TotalDEX {
+			get {
+				return _FloTotalDEX;
 			}
 
 			set {
-				_FloDexterityByItem = value;
+				_FloTotalDEX = value;
+
+			}
+		}
+
+		public float ATKByItem {
+			get {
+				return _FloATKByItem;
+			}
+
+			set {
+				_FloATKByItem = value;
 				//事件调用
 				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
-				if (Eve_PlayerKernalData != null) {
-					KeyValuesUpdate kv = new KeyValuesUpdate("DexterityByItem", DexterityByItem);
-					Eve_PlayerKernalData(kv);
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("ATKByItem", ATKByItem);
+					eve_PlayerKernalData(kv);
+				}
+			}
+		}
+		public float DEFByItem {
+			get {
+				return _FloDEFByItem;
+			}
+			set {
+				_FloDEFByItem = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DEFByItem", DEFByItem);
+					eve_PlayerKernalData(kv);
+				}
+			}
+		}
+		public float DEXByItem {
+			get {
+				return _FloDEXByItem;
+			}
+			set {
+				_FloDEXByItem = value;
+				//事件调用
+				//（先构造键值对更新类，然后调用带有此类实例的参数的事件）
+				if (eve_PlayerKernalData != null) {
+					KeyValuesUpdate kv = new KeyValuesUpdate("DEXByItem", DEXByItem);
+					eve_PlayerKernalData(kv);
 				}
 			}
 		}
@@ -220,17 +212,17 @@ namespace Model {
 		private Mod_PlayerKernelData() { }
 
 		//定义公共构造函数
-		public Mod_PlayerKernelData(float health, float mana, float attack,float defence,float dexterity,float maxHealth,float maxMana, float attackByItem,float defenceByItem,float dexterityByItem) {
-			this._FloHealth = health;
-			this._FloMana = mana;
-			this._FloAttack = attack;
-			this._FloDefence = defence;
-			this._FloDexterity = dexterity;
-			this._FloMaxHealth = maxHealth;
-			this._FloMaxMana = maxMana;
-			this._FloAttackByItem = attackByItem;
-			this._FloDefenceByItem = defenceByItem;
-			this._FloDexterityByItem = dexterityByItem;
+		public Mod_PlayerKernelData(float curHP, float curMP, float atk,float def,float dex,float maxHP,float maxMP, float atkByItem,float defByItem,float dexByItem) {
+			this._FloCurHP = curHP;
+			this._FloCurMP = curMP;
+			this._FloATK = atk;
+			this._FloDEF = def;
+			this._FloDEX = dex;
+			this._FloMaxHP = maxHP;
+			this._FloMaxMP = maxMP;
+			this._FloATKByItem = atkByItem;
+			this._FloDEFByItem = defByItem;
+			this._FloDEXByItem = dexByItem;
 		}
 
 	}

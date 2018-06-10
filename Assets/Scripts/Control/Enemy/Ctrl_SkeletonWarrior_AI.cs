@@ -18,11 +18,11 @@ namespace Control {
 		public float FloMinIdleDist = 5f;   //最小空闲距离
 
 		public float FloThinkTime = 1f;     //思考间隔时间
-		private float _WaitTime= 0f;
-		private float _Length;
+		//private float _WaitTime= 0f;
+		//private float _Length;
 
 		public bool SingleCtrl = true;
-		private bool _Check = true;
+		//private bool _Check = true;
 
 		private GameObject _GoHero;     //主角
 		private Transform _MyTransform; //当前敌人的方位
@@ -191,7 +191,7 @@ namespace Control {
 					//注视
 					FaceToHero();
 
-					_WaitTime = 0f;
+					//_WaitTime = 0f;
 
 					//敌人移动
 					switch (_MyProperty.CurrentState) {

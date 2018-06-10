@@ -3,6 +3,9 @@
 //1.实例化对应模型层类，且初始化数据
 //2.整合模型层关于“玩家”模块的核心方法，供本控制层使用
 
+//待优化：使用XML赋值数据
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,29 +19,47 @@ namespace Control {
 		public static Ctrl_HeroProperty Instance;
 
 
+
+		#region 【玩家的属性赋值（改进：XML持久化）】
+
 		//玩家的核心数值；
 		//定义公共变量，并且赋予初值，然后用来初始化模型层的单例类
 
-		public float PlayerCurHp = 160f;   //玩家的当前生命值
-		public float PlayerMaxHP = 160f;   //玩家的最大生命值
-		public float PlayerCurMP = 100f;   //玩家的当前魔法值
-		public float PlayerMaxMP = 100f;   //玩家的最大魔法值
-		public float PlayerATK = 15f;   //玩家的攻击力
-		public float PlayerDEF = 5f;   //玩家的防御力
-		public float PlayerDEX = 50f;   //玩家的当前生命值
+		public float PlayerCurHp = 160f;	//玩家的当前生命值
+		public float PlayerMaxHP = 160f;	//玩家的最大生命值
+		public float PlayerCurMP = 100f;	//玩家的当前魔法值
+		public float PlayerMaxMP = 100f;	//玩家的最大魔法值
+		public float PlayerATK = 15f;		//玩家的攻击力
+		public float PlayerDEF = 5f;		//玩家的防御力
+		public float PlayerDEX = 50f;		//玩家的当前生命值
 
-		public float PlayerATKByI = 0f;		//物品攻击力
-		public float PlayerDEFByI = 0f;		//物品防御力
-		public float PlayerDEXByI = 0f;		//物品敏捷度
+		public float PlayerATKByItem = 0f;		//物品攻击力
+		public float PlayerDEFByItem = 0f;		//物品防御力
+		public float PlayerDEXByItem = 0f;		//物品敏捷度
 
-		//玩家拓展数值
+		//玩家的拓展数值
 		public int PlayerEXP = 0;			//等级
 		public int PlayerKillNum = 0;		//
 		public int PlayerLevel = 1;
 		public int PlayerGold = 0;
 		public int PlayerDiamond = 0;
 
-		private float _MPRecoverSpeed = 1f; //MP恢复速度（每s）
+		private float _MPRecoverSpeed = 1f;  //玩家的MP恢复速度（每秒）
+
+
+		//玩家背包数量（这里应该需要动态添加变量，并且初始值是0）
+		//不如使用实例化结构体或类的方式
+		//***待优化***
+		public int IntWeapon_1_Count = 0;
+		public int IntShield_1_Count = 0;
+		public int IntBoot_1_Count = 0;
+		public int IntHPPotion_1_Count = 0;
+		public int IntMPPotion_1_Count = 0;
+
+
+
+		#endregion
+
 
 
 		private void Awake() {
@@ -47,109 +68,115 @@ namespace Control {
 
 
 		private void Start() {
+
+			//另一种方式：使用XML解析的时候在加载场景时（或者游戏开始时）
+			//进行一次性初始化
+
 			//初始化模型层数据
-			Mod_PlayerKernelDataProxy playerKernelDataObj = new Mod_PlayerKernelDataProxy(PlayerCurHp, PlayerCurMP, PlayerATK, PlayerDEF, PlayerDEX, PlayerMaxHP, PlayerMaxMP, PlayerATKByI, PlayerDEFByI, PlayerDEXByI);
+			Mod_PlayerKernelDataProxy playerKernelDataObj = new Mod_PlayerKernelDataProxy(PlayerCurHp, PlayerCurMP, PlayerATK, PlayerDEF, PlayerDEX, PlayerMaxHP, PlayerMaxMP, PlayerATKByItem, PlayerDEFByItem, PlayerDEXByItem);
 
 			Mod_PlayerExtendedDataProxy playerExtendedDataObj = new Mod_PlayerExtendedDataProxy(PlayerEXP, PlayerKillNum, PlayerLevel, PlayerGold, PlayerDiamond);
 
-			StartCoroutine("RecoverMana");
+			//***这个写法有待改进***
+			Mod_PlayerPackageDataProxy playerPackageData = new Mod_PlayerPackageDataProxy(IntWeapon_1_Count,IntShield_1_Count,IntBoot_1_Count, IntHPPotion_1_Count,IntMPPotion_1_Count);
+
+			//开始MP恢复协程
+			StartCoroutine("RecoverMP");
 		}
 
 
 
 
-		#region  生命数值操作
+		#region  【生命值和最大生命值的操作】
 
 		/// <summary>
-		/// 减少生命数值（例如：被敌人攻击）
-		/// 公式：伤害 = 敌人攻击力 - (主角防御力 + 物品防御力)
+		/// 减少当前的生命值（例如：被敌人攻击）
 		/// </summary>
-		/// <param name="enemyAttackValue"></param>
-		public void DeHealth(float enemyAttackValue) {
-			if (enemyAttackValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().DeHealth(enemyAttackValue);
+		/// <param name="damage"></param>
+		public void SubCurHP(float damage) {
+			if (damage > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().SubCurHP(damage);
 			}
 		}
 
 		/// <summary>
-		/// 增加生命数值（例如：使用生命药水）
+		/// 增加当前的生命值（例如：使用生命药水）
 		/// </summary>
-		/// <param name="inHealthValue"></param>
-		public void InHealth(float inHealthValue) {
-			if (inHealthValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InHealth(inHealthValue);
+		/// <param name="addValue"></param>
+		public void AddCurHP(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddCurHP(addValue);
 			}
 		}
 
 		/// <summary>
-		/// 得到当前生命数值
-		/// </summary>
-		/// <param name="healthvalue"></param>
-		/// <returns></returns>
-		public float GetCurHealth() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetCurHealth();
-		}
-
-		/// <summary>
-		/// 增加最大的生命数值（例如：等级提升）
-		/// </summary>
-		/// <param name="InHealth"></param>
-		public void InMaxHealth(float inMaxHealth) {
-			if (inMaxHealth > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InMaxHealth(inMaxHealth);
-			}
-		}
-
-		/// <summary>
-		/// 得到最大的生命数值
+		/// 得到当前的生命值
 		/// </summary>
 		/// <returns></returns>
-		public float GetMaxHealth() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetMaxHealth();
+		public float GetCurHP() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetCurHP();
+		}
+
+		/// <summary>
+		/// 增加最大的生命值（例如：等级提升）
+		/// </summary>
+		/// <param name="addValue"></param>
+		public void AddMaxHP(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddMaxHP(addValue);
+			}
+		}
+
+		/// <summary>
+		/// 得到最大的生命值
+		/// </summary>
+		/// <returns></returns>
+		public float GetMaxHP() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetMaxHP();
 		}
 
 		#endregion
 
 
-		#region  魔法数值操作
+		#region  【魔法值和最大魔法值的操作】
 
 		/// <summary>
-		/// 减少魔法数值（例如：使用魔法）
-		/// 公式：魔法值 = 魔法值-魔法值消耗
+		/// 减少当前的魔法值（例如：使用魔法）
 		/// </summary>
-		/// <param name="deManaValue"></param>
-		public void DeMana(float deManaValue) {
-			if (deManaValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().DeMana(deManaValue);
+		/// <param name="consumption"></param>
+		/// <returns>魔法值是否足够</returns>
+		public bool SubCurMP(float consumption) {
+			if (consumption > 0) {
+				return Mod_PlayerKernelDataProxy.GetInstance().SubCurMP(consumption);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 增加当前的魔法值（例如：使用魔法药水）
+		/// </summary>
+		/// <param name="addValue"></param>
+		public void AddCurMP(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddCurMP(addValue);
 			}
 		}
 
 		/// <summary>
-		/// 增加魔法数值（例如：使用魔法药水）
+		/// 得到当前的魔法值
 		/// </summary>
-		/// <param name="inManaValue"></param>
-		public void InMana(float inManaValue) {
-			if (inManaValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InMana(inManaValue);
-			}
-		}
-
-		/// <summary>
-		/// 得到当前魔法数值
-		/// </summary>
-		/// <param name="healthvalue"></param>
 		/// <returns></returns>
-		public float GetCurMana() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetCurMana();
+		public float GetCurMP() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetCurMP();
 		}
 
 		/// <summary>
-		/// 增加最大的魔法数值（例如：等级提升）
+		/// 增加最大的魔法值（例如：等级提升）
 		/// </summary>
-		/// <param name="InHealth"></param>
-		public void InMaxMana(float inMaxMana) {
-			if (inMaxMana > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InMaxMana(inMaxMana);
+		/// <param name="addValue"></param>
+		public void AddMaxMP(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddMaxMP(addValue);
 			}
 		}
 
@@ -158,17 +185,17 @@ namespace Control {
 		/// </summary>
 		/// <returns></returns>
 		public float GetMaxMana() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetMaxMana();
+			return Mod_PlayerKernelDataProxy.GetInstance().GetMaxMP();
 		}
 
 
 		/// <summary>
-		/// 恢复魔法数值
+		/// 恢复魔法值的方法
 		/// </summary>
-		public IEnumerator RecoverMana() {
+		public IEnumerator RecoverMP() {
 			while (true) {
-				if (GetCurMana() < GetMaxMana()) {
-					InMana(_MPRecoverSpeed);
+				if (GetCurMP() < GetMaxMana()) {
+					AddCurMP(_MPRecoverSpeed);
 				}
 				//为什么每次会同时重复两次协程？
 				// // Debug.Log("一次");
@@ -178,105 +205,99 @@ namespace Control {
 			
 		}
 
-	#endregion
+		#endregion
 
 
-	#region  攻击力数值操作
-
-	//最简单的实际攻击力计算公式
-	//公式：实际攻击力 = 基本攻击力 + 武器攻击力
-	/// <summary>
-	/// 更新攻击力（例如：当装备新武器时）
-	/// </summary>
-	public void UpdateATK(float newItemATKValue = 0) {
+		#region  【攻击力的操作】
+		
+		/// <summary>
+		/// 更新攻击力（例如：当装备新武器时）
+		/// </summary>
+		public void UpdateATK(float atkByItem = 0) {
 			//如果获得了新的武器物品，就更新武器攻击力
-			if (newItemATKValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().UpdateATK(newItemATKValue);
+			if (atkByItem > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().UpdateATK(atkByItem);
 			}
 		}
 
 		/// <summary>
 		/// 增加攻击力
 		/// </summary>
-		/// <param name="inATK"></param>
-		public void InATK(float inATK) {
-			Mod_PlayerKernelDataProxy.GetInstance().InATK(inATK);
+		/// <param name="addValue"></param>
+		public void AddATK(float addValue) {
+			Mod_PlayerKernelDataProxy.GetInstance().AddATK(addValue);
 		}
 
 		/// <summary>
-		/// 得到当前的攻击力
+		/// 得到攻击力
 		/// </summary>
 		/// <returns></returns>
-		public float GetCurATK() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetCurATK();
+		public float GetATK() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetATK();
 		}
 
 		#endregion
 
 
-		#region  防御力数值操作
+		#region  【防御力的操作】
 
-		//最简单的实际防御力计算公式
-		//公式：实际防御力 = 基本防御力 + 武器防御力
 		/// <summary>
 		/// 更新防御力（例如：当装备新武器时）
 		/// </summary>
-		public void UpdateDEF(float newItemDEFValue = 0) {
-			if (newItemDEFValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().UpdateDEF(newItemDEFValue);
+		public void UpdateDEF(float defByItem = 0) {
+			if (defByItem > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().UpdateDEF(defByItem);
 			}
 		}
 
 		/// <summary>
 		/// 增加防御力
 		/// </summary>
-		/// <param name="inDEF"></param>
-		public void InDEF(float inDEF) {
-			if (inDEF > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InDEF(inDEF);
+		/// <param name="addValue"></param>
+		public void AddDEF(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddDEF(addValue);
 			}
 		}
 
 		/// <summary>
-		/// 得到当前的防御力
+		/// 得到防御力
 		/// </summary>
 		/// <returns></returns>
-		public float GetCurDEF() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetCurDEF();
+		public float GetDEF() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetDEF();
 		}
 
 		#endregion
 
 
-		#region  敏捷度数值操作操作
-
-		//最简单的实际敏捷度计算公式
-		//公式：实际敏捷度 = 基本敏捷度 + 武器敏捷度
+		#region  【敏捷度的操作】
+		
 		/// <summary>
 		/// 更新敏捷度（例如：当装备新武器时）
 		/// </summary>
-		public void UpdateDEX(float newItemDEXValue = 0) {
-			if (newItemDEXValue > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().UpdateDEX(newItemDEXValue);
+		public void UpdateDEX(float defByItem = 0) {
+			if (defByItem > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().UpdateDEX(defByItem);
 			}
 		}
 
 		/// <summary>
 		/// 增加敏捷度
 		/// /// </summary>
-		/// <param name="inDEX"></param>
-		public void InDEX(float inDEX) {
-			if (inDEX > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().InDEX(inDEX);
+		/// <param name="addValue"></param>
+		public void AddDEX(float addValue) {
+			if (addValue > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().AddDEX(addValue);
 			}
 		}
 
 		/// <summary>
-		/// 得到当前的敏捷度
+		/// 得到敏捷度
 		/// </summary>
 		/// <returns></returns>
-		public float GetCurDEX() {
-			return Mod_PlayerKernelDataProxy.GetInstance().GetCurDEX();
+		public float GetDEX() {
+			return Mod_PlayerKernelDataProxy.GetInstance().GetDEX();
 		}
 
 		#endregion
@@ -285,14 +306,14 @@ namespace Control {
 		
 
 
-		#region 经验值处理
+		#region 【经验值处理】
 
 		/// <summary>
 		/// 增加经验值
 		/// </summary>
-		public void AddEXP(int expValue) {
-			if (expValue > 0) {
-				Mod_PlayerExtendedDataProxy.GetInstance().AddEXP(expValue);
+		public void AddEXP(int addValue) {
+			if (addValue > 0) {
+				Mod_PlayerExtendedDataProxy.GetInstance().AddEXP(addValue);
 			}
 		}
 
@@ -307,7 +328,7 @@ namespace Control {
 		#endregion
 
 
-		#region 杀敌数量处理
+		#region 【杀敌数量处理】
 
 		/// <summary>
 		/// 增加杀敌数量
@@ -327,7 +348,7 @@ namespace Control {
 		#endregion
 
 
-		#region 等级处理
+		#region 【等级处理】
 
 		/// <summary>
 		/// 提升当前等级
@@ -346,20 +367,32 @@ namespace Control {
 		#endregion
 
 
-		#region 金币处理
+		#region 【金币处理】
 
 		/// <summary>
-		/// 增加一定数量的金币数量
+		/// 增加一定数量的金币
 		/// </summary>
-		/// <param name="goldNumber"></param>
-		public void AddGold(int goldNumber) {
-			if (goldNumber > 0) {
-				Mod_PlayerExtendedDataProxy.GetInstance().AddGold(goldNumber);
+		/// <param name="number"></param>
+		public void AddGold(int number) {
+			if (number > 0) {
+				Mod_PlayerExtendedDataProxy.GetInstance().AddGold(number);
 			}
 		}
 
 		/// <summary>
-		/// 得到当前金币数量
+		/// 减少一定数量的金币
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns>金币是否足够</returns>
+		public bool SubGold(int number) {
+			if (number > 0) {
+				return Mod_PlayerExtendedDataProxy.GetInstance().SubGold(number);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 得到当前的金币数量
 		/// </summary>
 		/// <returns></returns>
 		public int GetGold() {
@@ -372,21 +405,73 @@ namespace Control {
 		#region 钻石处理
 
 		/// <summary>
-		/// 增加一定数量的钻石数量
+		/// 增加一定数量的钻石
 		/// </summary>
-		/// <param name="diamondNumber"></param>
-		public void AddDiamond(int diamondNumber) {
-			if (diamondNumber > 0) {
-				Mod_PlayerExtendedDataProxy.GetInstance().AddDiamond(diamondNumber);
+		/// <param name="number"></param>
+		public void AddDiamond(int number) {
+			if (number > 0) {
+				Mod_PlayerExtendedDataProxy.GetInstance().AddDiamond(number);
 			}
 		}
 
+
 		/// <summary>
-		/// 得到当前钻石数量
+		/// 减少一定数量的钻石
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns>钻石是否足够</returns>
+		public bool SubDiamond(int number) {
+			if (number > 0) {
+				return Mod_PlayerExtendedDataProxy.GetInstance().SubDiamond(number);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 得到当前的钻石数量
 		/// </summary>
 		/// <returns></returns>
 		public int GetDiamond() {
 			return Mod_PlayerExtendedDataProxy.GetInstance().GetDiamond();
+		}
+
+		#endregion
+
+
+
+		#region 【通用方法：增加一个道具的数量（应该存在最大数量）】
+
+		/// <summary>
+		/// 控制层：增加当某个道具的数量
+		/// </summary>
+		/// <param name="item"></param>
+		/// <param name="number"></param>
+		public void AddItemCount(ItemStruct item, int number) {
+			if (number > 0) {
+				Mod_PlayerPackageDataProxy.GetInstance().AddItemCount(item, number);
+			}
+		}
+
+		/// <summary>
+		/// 控制层：减少某个道具的数量
+		/// </summary>
+		/// <param name="item"></param>
+		/// <param name="number"></param>
+		/// <returns>是否可减</returns>
+		public bool SubItemCount(ItemStruct item, int number) {
+			if (number > 0) {
+				return Mod_PlayerPackageDataProxy.GetInstance().SubItemCount(item, number);
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 控制层：得到某个道具的数量
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public int GetItemCount(ItemStruct item) {
+			return Mod_PlayerPackageDataProxy.GetInstance().GetItemCount(item);
 		}
 
 		#endregion

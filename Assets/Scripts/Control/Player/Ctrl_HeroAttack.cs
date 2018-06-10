@@ -38,7 +38,7 @@ namespace Control {
 		public int MPConsByMagicAtkA = 36;		//魔法攻击A的MP消耗
 		public int MPConsByMagicAtkB = 20;		//魔法攻击B的MP消耗
 
-		private List<GameObject> _Lis_Enemies;	//敌人的集合
+		private List<GameObject> _Lis_;	//敌人的集合
 		private Transform _Tra_NearestEnemy;    //最近的敌人方位
 		private float _FloMaxDistance = 20f;    //敌我最大距离（可能攻击到，可能需要进行处理）
 
@@ -75,10 +75,10 @@ namespace Control {
 
 		private void Start() {
 			//集合类型初始化
-			_Lis_Enemies = new List<GameObject>();
+			_Lis_ = new List<GameObject>();
 
 			//把附近所有敌人放入“敌人数组”
-			StartCoroutine("RecordNearbyEnemiesTOArray");
+			StartCoroutine("RecordNearbyTOArray");
 			//主角在一定范围内，自动注视最近的敌人
 			StartCoroutine("HeroRotationEnemy");
 		}
@@ -89,17 +89,17 @@ namespace Control {
 		/// <summary>
 		/// 得到所有敌人（存活的），放入“敌人集合”
 		/// </summary>
-		public void GetEnemiesToArray() {
+		public void GetToArray() {
 			//清空集合，否则会出现差错
-			_Lis_Enemies.Clear();
+			_Lis_.Clear();
 
-			GameObject[] GoEnemies = GameObject.FindGameObjectsWithTag(Tag.Tag_Enemy);
-			foreach (GameObject goItem in GoEnemies) {
+			GameObject[] Go = GameObject.FindGameObjectsWithTag(Tag.Tag_Enemy);
+			foreach (GameObject goItem in Go) {
 				//判断敌人是否存活
 				Ctrl_BaseEnemy_Prop enemy = goItem.GetComponent<Ctrl_BaseEnemy_Prop>();
 				//if (enemy && enemy.IsAlive) { 
 				if(enemy !=null &&  enemy.CurrentState != EnemyActionState.Dead) {
-					_Lis_Enemies.Add(goItem);
+					_Lis_.Add(goItem);
 				}
 			}
 		}
@@ -108,10 +108,10 @@ namespace Control {
 		/// 把附近的所有敌人放入“敌人数组”
 		/// 每隔2s处理一次
 		/// </summary>
-		IEnumerator RecordNearbyEnemiesTOArray() {
-			// // Debug.Log("协程已开始：RecordNearbyEnemiesTOArray");
+		IEnumerator RecordNearbyTOArray() {
+			// // Debug.Log("协程已开始：RecordNearbyTOArray");
 			while (true) {
-				GetEnemiesToArray();
+				GetToArray();
 				GetNearestEnemy();
 				yield return new WaitForSeconds(2f);   
 			}
@@ -121,8 +121,8 @@ namespace Control {
 		/// 判断“敌人集合”，然后找出最近的敌人
 		/// </summary>
 		public void GetNearestEnemy() {
-			if ((_Lis_Enemies != null) && (_Lis_Enemies.Count >= 1)) {
-				foreach (GameObject goEnemy in _Lis_Enemies) {
+			if ((_Lis_ != null) && (_Lis_.Count >= 1)) {
+				foreach (GameObject goEnemy in _Lis_) {
 					float floDistance = Vector3.Distance(this.gameObject.transform.position, goEnemy.transform.position);
 					//如果有敌人与玩家的距离小于敌我最大距离
 					if (floDistance < _FloMaxDistance) {
@@ -212,7 +212,7 @@ namespace Control {
 				//给特定敌人以伤害处理
 				StartCoroutine( AttackEnemyByMagicAtkA() );
 				//魔法值消耗
-				Ctrl_HeroProperty.Instance.DeMana(MPConsByMagicAtkA);
+				Ctrl_HeroProperty.Instance.SubCurMP(MPConsByMagicAtkA);
 			}
 		}
 
@@ -228,7 +228,7 @@ namespace Control {
 				//给特定敌人以伤害处理
 				StartCoroutine( AttackEnemyByMagicAtkB() );
 				//魔法值消耗
-				Ctrl_HeroProperty.Instance.DeMana(MPConsByMagicAtkB);
+				Ctrl_HeroProperty.Instance.SubCurMP(MPConsByMagicAtkB);
 			}
 		}
 #endregion
@@ -237,18 +237,18 @@ namespace Control {
 
 		private void AttackEnemyByNormal() {
 
-			base.AttackEnemy(_Lis_Enemies,_Tra_NearestEnemy,FloRealAtkArea);
+			base.AttackEnemy(_Lis_,_Tra_NearestEnemy,FloRealAtkArea);
 
 			/*
 			
 			//参数检查，如果敌人数量小于等于0，则直接跳过
-			if(_Lis_Enemies==null || _Lis_Enemies.Count <=0) {
+			if(_Lis_==null || _Lis_.Count <=0) {
 				_Tra_NearestEnemy = null;
 				return;
 			}
 
 			//对多个敌人进行攻击判定
-			foreach (GameObject enemyItem in _Lis_Enemies) {
+			foreach (GameObject enemyItem in _Lis_) {
 				//首先判断敌人是否活着
 				//前提是该游戏对象存在
 				//if (enemyItem && enemyItem.GetComponent<Ctrl_Enemy>().IsAlive) {
@@ -282,7 +282,7 @@ namespace Control {
 		/// </summary>
 		IEnumerator AttackEnemyByMagicAtkA() {
 			yield return new WaitForSeconds(1f);
-			base.AttackEnemy(_Lis_Enemies, _Tra_NearestEnemy, FloMagicAtkAArea, FloMagicAtkAMultiple, false);
+			base.AttackEnemy(_Lis_, _Tra_NearestEnemy, FloMagicAtkAArea, FloMagicAtkAMultiple, false);
 		}
 
 
@@ -293,7 +293,7 @@ namespace Control {
 		/// </summary>
 		IEnumerator AttackEnemyByMagicAtkB() {
 			yield return new WaitForSeconds(1f);
-			base.AttackEnemy(_Lis_Enemies, _Tra_NearestEnemy, FloMagicAtkBArea, FloMagicAtkBMultiple);
+			base.AttackEnemy(_Lis_, _Tra_NearestEnemy, FloMagicAtkBArea, FloMagicAtkBMultiple);
 		}
 
 #endregion

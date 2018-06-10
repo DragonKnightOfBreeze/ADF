@@ -37,7 +37,7 @@ namespace Control {
 			AudioManager.PlayBackground(acBackground);
 
 			//敌人的动态加载
-			StartCoroutine(SpawnEnemies(5));
+			StartCoroutine(Spawn(5));
 			//......
 		}
 
@@ -47,7 +47,7 @@ namespace Control {
 		/// </summary>
 		/// <param name="spawnNum">生成敌人的数量</param>
 		/// <returns></returns>
-		//IEnumerator SpawnEnemies(int spawnNum) {
+		//IEnumerator Spawn(int spawnNum) {
 		//	yield return new WaitForSeconds(0.5f);
 
 		//	for(int i = 1;i<= spawnNum;i++) {
@@ -79,7 +79,7 @@ namespace Control {
 		/// </summary>
 		/// <param name="spawnNum">生成敌人的数量</param>
 		/// <returns></returns>
-		IEnumerator SpawnEnemies(int spawnNum) {
+		IEnumerator Spawn(int spawnNum) {
 			yield return new WaitForSeconds(0.5f);
 
 			for (int i = 1; i <= spawnNum; i++) {
@@ -89,7 +89,7 @@ namespace Control {
 				Transform traEnemySpawnPosition = GetRandomEnemySpawnPosition();
 				GameObject goEnemy = GetRandomEnemyType();
 				//在“对象缓冲池“”中激活指定的对象
-				PoolManager.PoolsArray["_Enemies"].GetGameObject(goEnemy, traEnemySpawnPosition.position, Quaternion.identity);
+				PoolManager.PoolsArray["_"].GetGameObject(goEnemy, traEnemySpawnPosition.position, Quaternion.identity);
 				//克隆敌人出现的特效
 				
 			}

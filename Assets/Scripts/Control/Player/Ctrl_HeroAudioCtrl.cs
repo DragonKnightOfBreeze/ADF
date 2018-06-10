@@ -10,21 +10,24 @@ namespace Control {
 
 		public static Ctrl_HeroAudioCtrl Instance;
 
-		public AudioClip Auc_HeroRunning;       //跑动音效
+		public AudioClip Auc_Running;       //跑动音效
+		public AudioClip Auc_NormalAtk_1;	//普通攻击音效
+		public AudioClip Auc_NormalAtk_2;
+		public AudioClip Auc_NormalAtk_3;
+		public AudioClip Auc_MagicAtkA;		//技能音效
+		public AudioClip Auc_MagicAtkB;
 
-		private string _Auc_CurNormalAtk;        //当前普通攻击音效
-
-		//private float _LoopTime = 0f;
+		private AudioClip _Auc_CurNormalAtk;        //当前普通攻击音效
 
 		private void Awake() {
 			Instance = this;
 		}
 
 
-
 		void Start() {
 			StartCoroutine("CtrlHeroAudioState");
 		}
+
 
 		/// <summary>
 		/// 主角的音频播放控制（根据当前动作状态）
@@ -32,75 +35,61 @@ namespace Control {
 		/// <returns></returns>
 		IEnumerator CtrlHeroAudioState() {
 			while (true) {
-				yield return new WaitForSeconds(0.01f);
 
-				#region 音效同步停止
+				///* 音效同步停止 */
 
-				if (Ctrl_HeroAnimationCtrl.Instance.CurrentActionState != HeroActionState.Running && AudioManager.IsPlayAudioEffectA(Auc_HeroRunning)) {
-					AudioManager.StopAudioEffectA(Auc_HeroRunning);         
-				}
+				//if (Ctrl_HeroAnimationCtrl.Instance.CurrentActionState != HeroActionState.Running && AudioManager.IsPlayingAudioEffect_A(Auc_Running)) {
+				//	AudioManager.StopAudioEffect_A();         
+				//}
 
-				#endregion
-
-				#region 音效同步播放
+				/* 音效同步播放 */
 
 				switch (Ctrl_HeroAnimationCtrl.Instance.CurrentActionState) {
 					case HeroActionState.None:
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
 						break;
 
 					case HeroActionState.Idle:
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
 						break;
 
 					case HeroActionState.Running:
-						
-
 						//设置循环播放，且只在跑动状态下播放
-						if (!AudioManager.IsPlayAudioEffectA(Auc_HeroRunning)) {
-							AudioManager.PlayAudioEffectA(Auc_HeroRunning);         //播放跑动音效
-						}
-						
-						yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);
+						AudioManager.PlayAudioEffect_A(Auc_Running);  
 						break;
 
 					case HeroActionState.NormalAtk:
 						switch (Ctrl_HeroAnimationCtrl.Instance.CurAtkCombo) {
 							case NormalAtkComboState.NormalAtk1:
-								_Auc_CurNormalAtk = "BeiJi_DaoJian_3";
+								_Auc_CurNormalAtk = Auc_NormalAtk_1;
 								break;
 							case NormalAtkComboState.NormalAtk2:
-								_Auc_CurNormalAtk = "BeiJi_DaoJian_2";
+								_Auc_CurNormalAtk = Auc_NormalAtk_2;
 								break;
 							case NormalAtkComboState.NormalAtk3:
-								_Auc_CurNormalAtk = "BeiJi_DaoJian_1";
+								_Auc_CurNormalAtk = Auc_NormalAtk_3;
 								break;
 							default:
 								break;
 						}
-						AudioManager.PlayAudioEffectA(_Auc_CurNormalAtk);
-						yield return new WaitForSeconds(Ctrl_HeroAnimationCtrl.Instance.WaitTime);
+						AudioManager.PlayAudioEffect_A(_Auc_CurNormalAtk,true);
 						break;
 
 					case HeroActionState.MagicAtkA:
-						AudioManager.PlayAudioEffectA("Hero_MagicA");
-						yield return new WaitForSeconds(Ctrl_HeroAnimationCtrl.Instance.WaitTime);
+						AudioManager.PlayAudioEffect_A(Auc_MagicAtkA,true);
 						break;
 
 					case HeroActionState.MagicAtkB:
-						// // Debug.Log("播放魔法攻击B音频");
-						AudioManager.PlayAudioEffectA("Hero_MagicB");
-						yield return new WaitForSeconds(Ctrl_HeroAnimationCtrl.Instance.WaitTime);
+						AudioManager.PlayAudioEffect_A(Auc_MagicAtkB,true);
 						break;
 
 					default:
 						break;
 				}
-
-				#endregion
-
+				//等待当前单次动画播放完，或者重复判定持续动画
+				yield return new WaitForSeconds(Ctrl_HeroAnimationCtrl.Instance.ReCheckTime);
 			}
 		}
+
+
 
 
 		/*

@@ -42,7 +42,7 @@ namespace Control {
 				case SceneEnum.Level3:
 					//...
 					break;
-				case SceneEnum.BaseScene:
+				case SceneEnum.MajorCity:
 				default:
 					break;
 			}

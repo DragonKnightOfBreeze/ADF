@@ -14,28 +14,29 @@ namespace Control {
 		/// </summary>
 		/// <param name="sceneEnumName">场景名称（枚举）</param>
 		protected void EnterNextScene(SceneEnum sceneEnumName) {
-			GlobalParaMgr.NextSceneName = sceneEnumName; //转到下一个场景
-			Application.LoadLevel(ConvertEnumToStr.GetInstance().GetStrByEnumScene(GlobalParaMgr.NextSceneName));
+			//转到下一个场景（首先加载Loading场景）
+			GlobalParaMgr.NextSceneName = sceneEnumName;
+			Application.LoadLevel(ConvertEnumToStr.GetInstance().GetStrByEnumScene(SceneEnum.LoadingScene));
 		}
 
 		/// <summary>
 		/// 公共方法：攻击敌人
 		/// </summary>
-		/// <param name="listEnemies">敌人列表（为了脱藕独立使用）</param>
+		/// <param name="list">敌人列表（为了脱藕独立使用）</param>
 		/// <param name="traNearestEnemy">最近的敌人（为了脱藕独立使用）</param>
 		/// <param name="attackArea">攻击范围</param>
 		/// <param name="attackMultiple">攻击倍率</param>
 		/// <param name="isDirection">是否有方向性</param>
-		protected void AttackEnemy(List<GameObject> listEnemies, Transform traNearestEnemy, float attackArea, float attackMultiple = 1f, bool isDirection = true) {
+		protected void AttackEnemy(List<GameObject> list, Transform traNearestEnemy, float attackArea, float attackMultiple = 1f, bool isDirection = true) {
 
 			//参数检查，如果敌人数量小于等于0，则直接跳过
-			if (listEnemies == null || listEnemies.Count <= 0) {
+			if (list == null || list.Count <= 0) {
 				traNearestEnemy = null;
 				return;
 			}
 
 			//对多个敌人进行攻击判定
-			foreach (GameObject enemyItem in listEnemies) {
+			foreach (GameObject enemyItem in list) {
 				//首先判断敌人是否活着
 				//前提是该游戏对象存在
 				//if (enemyItem && enemyItem.GetComponent<Ctrl_Enemy>().IsAlive) {
@@ -56,7 +57,7 @@ namespace Control {
 							//不需要返回值，更好的办法是使用委托事件
 							//参数：方法名，角色当前攻击力
 							// // Debug.Log("OnHurt!");
-							enemyItem.SendMessage("OnHurt", Ctrl_HeroProperty.Instance.GetCurATK() * attackMultiple, SendMessageOptions.DontRequireReceiver);
+							enemyItem.SendMessage("OnHurt", Ctrl_HeroProperty.Instance.GetATK() * attackMultiple, SendMessageOptions.DontRequireReceiver);
 						}
 					}
 					else {
@@ -65,7 +66,7 @@ namespace Control {
 							//不需要返回值，更好的办法是使用委托事件
 							//参数：方法名，角色当前攻击力
 							// // Debug.Log("OnHurt!");
-							enemyItem.SendMessage("OnHurt", Ctrl_HeroProperty.Instance.GetCurATK() * attackMultiple, SendMessageOptions.DontRequireReceiver);
+							enemyItem.SendMessage("OnHurt", Ctrl_HeroProperty.Instance.GetATK() * attackMultiple, SendMessageOptions.DontRequireReceiver);
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-﻿//视图层，主城相关，技能面板显示
+﻿//视图层，主城场景，技能面板显示
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Kernel;
 using Global;
 
 namespace View {
-	class View_Panel_Skill:MonoBehaviour {
+	class View_SkillPanel:MonoBehaviour {
 		//查看的项目
 		public Image Img_NormalAtk;		//普通攻击
 		public Image Img_CloseAtk;		//技能：近距离攻击
@@ -66,7 +66,7 @@ namespace View {
 		}
 
 		/// <summary>
-		/// 普通攻击技能介绍
+		/// 近距离攻击技能介绍
 		/// </summary>
 		/// <param name="go"></param>
 		private void CloseATK(GameObject go) {
@@ -77,7 +77,7 @@ namespace View {
 		}
 
 		/// <summary>
-		/// 普通攻击技能介绍
+		/// 跳跃攻击技能介绍
 		/// </summary>
 		/// <param name="go"></param>
 		private void JumpATK(GameObject go) {
@@ -88,7 +88,7 @@ namespace View {
 		}
 
 		/// <summary>
-		/// 普通攻击技能介绍
+		/// 火球攻击技能介绍
 		/// </summary>
 		/// <param name="go"></param>
 		private void FireATK(GameObject go) {
@@ -99,7 +99,7 @@ namespace View {
 		}
 
 		/// <summary>
-		/// 普通攻击技能介绍
+		/// 雷电攻击技能介绍
 		/// </summary>
 		/// <param name="go"></param>
 		private void ThunderATK(GameObject go) {

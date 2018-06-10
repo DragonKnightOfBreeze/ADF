@@ -16,10 +16,10 @@ namespace View {
 		private AsyncOperation _AsyOper;
 
 		IEnumerator Start() {
+			
+			#region 测试内容（Log系统）
 
-			#region 测试内容
-
-			/* 测试Log日志系统 */
+			/* 启用Log日志系统 */
 
 			//面向接口编程
 			IConfigManager configMgr = new ConfigManager(KernelParameter.GetLogPath(),KernelParameter.GetLogRootNodeName());
@@ -36,40 +36,41 @@ namespace View {
 			//测试Log.cs类（让构造函数运行起来）
 			//Log.Write("我的企业日志系统开始运行了，第一次测试");
 
-
-
-			///* 测试XML解析程序 */
-
-			////参数赋值
-			//DialogDataAnalysisMgr.GetInstance().SetXMLPathAndRooNodeName(KernelParameter.GetDialogConfigPath(), KernelParameter.GetDialogConfigRootNodeName());
-			////等待参数设置完毕（要比DialogDataAnalysisMgr的延迟方法慢）
-			//yield return new WaitForSeconds(1f);      //很重要
-
-			////得到XML中所有的数据
-			//List<DialogDataFormat> DialogsDataArray = DialogDataAnalysisMgr.GetInstance().GetAllXmlDataArray();
-
-			////foreach (DialogDataFormat data in DialogsDataArray) {
-			////	Log.Write("");      //空一行
-			////	Log.Write("SectionNum: " + data.DiaSectionNum);
-			////	Log.Write("SectionName: " + data.DiaSectionName);
-			////	Log.Write("Index: " + data.DiaIndex);
-			////	Log.Write("Side: " + data.DiaSide);
-			////	Log.Write("Person: " + data.DiaPerson);
-			////	Log.Write("Content:" + data.DiaContent);
-			////}
-			////Log.SyncLogArrayToFile();
-
-			///* 测试给“对话数据管理器”加载数据 */
-
-			//bool boolResult = DialogDataMgr.GetInstance().LoadAllDialogData(DialogsDataArray);
-			//if (!boolResult) {
-			//	Log.Write(GetType() + "/Start()/对话数据管理器加载数据失败");
-			//}
-			////GlobalParaMgr.NextSceneName = SceneEnum.TestScene;  //进入测试场景
-
 			#endregion
 
-			GlobalParaMgr.NextSceneName = SceneEnum.Level1;  //进入第一关卡
+			#region 测试内容（XML解析）
+
+			///* 测试XML解析程序 */
+			////或许可以封装为一个方法，提供参数：对话XML文件地址，根节点名
+			////输出参数：对话数据格式类列表
+
+			//参数赋值
+			DialogDataAnalysisMgr.GetInstance().SetXMLPathAndRooNodeName(KernelParameter.GetDialogConfigPath(), KernelParameter.GetDialogConfigRootNodeName());
+			//等待参数设置完毕（要比DialogDataAnalysisMgr的延迟方法慢）
+			yield return new WaitForSeconds(0.5f);      //很重要
+			//得到XML中所有的数据
+			List<DialogDataFormat> DialogsDataArray = DialogDataAnalysisMgr.GetInstance().GetAllXmlDataArray();
+
+			//foreach (DialogDataFormat data in DialogsDataArray) {
+			//	Log.Write("");      //空一行
+			//	Log.Write("SectionNum: " + data.DiaSectionNum);
+			//	Log.Write("SectionName: " + data.DiaSectionName);
+			//	Log.Write("Index: " + data.DiaIndex);
+			//	Log.Write("Side: " + data.DiaSide);
+			//	Log.Write("Person: " + data.DiaPerson);
+			//	Log.Write("Content:" + data.DiaContent);
+			//}
+			//Log.SyncLogArrayToFile();
+
+			// 测试给“对话数据管理器”加载数据
+			bool boolResult = DialogDataMgr.GetInstance().LoadAllDialogData(DialogsDataArray);
+			if (!boolResult) {
+				Log.Write(GetType() + "/Start()/对话数据管理器加载数据失败");
+			}
+			//###调试进入指定关卡（在这里改变调试关卡）###
+			GlobalParaMgr.NextSceneName = SceneEnum.MajorCity;
+
+			#endregion
 
 			yield return new WaitForSeconds(1f);
 			StartCoroutine("LoadingSceneProgress");
@@ -88,7 +89,7 @@ namespace View {
 
 
 		/// <summary>
-		/// 异步加载协程
+		/// 异步加载协程（在进入Loading场景后就自动被调用的）
 		/// </summary>
 		/// <returns></returns>
 		IEnumerator LoadingSceneProgress() {

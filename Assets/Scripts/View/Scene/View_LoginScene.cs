@@ -52,7 +52,7 @@ namespace View {
 			goUISworderInfo.SetActive(false);
 			goUIMageInfo.SetActive(true);
 			//获取玩家类型
-			GlobalParaMgr.playerType = PlayerType.Mage;
+			GlobalParaMgr.CurPlayerType = PlayerType.Mage;
 			//播放音效
 			Ctrl_LoginScene.Instance.PlayAudioEffect(PlayerType.Mage);
 		}

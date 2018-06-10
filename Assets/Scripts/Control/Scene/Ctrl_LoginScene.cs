@@ -26,10 +26,10 @@ namespace Control {
 		//播放英雄的转换音效
 		public void PlayAudioEffect(PlayerType pt) {
 			if (pt == PlayerType.Sworder) {
-				AudioManager.PlayAudioEffectA("Hero_MagicA");
+				AudioManager.PlayAudioEffect("Hero_MagicA");
 			}
 			else if (pt == PlayerType.Mage) {
-				AudioManager.PlayAudioEffectA("2_FireBallEffect_MagicHero");
+				AudioManager.PlayAudioEffect("2_FireBallEffect_MagicHero");
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Control {
 		/// </summary>
 		public void EnterNextScene() {
 			//使用父类的方法，简化代码
-			base.EnterNextScene(SceneEnum.LoadingScene);
+			base.EnterNextScene(SceneEnum.Level1);
 		}
 
 

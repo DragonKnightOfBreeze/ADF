@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -338,7 +336,7 @@
     <Compile Include="Assets\EasyTouch\Plugins\MonoSingleton.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\MovingJoystick.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\VirtualScreen.cs" />
-    <Compile Include="Assets\Resources\Models\SwordsMan\SwordsManResources\SwordsEffectResoures\Scripts\NcEffect\NcUvAnimation.cs" />
+    <Compile Include="Assets\Resources\Models\Heroes\SwordsMan\SwordsManResources\SwordsEffectResoures\Scripts\NcEffect\NcUvAnimation.cs" />
     <Compile Include="Assets\Resources\ParticleProps\Arrow\arrowControl.cs" />
     <Compile Include="Assets\Resources\ParticleProps\csPoint\csPoint.cs" />
     <Compile Include="Assets\Resources\ParticleProps\Efx_LvUp\Effects_02\AnimationSpeed.cs" />
@@ -441,7 +439,11 @@
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_DestroyObjByTime.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_MakeObjRotation.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_RecoverObjByTime.cs" />
+    <Compile Include="Assets\Scripts\Control\Prop\MajorCity\Ctrl_MarketPanel.cs" />
+    <Compile Include="Assets\Scripts\Control\Prop\MajorCity\Ctrl_MissionPanel.cs" />
+    <Compile Include="Assets\Scripts\Control\Prop\UI\Ctrl_PlayerUIResponse.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_Level1_Scene.cs" />
+    <Compile Include="Assets\Scripts\Control\Scene\Ctrl_Level2_Scene.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_LoginScene.cs" />
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_MajorCity.cs" />
@@ -451,12 +453,15 @@
     <Compile Include="Assets\Scripts\Global\FadeInAndOut.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParameter.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParaMgr.cs" />
+    <Compile Include="Assets\Scripts\Global\SaveAndLoading.cs" />
     <Compile Include="Assets\Scripts\Global\SmallLayerCtrl.cs" />
+    <Compile Include="Assets\Scripts\Global\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\Kernel\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataAnalysisMgr.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataFormat.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataMgr.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataOperation.cs" />
     <Compile Include="Assets\Scripts\Kernel\EventTriggerListener.cs" />
     <Compile Include="Assets\Scripts\Kernel\Exception\XMLAnalysisException.cs" />
     <Compile Include="Assets\Scripts\Kernel\iTween.cs" />
@@ -467,16 +472,21 @@
     <Compile Include="Assets\Scripts\Kernel\PoolManager\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\PoolManager\Pools.cs" />
     <Compile Include="Assets\Scripts\Kernel\ResourceMgr.cs" />
+    <Compile Include="Assets\Scripts\Kernel\Trigger\TriggerCommonEvent.cs" />
     <Compile Include="Assets\Scripts\Kernel\Trigger\TriggerDisplayAndHide.cs" />
     <Compile Include="Assets\Scripts\Kernel\UnityHelper.cs" />
     <Compile Include="Assets\Scripts\Kernel\XmlOperation.cs" />
+    <Compile Include="Assets\Scripts\Model\Mod_GlobalParaData.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerExtendedData.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerExtendedDataProxy.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerKernelData.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_PlayerKernelDataProxy.cs" />
     <Compile Include="Assets\Scripts\Model\Player\Mod_UpgradeLevelRule.cs" />
+    <Compile Include="Assets\Scripts\Model\Prop\Mod_PlayerPackageData.cs" />
+    <Compile Include="Assets\Scripts\Model\Prop\Mod_PlayerPackageDataProxy.cs" />
     <Compile Include="Assets\Scripts\Test\Dialogs.cs" />
     <Compile Include="Assets\Scripts\Test\Test_ModelLayer.cs" />
+    <Compile Include="Assets\Scripts\Test\Test_PackageDrag.cs" />
     <Compile Include="Assets\Scripts\Test\TestDialogInfo.cs" />
     <Compile Include="Assets\Scripts\Test\TestDialogUI.cs" />
     <Compile Include="Assets\Scripts\Test\XMLAnalysis.cs" />
@@ -486,10 +496,20 @@
     <Compile Include="Assets\Scripts\View\Guide\TriggerDialogs.cs" />
     <Compile Include="Assets\Scripts\View\Guide\TriggerOperET.cs" />
     <Compile Include="Assets\Scripts\View\Guide\TriggerOperVitualKey.cs" />
+    <Compile Include="Assets\Scripts\View\NPC\View_NPCDialogs_InMajorCity.cs" />
     <Compile Include="Assets\Scripts\View\Player\View_DisplayPlayInfo.cs" />
     <Compile Include="Assets\Scripts\View\Player\View_PlayerInfoResponse.cs" />
     <Compile Include="Assets\Scripts\View\Player\View_PlayerInfoResponse_InMajorCity.cs" />
-    <Compile Include="Assets\Scripts\View\Prop\MajorCity\View_Panel_Skill.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\MajorCity\View_MarketPanel.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\MajorCity\View_MissionPanel.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\MajorCity\View_SkillPanel.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_BaseItem.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_Item_Boots.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_Item_NormalItems.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_Item_Shields.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_Item_Weapons.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_ItemDisplay.cs" />
+    <Compile Include="Assets\Scripts\View\Prop\Package\View_PackageCtrl.cs" />
     <Compile Include="Assets\Scripts\View\Prop\UI\View_AtkButtonCDEffect.cs" />
     <Compile Include="Assets\Scripts\View\Prop\UI\View_NormalAtkPressed.cs" />
     <Compile Include="Assets\Scripts\View\Scene\View_Level1.cs" />

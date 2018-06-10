@@ -24,6 +24,7 @@ namespace Global {
 				{SceneEnum.Level1,"3_Level1" },
 				{SceneEnum.Level2,"4_Level2" },
 				{SceneEnum.Level3,"5_Level3" },
+				{SceneEnum.MajorCity,"MajorCity" },
 				{SceneEnum.TestScene,"102_TestDialogScene" }
 			};
 		}

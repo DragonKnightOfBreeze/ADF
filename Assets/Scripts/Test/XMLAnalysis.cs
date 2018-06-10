@@ -29,14 +29,15 @@ namespace Test {
 			//得到根节点后的节点集合
 			XmlNodeList nodeArray = node.ChildNodes;    //nodeArray表示一个节点集合
 
-			foreach (XmlNode nodeItem in nodeArray) {	//nodeItem表示一条回话信息
-				//实例化实体类
-				Dialogs diaObj = new Dialogs();
-				//得到属性信息
-				diaObj.Language = nodeItem["Language"].InnerText; 
-				diaObj.Number = Convert.ToInt32(nodeItem["num"].InnerText);
-				diaObj.Speaker = nodeItem["Speaker"].InnerText;
-				diaObj.SpeakContent = nodeItem["Content"].InnerText;
+			foreach (XmlNode nodeItem in nodeArray) {   //nodeItem表示一条回话信息
+														//实例化实体类
+				Dialogs diaObj = new Dialogs {
+					//得到属性信息
+					Language = nodeItem["Language"].InnerText,
+					Number = Convert.ToInt32(nodeItem["num"].InnerText),
+					Speaker = nodeItem["Speaker"].InnerText,
+					SpeakContent = nodeItem["Content"].InnerText
+				};
 
 				//把单个实体对象加入集合
 				_DialogsArray.Add(diaObj);

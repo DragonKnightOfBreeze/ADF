@@ -81,6 +81,8 @@ namespace Kernel {
 		//	}	
 		//}
 
+
+
 		/// <summary>
 		/// （角色）面向指定目标旋转
 		/// 适用于所有人形角色
@@ -91,6 +93,8 @@ namespace Kernel {
 		public void FaceToGoal(Transform self,Transform goal,float rotationSpeed) {
 				self.rotation = Quaternion.Slerp(self.rotation, Quaternion.LookRotation(new Vector3(goal.position.x, 0, goal.position.z) - new Vector3(self.position.x, 0, self.position.z)), rotationSpeed);
 		}
+
+
 
 		/// <summary>
 		/// 得到指定范围的随机整数
@@ -105,6 +109,15 @@ namespace Kernel {
 			}
 			num = Random.Range(minNum,maxNum+1);
 			return num;
+		}
+
+		/// <summary>
+		/// 交换数值
+		/// </summary>
+		public void SwapValue<T>(T value_A,T value_B) {
+			T temp = value_A;
+			value_A = value_B;
+			value_B = temp;
 		}
 	}
 }

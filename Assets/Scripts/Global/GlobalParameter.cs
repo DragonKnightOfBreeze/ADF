@@ -21,10 +21,12 @@ namespace Global {
 		/// <summary>
 		/// 每次判断动画状态的等待时间
 		/// </summary>
-		public const float CHECK_TIME = 0.02f;	
+		public const float CHECK_TIME = 0.02f;
 
-		public const float MAX_VALUE_A = 999f;
-		public const float MAX_VALUE_B = 99f;
+
+		public const float MIN_DAMAGE = 1;
+		public const float MAX_VALUE_99 = 99f;
+		public const float MAX_VALUE_999 = 999f;
 
 		/// <summary>
 		/// EasyTouch插件定义的摇杆名称
@@ -70,16 +72,36 @@ namespace Global {
 
 	#endregion
 
+
+
 	#region 项目的标签定义
 
 	public class Tag {
 		public static string Tag_Enemy = "Tag_Enemy";
-		public static string Tag_Player = "Player";		//不要轻易修改成"Tag_Player"
+		public static string Tag_Player = "Player"; //不要轻易修改成"Tag_Player"
+
+		public static string Tag_MajorCity_Up = "MajorCity_Up";
+		public static string Tag_MajorCity_Down = "MajorCity_Down";
+
+		public static string Tag_Item_Weapon = "Tag_Item_Weapon";
+		public static string Tag_Item_Shield = "Tag_Item_Shield";
+		public static string Tag_Item_Boot = "Tag_Item_Boot";
 	}
 
 	#endregion
 
+
+
 	#region 项目的枚举类型
+
+	/// <summary>
+	/// 游戏进行状态（新游戏/继续游戏/。。。）
+	/// </summary>
+	public enum GameStatus {
+		None,		//无
+		NewGame,	//新的游戏
+		Continue	//游戏继续
+	}
 
 	/// <summary>
 	/// 场景名称
@@ -91,12 +113,12 @@ namespace Global {
 		Level1,
 		Level2,
 		Level3,
-		BaseScene,
+		MajorCity,
 		TestScene
 	}
 
 	/// <summary>
-	/// 玩家类型
+	/// 玩家职业
 	/// </summary>
 	public enum PlayerType {
 		Sworder,	//剑士
@@ -143,6 +165,31 @@ namespace Global {
 	}
 
 	/// <summary>
+	/// 道具的类别
+	/// </summary>
+	public enum ItemType {
+		/// <summary>
+		/// 武器
+		/// </summary>
+		Weapon,
+		/// <summary>
+		/// 盾牌
+		/// </summary>
+		Shield,
+		/// <summary>
+		/// 靴子
+		/// </summary>
+		Boot,
+		/// <summary>
+		/// 普通道具
+		/// </summary>
+		NormalItem
+
+	}
+
+
+
+	/// <summary>
 	/// 敌人的AI状态（简单的）
 	/// 要于敌人动画状态机里面的名称保持一致
 	/// </summary>
@@ -182,6 +229,8 @@ namespace Global {
 
 	#endregion
 
+
+
 	#region 项目的委托类型
 
 	/// <summary>
@@ -193,12 +242,19 @@ namespace Global {
 
 
 	/// <summary>
-	/// 键值更新类（对于人物属性来说）
+	/// 键值更新委托（对于人物属性来说）
+	/// 两种参数：类别和数值
+	/// 参数实际上是一个类，构造函数带有键、值两个参数
 	/// </summary>
 	/// <param name="kv"></param>
-	//两种参数：类别和数值
-	//参数实际上是一个类，构造函数带有键、值两个参数
 	public delegate void del_PlayerKernalModel(KeyValuesUpdate kv);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="itemName">道具的名字</param>
+	/// <param name="kv"></param>
+	public delegate void del_PlayerItemModel(KeyValuesUpdate kv, string itemName = "");
 
 
 

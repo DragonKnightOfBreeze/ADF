@@ -29,7 +29,7 @@ namespace Model {
 		/// 升级条件（达到多少经验时升级）
 		/// </summary>
 		/// <param name="experience">升级需要的经验值</param>
-		public void UpGradeLevelCondition(int experience) {
+		public void LevelUpCondition(int experience) {
 			int currentLevel = 1;		//当前等级
 
 			//这个算法本身应该可以简化
@@ -61,7 +61,7 @@ namespace Model {
 		/// 1：所有的核心最大数值的增加。
 		/// 2：对应的核心数值当前值，加到最大数值。（升级时会回复HP和MP）
 		/// </summary>
-		public void UpgradeLevelOperation(LevelName levelName) {
+		public void LevelUpOperation(LevelName levelName) {
 			switch (levelName) {
 				case LevelName.Level_1:
 					//定义一个方法来处理这些
@@ -114,18 +114,18 @@ namespace Model {
 		public void WhenLevelUp(float maxhp,float maxmp,float atk,float def,float dex) {
 
 			//所有的核心最大数值增加
-			Mod_PlayerKernelDataProxy.GetInstance().InMaxHealth(maxhp);
-			Mod_PlayerKernelDataProxy.GetInstance().InMaxMana(maxmp);
+			Mod_PlayerKernelDataProxy.GetInstance().AddMaxHP(maxhp);
+			Mod_PlayerKernelDataProxy.GetInstance().AddMaxMP(maxmp);
 
 			//对应的当前数值增加到最大数值
 			//有必要用Get系列方法吗？
-			Mod_PlayerKernelDataProxy.GetInstance().InHealth(Mod_PlayerKernelDataProxy.GetInstance().GetMaxHealth());
-			Mod_PlayerKernelDataProxy.GetInstance().InMana(Mod_PlayerKernelDataProxy.GetInstance().GetMaxMana());
+			Mod_PlayerKernelDataProxy.GetInstance().AddCurHP(Mod_PlayerKernelDataProxy.GetInstance().GetMaxHP());
+			Mod_PlayerKernelDataProxy.GetInstance().AddCurMP(Mod_PlayerKernelDataProxy.GetInstance().GetMaxMP());
 
 			//其他核心数值增加
-			Mod_PlayerKernelDataProxy.GetInstance().InATK(atk);
-			Mod_PlayerKernelDataProxy.GetInstance().InDEF(def);
-			Mod_PlayerKernelDataProxy.GetInstance().InDEX(dex);
+			Mod_PlayerKernelDataProxy.GetInstance().AddATK(atk);
+			Mod_PlayerKernelDataProxy.GetInstance().AddDEF(def);
+			Mod_PlayerKernelDataProxy.GetInstance().AddDEX(dex);
 		}
 	}
 }

@@ -12,7 +12,7 @@ using Test;
 namespace Model {
 	public class Mod_PlayerExtendedData {
 		//定义事件：玩家的扩展数值
-		public static event del_PlayerKernalModel Eve_PlayerExtendedData;
+		public static event del_PlayerKernalModel eve_PlayerExtendedData;
 
 		private int _IntEXP;		//经验值
 		private int _IntKillNum;    //杀敌数量
@@ -28,9 +28,9 @@ namespace Model {
 			set {
 				_IntEXP = value;
 				//事件调用
-				if(Eve_PlayerExtendedData!=null) {
+				if(eve_PlayerExtendedData!=null) {
 					KeyValuesUpdate kv = new KeyValuesUpdate("EXP",EXP);
-					Eve_PlayerExtendedData(kv);
+					eve_PlayerExtendedData(kv);
 				}
 			}
 		}
@@ -42,9 +42,9 @@ namespace Model {
 			set {
 				_IntKillNum = value;
 				//事件调用
-				if (Eve_PlayerExtendedData != null) {
+				if (eve_PlayerExtendedData != null) {
 					KeyValuesUpdate kv = new KeyValuesUpdate("KillNum", KillNum);
-					Eve_PlayerExtendedData(kv);
+					eve_PlayerExtendedData(kv);
 				}
 			}
 		}
@@ -56,9 +56,9 @@ namespace Model {
 			set {
 				_IntLevel = value;
 				//事件调用
-				if (Eve_PlayerExtendedData != null) {
+				if (eve_PlayerExtendedData != null) {
 					KeyValuesUpdate kv = new KeyValuesUpdate("Level", Level);
-					Eve_PlayerExtendedData(kv);
+					eve_PlayerExtendedData(kv);
 				}
 			}
 		}
@@ -70,9 +70,9 @@ namespace Model {
 			set {
 				_IntGold = value;
 				//事件调用
-				if (Eve_PlayerExtendedData != null) {
+				if (eve_PlayerExtendedData != null) {
 					KeyValuesUpdate kv = new KeyValuesUpdate("Gold", Gold);
-					Eve_PlayerExtendedData(kv);
+					eve_PlayerExtendedData(kv);
 				}
 			}
 		}
@@ -84,9 +84,9 @@ namespace Model {
 			set {
 				_IntDiamond = value;
 				//事件调用
-				if (Eve_PlayerExtendedData != null) {
+				if (eve_PlayerExtendedData != null) {
 					KeyValuesUpdate kv = new KeyValuesUpdate("Diamond", Diamond);
-					Eve_PlayerExtendedData(kv);
+					eve_PlayerExtendedData(kv);
 				}
 			}
 		}

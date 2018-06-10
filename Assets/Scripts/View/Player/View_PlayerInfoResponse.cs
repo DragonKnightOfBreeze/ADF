@@ -43,11 +43,20 @@ namespace View {
 		/// <summary>
 		/// 显示与隐藏玩家的详细信息面板
 		/// </summary>
-		public void IsShowingPlayerDetailInfoPanel() {
-			//goPlayerDetailInfoPanel.SetActive(true);    //显示面板
-			//goPlayerDetailInfoPanel.SetActive(false);    //隐藏面板
-			goPlayerDetailInfoPanel.SetActive(!goPlayerDetailInfoPanel.activeSelf);	 //如果是开启的就隐藏，如果是隐藏的就显示
+		public void DisplayOrHidePlayerDetailInfoPanel() {
+			///Debug.Log("!!!!!");
+			//预处理
+			if (goPlayerDetailInfoPanel != null) {
+				if (!goPlayerDetailInfoPanel.activeSelf) {
+					BeforeOpenWindow(goPlayerDetailInfoPanel);
+				}else {
+					BeforeCloseWindow();
+				}
+			}
+			//显示相应的面板（如果已经打开，则要关闭）
+			goPlayerDetailInfoPanel.SetActive(!goPlayerDetailInfoPanel.activeSelf);
 		}
+		
 
 		/// <summary>
 		/// 显示ET
@@ -137,9 +146,11 @@ namespace View {
 
 		/// <summary>
 		/// 退出游戏系统
+		/// ***待优化：添加确认对话框操作***
 		/// </summary>
 		public void ExitGame() {
-			Application.Quit();
+			//Application.Quit();
+			Ctrl_PlayerUIResponse.Instance.ExitGame();
 		}
 
 
@@ -181,6 +192,33 @@ namespace View {
 		#endregion
 
 #endif
+
+
+
+		#region 预处理方法
+
+		/// <summary>
+		/// 打开窗体之前的预处理
+		/// </summary>
+		/// <param name="goDisplayPanel"></param>
+		private void BeforeOpenWindow(GameObject goDisplayPanel) {
+			//禁用ET
+			goET.SetActive(false);
+			//窗体的模态化处理
+			gameObject.GetComponent<UIMaskMgr>().SetMaskWindow(goDisplayPanel);
+		}
+
+		/// <summary>
+		/// 关闭窗体之前的预处理
+		/// </summary>
+		private void BeforeCloseWindow() {
+			//开启ET
+			goET.SetActive(true);
+			//取消窗体的模态化
+			gameObject.GetComponent<UIMaskMgr>().CancelMaskWindow();
+		}
+
+		#endregion
 
 	}
 }

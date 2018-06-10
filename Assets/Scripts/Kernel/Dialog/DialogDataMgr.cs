@@ -53,7 +53,8 @@ namespace Kernel {
 
 
 		/// <summary>
-		/// 加载外部数据集合
+		/// 公共方法：加载外部数据集合
+		/// 通过这个方法来控制要加载的XML文件
 		/// （使用布尔值来测试方法有没有成功）
 		/// </summary>
 		/// <param name="dialogDataArray">外部数据集合</param>
@@ -95,7 +96,8 @@ namespace Kernel {
 				return false;
 			}
 			//段落编号增大后，需要保留上一个“对话段落编号”，以方便后续逻辑处理
-			//###改进### 只要是不相等。
+			//###改进### 只要是不相等。这样可以乱序访问
+			
 			if(diaSectionNum != _OriginalDialogSectionNum) {
 				//重置“内部序号”（后续应该会执行一个自加操作）
 				_IntIndexByDialogSection = 0;

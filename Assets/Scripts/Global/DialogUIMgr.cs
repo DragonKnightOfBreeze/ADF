@@ -54,7 +54,7 @@ namespace Global {
 
 
 		/// <summary>
-		/// 显示下一条对话，返回真表示对话结束
+		/// 公共方法：显示下一条对话，返回真表示对话结束
 		/// </summary>
 		/// <param name="diaType"></param>
 		/// <param name="SectionNum"></param>

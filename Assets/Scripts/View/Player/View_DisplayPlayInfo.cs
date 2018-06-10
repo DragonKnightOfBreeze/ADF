@@ -1,6 +1,13 @@
 ﻿//视图层，显示玩家信息
 //作用：显示玩家的各种信息
 
+//原理：使用多播委托
+//在核心数据脚本中的每个属性的Set方法中调用事件
+//在显示玩家信息脚本中的Awake方法中注册事件（用多个显示不同属性信息的方法）
+//如果这些属性在初始化，或者属性的值发生改变，就调用这个事件
+//调用这个事件，会转到已注册的所有方法，并且执行它们
+//因为这些方法的实现条件是互斥的，虽然它们都会被执行，只有其中一个的功能会被真正实现。
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,20 +53,20 @@ namespace View {
 		private void Awake() {
 
 			//多播委托，核心数值事件注册
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayCurHP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayCurMP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayMaxHP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayMaxMP;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayATK;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayDEF;
-			Mod_PlayerKernelData.Eve_PlayerKernalData += DisplayDEX;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayCurHP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayCurMP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayMaxHP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayMaxMP;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayATK;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayDEF;
+			Mod_PlayerKernelData.eve_PlayerKernalData += DisplayDEX;
 
 			//多播委托，扩展数值事件注册
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayEXP;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayLevel;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayKillNum;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayGold;
-			Mod_PlayerExtendedData.Eve_PlayerExtendedData += DisplayDiamond;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayEXP;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayLevel;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayKillNum;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayGold;
+			Mod_PlayerExtendedData.eve_PlayerExtendedData += DisplayDiamond;
 		}
 
 
@@ -94,7 +101,7 @@ namespace View {
 
 			bool SingleControl = true;
 
-			if (kv.Key.Equals("MaxHealth")) {
+			if (kv.Key.Equals("MaxHP")) {
 				if (Txt_HPByScreen && Txt_MaxHP) {
 					Txt_HPByScreen.text = Txt_HPByScreen.text.Split('/')[0] + '/' + kv.Values.ToString();
 					Txt_MaxHP.text = kv.Values.ToString();
@@ -115,7 +122,7 @@ namespace View {
 		/// <param name="kv"></param>
 		void DisplayCurHP(KeyValuesUpdate kv) {
 			//如果实例的值属性与之相等
-			if (kv.Key.Equals("Health")) {
+			if (kv.Key.Equals("CurHP")) {
 				if(Txt_HPByScreen && Txt_CurHP) {
 					Txt_HPByScreen.text = kv.Values.ToString() + '/' + Txt_HPByScreen.text.Split('/')[1]; 
 					Txt_CurHP.text = kv.Values.ToString();
@@ -132,7 +139,7 @@ namespace View {
 		/// </summary>
 		/// <param name="kv"></param>
 		void DisplayMaxMP(KeyValuesUpdate kv) {
-			if (kv.Key.Equals("MaxMana")) {
+			if (kv.Key.Equals("MaxMP")) {
 				if (Txt_MPByScreen && Txt_MaxMP) {
 					Txt_MPByScreen.text = Txt_MPByScreen.text.Split('/')[0] + '/' + kv.Values.ToString();
 					Txt_MaxMP.text = kv.Values.ToString();
@@ -148,7 +155,7 @@ namespace View {
 		/// </summary>
 		/// <param name="kv"></param>
 		void DisplayCurMP(KeyValuesUpdate kv) {
-			if (kv.Key.Equals("Mana")) {
+			if (kv.Key.Equals("CurMP")) {
 				if (Txt_MPByScreen && Txt_CurMP) {
 					Txt_MPByScreen.text = kv.Values.ToString() + '/' + Txt_MPByScreen.text.Split('/')[1];
 					Txt_CurMP.text = kv.Values.ToString();
@@ -159,14 +166,12 @@ namespace View {
 			}
 		}
 
-		
-
 		/// <summary>
 		/// 显示攻击力
 		/// </summary>
 		/// <param name="kv"></param>
 		void DisplayATK(KeyValuesUpdate kv) {
-			if (kv.Key.Equals("Attack")) {
+			if (kv.Key.Equals("ATK")) {
 				Txt_ATK.text = kv.Values.ToString();
 			}
 		}
@@ -176,7 +181,7 @@ namespace View {
 		/// </summary>
 		/// <param name="kv"></param>
 		void DisplayDEF(KeyValuesUpdate kv) {
-			if (kv.Key.Equals("Defence")) {
+			if (kv.Key.Equals("DEF")) {
 				Txt_DEF.text = kv.Values.ToString();
 			}
 		}
@@ -186,7 +191,7 @@ namespace View {
 		/// </summary>
 		/// <param name="kv"></param>
 		void DisplayDEX(KeyValuesUpdate kv) {
-			if (kv.Key.Equals("Dexterity")) {
+			if (kv.Key.Equals("DEX")) {
 				Txt_DEX.text = kv.Values.ToString();
 			}
 		}
