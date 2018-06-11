@@ -77,7 +77,7 @@ namespace Global {
 	#region 项目的标签定义
 
 	public class Tag {
-		public static string Tag_Enemy = "Tag_Enemy";
+		public static string Tag_Enemy = "Enemy";
 		public static string Tag_Player = "Player"; //不要轻易修改成"Tag_Player"
 
 		public static string Tag_MajorCity_Up = "MajorCity_Up";
@@ -86,6 +86,7 @@ namespace Global {
 		public static string Tag_Item_Weapon = "Tag_Item_Weapon";
 		public static string Tag_Item_Shield = "Tag_Item_Shield";
 		public static string Tag_Item_Boot = "Tag_Item_Boot";
+		public static string Tag_UICamera = "UICamera";
 	}
 
 	#endregion

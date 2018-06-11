@@ -1,6 +1,9 @@
-﻿//控制层，所有敌人的属性的父类
+﻿//［控制层］所有敌人的属性的父类
 //包含所有敌人的公共属性
 //运用重构的思想，来构造更加灵活与低耦合度的敌人
+
+//结藕：对象缓冲池管理器
+
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,135 +15,296 @@ using Kernel;
 namespace Control {
 	public class Ctrl_BaseEnemy_Prop : BaseControl {
 
-		public int IntMaxHP = 0;   //敌人的最大生命数值
-		public int IntATK = 0;     //敌人的攻击力
-		public int IntDEF = 0;         //敌人的防御力
+		#region 【私有字段】
 
-		public int IntEnemyEXP = 0; //英雄的经验数值
+		/* 需要在子类中赋值的公共属性，对应的字段 */
 
-		public float FloMoveSpeed = 0;   //敌人移动速度
-		public float FloRotationSpeed = 0; //敌人旋转速度
+		private int _IntMaxHP = 0;				//敌人的最大生命值
+		private int _IntATK = 0;				//敌人的攻击力
+		private int _IntDEF = 0;                //敌人的防御力
 
+		private float _FLoAtkSpeed = 0;			//敌人的攻击速度
+		//private float _FloAtkDistance = 0;		//敌人的有效攻击距离
 
-		private float _FloCurHp;    //敌人的当前生命数值
+		private float _FloMoveSpeed = 0;		//敌人的移动速度
+		private float _FloRotationSpeed = 0;	//敌人的转身速度
+		private float _FloAlertDistance = 0;	//敌人的警戒距离
+		private float _FloAttackDistance = 0;	//敌人发起攻击的最小距离
+		
+		
+		private int _IntEnemyEXP = 0;			//敌人死亡时，主角获得的的经验值
+		private int _IntEnemyGold = 0;          //敌人死亡时，主角获得的金钱
 
+		/* 不需要在子类中赋值的公共属性，对应的字段 */
 
-		//这个状态仅作判断，不是实时（真实）状态；
-		//持续播放的动画持续判断，单次播放的动画只做1次判断
-		//对于单次播放的动画，确定要播放后，就回到Idle状态
-		//如果要得到实时（真实）状态，考虑使用（虽然也不准确）：
-		//_MyAnimator.GetCurrentAnimatorStateInfo(0).IsName(CurrentState.ToString());
-		private EnemyActionState _CurrentState = EnemyActionState.Idle; //敌人的当前动画状态
+		private float _FloCurHP = 0;            //敌人的当前生命值
+		//private float _FloRealATK = 0;		//敌人的真实攻击力
+		//private float _FloRealDEF = 0;		//敌人的真实防御力
 
-		//private SinglePlayState _CurSinglePlayState = SinglePlayState.Init;
+		private EnemyActionState _CurrentState = EnemyActionState.Idle; //敌人的当前动画状态（瞬时的）
 
-		public EnemyActionState CurrentState {
-			get {
-				return _CurrentState;
-			}
-			set {
-				_CurrentState = value;
-			}
-		}
+		/* 常量 */
 
-		//public SinglePlayState CurSinglePlayState {
-		//	get {
-		//		return _CurSinglePlayState;
-		//	}
-		//	set {
-		//		_CurSinglePlayState = value;
-		//	}
-		//}
+		public const int CON_MinDamage = 1;			//敌人能够造成的最小伤害
+		public const float CON_RecheckTime = 0.02f;	//循环协程的再次检查时间
+		public const float CON_RecoverTime = 5f;     //敌人死亡后，等待回收的时间
 
-		/* 使用对象缓冲池技术后，协程方法应该根据脚本生命周期开始和结束 */
-
-		protected virtual void OnEnable() {
-			//重置生命值为最大生命值
-			_FloCurHp = IntMaxHP;
-			//判断是否存活
-			StartCoroutine("CheckLifeContinue");
-		}
-
-		protected virtual void OnDisable() {
-			//停止判断是否存活
-			StopCoroutine("CheckLifeContinue");
-		}
+		#endregion
 
 
-		///// <summary>
-		///// 在子类中运行的方法
-		///// </summary>
-		//public void RunMethodInChildren() {
-		//	_FloCurHp = IntMaxHP;
 
-		//	////判断是否存活
-		//	//StartCoroutine("CheckLifeContinue");
-		//}
-
-
+		#region 【公共属性】
 
 		/// <summary>
-		/// 伤害处理
+		/// 属性：敌人的最大生命值
 		/// </summary>
-		/// <param name="heroAtk"></param>
-		public void OnHurt(int heroAtk) {
-			_CurrentState = EnemyActionState.Hurt;
-
-			//Debug.Log("进行伤害处理！");
-			int hurtValue;
-			if (heroAtk > IntDEF) {
-				hurtValue = heroAtk - IntDEF;
-			} else {
-				hurtValue = 1;
-			}
-
-			if (_FloCurHp - hurtValue > 0) {
-				_FloCurHp -= hurtValue;
-			} else {
-				_FloCurHp = 0;
-			}
-			//Debug.Log("当前HP：" + _FloCurHp);
+		public int MaxHP {
+			get { return _IntMaxHP; }
+			set { _IntMaxHP = value; }
+		}
+		/// <summary>
+		/// 属性：敌人的攻击力
+		/// </summary>
+		public int ATK {
+			get { return _IntATK; }
+			set { _IntATK = value; }
+		}
+		/// <summary>
+		/// 属性：敌人的防御力
+		/// </summary>
+		public int DEF {
+			get { return _IntDEF; }
+			set { _IntDEF = value; }
 		}
 
 		/// <summary>
-		/// 检查是否存活
+		/// 属性：敌人的攻击速度
+		/// </summary>
+		public float AtkSpeed {
+			get { return _FLoAtkSpeed; }
+			set { _FLoAtkSpeed = value;	}
+		}
+
+		/// <summary>
+		/// 属性：敌人的移动速度
+		/// </summary>
+		public float MoveSpeed {
+			get { return _FloMoveSpeed; }
+			set { _FloMoveSpeed = value; }
+		}
+		/// <summary>
+		/// 属性：敌人的转身速度
+		/// </summary>
+		public float RotationSpeed {
+			get { return _FloRotationSpeed; }
+			set { _FloRotationSpeed = value; }
+		}
+		/// <summary>
+		/// 属性：敌人的警戒距离
+		/// </summary>
+		public float AlertDistance {
+			get { return _FloAlertDistance; }
+			set { _FloAlertDistance = value; }
+		}
+		/// <summary>
+		/// 属性：敌人发起攻击的最小距离
+		/// </summary>
+		public float AttackDistance {
+			get { return _FloAttackDistance; }
+			set { _FloAttackDistance = value; }
+		}
+
+		/// <summary>
+		/// 属性：敌人死亡时，主角获得的的经验值
+		/// </summary>
+		public int EnemyEXP {
+			get { return _IntEnemyEXP; }
+			set { _IntEnemyEXP = value; }
+		}
+		/// <summary>
+		/// 属性：敌人死亡时，主角获得的的金钱
+		/// </summary>
+		public int EnemyGold {
+			get { return _IntEnemyGold; }
+			set { _IntEnemyGold = value; }
+		}
+
+		/// <summary>
+		/// 属性：敌人的当前生命值
+		/// </summary>
+		public float CurHP {
+			get { return _FloCurHP; }
+			set { _FloCurHP = value; }
+		}
+		/// <summary>
+		/// 属性：敌人的当前动画状态
+		/// </summary>
+		public EnemyActionState CurrentState {
+			get { return _CurrentState; }
+			set { _CurrentState = value; }
+		}
+
+
+
+		#endregion
+
+
+
+		#region 【可以重载的受保护方法】
+
+		/// <summary>
+		/// 有待重载的启用时方法
+		/// 使用对象缓冲池技术后，协程方法应该根据脚本生命周期开始和结束
+		/// </summary>
+		protected virtual void OnEnable() {
+			//初始化敌人的状态
+			InitStatus();
+			//子类重载：设置好各种属性数值
+			//......
+			//协程：判断是否存活
+			StartCoroutine(CheckLifeContinue());
+		}
+
+		/// <summary>
+		/// 有待重载的禁用时方法
+		/// 使用对象缓冲池技术后，协程方法应该根据脚本生命周期开始和结束
+		/// </summary>
+		protected virtual void OnDisable() {
+			//协程：停止判断是否存活
+			StopCoroutine(CheckLifeContinue());
+		}
+
+		#endregion
+
+
+		#region 【公共方法】
+
+		/// <summary>
+		/// 公共方法：伤害处理
+		/// </summary>
+		/// <param name="damage">伤害</param>
+		public void OnHurt(float damage) {
+			//设置当前动画状态
+			_CurrentState = EnemyActionState.Hurt;
+			//处理敌人的生命值
+			SubCurHP(damage);
+		}
+
+		/// <summary>
+		/// 公共方法：减少生命值
+		/// </summary>
+		/// <param name="damage">伤害</param>
+		public void SubCurHP(float damage) {
+			//真实伤害计算
+			float realDamage = damage - DEF;
+			//最小伤害判断
+			if (realDamage < CON_MinDamage) {
+				realDamage = CON_MinDamage;
+			}
+			//一般情况
+			if (CurHP - realDamage > 0) {
+				CurHP -= realDamage;
+			}
+			//最小生命值判断
+			else {
+				CurHP = 0;
+			}
+		}
+
+		/*
+		 * 
+		public void AddCurHP(float addValue) {}
+		public void GetCurHP() { }
+		public void AddMaxHP(float addValue) { }
+		public void GetMaxHP() { }
+
+		public void UpdateATK(float atkByItem) { }
+		public void AddATK(float addValue) { }
+		public void SubATK(float aubValue) {}
+		public void GetATK() { }
+		public void UpdateDEF(float defByItem) { }
+		public void AddDEF(float addValue) { }
+		public void SubDEF(float subValue) { }
+		public void GetDEF() { }
+
+		public void AddEnemyEXP(int addValue) { }
+		public void SubEnemyEXP(int subValue) { }
+		public void AddEnemyGold(int addValue) { }
+		public void SubEnemyGold(int subValue) { }
+
+		*/
+
+
+
+		#endregion
+
+
+
+		#region 【私有协程】
+
+		/// <summary>
+		/// 协程：检查敌人是否存活
 		/// </summary>
 		/// <returns></returns>
 		IEnumerator CheckLifeContinue() {
-			//协程需要重复执行
 			while (true) {
-				//这里需要加以改动
-				if (_FloCurHp <= 0) {
+				//如果生命值已经为0
+				if (CurHP == 0) {
 					if (_CurrentState != EnemyActionState.Dead) {
+						//设置为死亡状态
 						_CurrentState = EnemyActionState.Dead;
-
-						Ctrl_HeroProperty.Instance.AddEXP(IntEnemyEXP); //玩家获得经验值
-						Ctrl_HeroProperty.Instance.AddKillNum();    //增加玩家的杀敌数量
-
-						//Destroy(this.gameObject, 5f);   //销毁对象（敌人死亡），5s的延迟
-						StartCoroutine("Recover");	//回收对象（作为代替）
-
-						
-	
+						//玩家得到各种奖励（获得经验值、金钱，增加杀敌量等）
+						DeathReward();
+						//开始协程：回收对象
+						StartCoroutine(RecoverGO());
 					}
 				}
-				yield return new WaitForSeconds(GlobalParameter.CHECK_TIME);	//每0.02s判断一次        
+				yield return new WaitForSeconds(CON_RecheckTime);     
 			}
+		}
+	
+
+
+		/// <summary>
+		/// 协程：回收对象
+		/// </summary>
+		IEnumerator RecoverGO() {
+			//等待一定时间
+			yield return new WaitForSeconds(CON_RecoverTime);
+			//重置到回收前的状态
+			InitStatus();
+			//使用对象缓冲池技术，回收对象
+			PoolManager.PoolsArray["_Enemys"].RecoverGameObject(gameObject);
+		}
+
+		#endregion
+
+
+
+		#region 私有方法
+
+		/// <summary>
+		/// 私有方法：敌人死亡后，玩家获得奖励
+		/// </summary>
+		private void DeathReward() {
+			Ctrl_HeroProperty.Instance.AddEXP(EnemyEXP);
+			Ctrl_HeroProperty.Instance.AddGold(EnemyGold);
+			Ctrl_HeroProperty.Instance.AddKillNum();
 		}
 
 		/// <summary>
-		/// 回收对象（敌人）
+		/// 私有方法：初始化或重置敌人的状态
 		/// </summary>
-		/// <returns></returns>
-		IEnumerator Recover() {
-			yield return new WaitForSeconds(5f);
-			//敌人回收前的状态重置
-			_FloCurHp = IntMaxHP;
+		private void InitStatus() {
 			_CurrentState = EnemyActionState.Idle;
-			//回收对象
-			PoolManager.PoolsArray["_"].RecoverGameObject(this.gameObject);
-			 
-
+			CurHP = MaxHP;
 		}
+
+		#endregion
+
+
+
+
 	}
 }
+

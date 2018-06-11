@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -336,6 +338,8 @@
     <Compile Include="Assets\EasyTouch\Plugins\MonoSingleton.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\MovingJoystick.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\VirtualScreen.cs" />
+    <Compile Include="Assets\Plugin\WallVisionOutlineEffect\ImageEffectBase.cs" />
+    <Compile Include="Assets\Plugin\WallVisionOutlineEffect\WallVisionOutlineEffect.cs" />
     <Compile Include="Assets\Resources\Models\Heroes\SwordsMan\SwordsManResources\SwordsEffectResoures\Scripts\NcEffect\NcUvAnimation.cs" />
     <Compile Include="Assets\Resources\ParticleProps\Arrow\arrowControl.cs" />
     <Compile Include="Assets\Resources\ParticleProps\csPoint\csPoint.cs" />
@@ -411,7 +415,9 @@
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ContrastStretchEffect.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\GlowEffect.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\GrayscaleEffect.cs" />
-    <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ImageEffectBase.cs" />
+    <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ImageEffectBase_A.cs" />
+    <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ImageEffectBase_B.cs" />
+    <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ImageEffectBase_C.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\ImageEffects.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\MotionBlur.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\NoiseEffect.cs" />
@@ -420,12 +426,30 @@
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\TwirlEffect.cs" />
     <Compile Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\VortexEffect.cs" />
     <Compile Include="Assets\Scripts\Control\BaseControl.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\BOSS\Ctrl_BOSS_Bruce_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\BOSS\Ctrl_BOSS_Bruce_Ani.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\BOSS\Ctrl_BOSS_Bruce_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_BaseEnemy_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_BaseEnemy_Ani.cs" />
     <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_BaseEnemy_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_BaseEnemy_Prop_Old.cs" />
     <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_Enemy.cs" />
-    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_SkeletonWarrior_AI.cs" />
-    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_SkeletonWarrior_Ani.cs" />
-    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_SkeletonWarrior_Etite_Prop.cs" />
-    <Compile Include="Assets\Scripts\Control\Enemy\Ctrl_SkeletonWarrior_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonArcher\Ctrl_SkeletonArcher_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonArcher\Ctrl_SkeletonArcher_Ani.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonArcher\Ctrl_SkeletonArcher_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonKing\Ctrl_SkeletonKing_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonKing\Ctrl_SkeletonKing_Ani.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonKing\Ctrl_SkeletonKing_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonMage\Ctrl_SkeletonMage_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonMage\Ctrl_SkeletonMage_Ani.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonMage\Ctrl_SkeletonMage_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior\Ctrl_SkeletonWarrior_AI.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior\Ctrl_SkeletonWarrior_Ani.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior\Ctrl_SkeletonWarrior_Etite_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior\Ctrl_SkeletonWarrior_Prop.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior_Old\Ctrl_SkeletonWarrior_AI_Old.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior_Old\Ctrl_SkeletonWarrior_Ani_Old.cs" />
+    <Compile Include="Assets\Scripts\Control\Enemy\SkeletonWarrior_Old\Ctrl_SkeletonWarrior_Prop_Old.cs" />
     <Compile Include="Assets\Scripts\Control\Player\Ctrl_DisplayHero.cs" />
     <Compile Include="Assets\Scripts\Control\Player\Ctrl_HeroAnimationCtrl.cs" />
     <Compile Include="Assets\Scripts\Control\Player\Ctrl_HeroAttack.cs" />
@@ -439,6 +463,7 @@
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_DestroyObjByTime.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_MakeObjRotation.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\Ctrl_RecoverObjByTime.cs" />
+    <Compile Include="Assets\Scripts\Control\Prop\Enemy_Weapon\Ctrl_Arrow.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\MajorCity\Ctrl_MarketPanel.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\MajorCity\Ctrl_MissionPanel.cs" />
     <Compile Include="Assets\Scripts\Control\Prop\UI\Ctrl_PlayerUIResponse.cs" />
@@ -450,12 +475,14 @@
     <Compile Include="Assets\Scripts\Control\Scene\Ctrl_StartScene.cs" />
     <Compile Include="Assets\Scripts\Global\ConvertEnumToStr.cs" />
     <Compile Include="Assets\Scripts\Global\DialogUIMgr.cs" />
-    <Compile Include="Assets\Scripts\Global\FadeInAndOut.cs" />
+    <Compile Include="Assets\Scripts\Global\UIEffect\Enemy_HPBar.cs" />
+    <Compile Include="Assets\Scripts\Global\UIEffect\FadeInAndOut.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParameter.cs" />
     <Compile Include="Assets\Scripts\Global\GlobalParaMgr.cs" />
     <Compile Include="Assets\Scripts\Global\SaveAndLoading.cs" />
     <Compile Include="Assets\Scripts\Global\SmallLayerCtrl.cs" />
-    <Compile Include="Assets\Scripts\Global\UIMaskMgr.cs" />
+    <Compile Include="Assets\Scripts\Global\UIEffect\MoveUpLabel.cs" />
+    <Compile Include="Assets\Scripts\Global\UIEffect\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\Kernel\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Kernel\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Kernel\Dialog\DialogDataAnalysisMgr.cs" />
@@ -521,6 +548,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyTouch\Readme_first.txt" />
+    <None Include="Assets\Plugin\WallVisionOutlineEffect\WallVisionOutlineEffectCombine.shader" />
+    <None Include="Assets\Plugin\WallVisionOutlineEffect\WallVisionOutlineEffectOccluder.shader" />
     <None Include="Assets\Resources\ParticleProps\FightingParticalSystem\ToolResources\DefaultShaderMaterials Unlisted\Caizhi\EffectShader\FXMaker_Mask Additive.shader" />
     <None Include="Assets\Resources\ParticleProps\FireBall\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />

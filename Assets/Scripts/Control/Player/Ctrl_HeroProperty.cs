@@ -92,10 +92,10 @@ namespace Control {
 		/// <summary>
 		/// 减少当前的生命值（例如：被敌人攻击）
 		/// </summary>
-		/// <param name="damage"></param>
-		public void SubCurHP(float damage) {
-			if (damage > 0) {
-				Mod_PlayerKernelDataProxy.GetInstance().SubCurHP(damage);
+		/// <param name="attack"></param>
+		public void SubCurHP(float attack) {
+			if (attack > 0) {
+				Mod_PlayerKernelDataProxy.GetInstance().SubCurHP(attack);
 			}
 		}
 

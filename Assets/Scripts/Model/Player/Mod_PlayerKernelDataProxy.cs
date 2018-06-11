@@ -56,14 +56,14 @@ namespace Model {
 		/// <summary>
 		/// 减少生命值（例如：被敌人攻击）
 		/// </summary>
-		/// <param name="damage">伤害</param>
-		public void SubCurHP(float damage) {
+		/// <param name="attack">攻击力</param>
+		public void SubCurHP(float attack) {
 			//理论上来说这里的参数都是主动赋值的，不可能为负
 			//因此这一系列的方法都不进行参数检查
 
 			//真实伤害计算
 			//公式：真实伤害 = 敌人攻击力 - (主角防御力 + 物品防御力)
-			float realDamage =  damage - (base.DEF + base.DEFByItem);
+			float realDamage =  attack - (base.DEF + base.DEFByItem);
 			//最小伤害判断
 			if(realDamage < GlobalParameter.MIN_DAMAGE) {
 				realDamage = GlobalParameter.MIN_DAMAGE;
@@ -76,7 +76,7 @@ namespace Model {
 			else {
 				base.CurHP = 0;
 			}
-}
+		}
 
 
 		/// <summary>

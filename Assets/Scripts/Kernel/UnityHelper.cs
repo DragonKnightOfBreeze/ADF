@@ -112,12 +112,35 @@ namespace Kernel {
 		}
 
 		/// <summary>
+		/// 得到波动范围内的随机数
+		/// </summary>
+		/// <returns></returns>
+		public int GetFloatNum(int num,int downNum=0,int upNum=0) {
+			num = Random.Range(num - upNum, num + upNum + 1);
+			return num;
+		}
+
+		/// <summary>
 		/// 交换数值
 		/// </summary>
 		public void SwapValue<T>(T value_A,T value_B) {
 			T temp = value_A;
 			value_A = value_B;
 			value_B = temp;
+		}
+
+		/// <summary>
+		/// 根据标签，确定一个游戏对象的基游戏对象
+		/// </summary>
+		/// <param name="go"></param>
+		/// <param name="baseTag"></param>
+		/// <returns></returns>
+		public GameObject SelectGOWhithTag(Transform tra,string baseTag) {
+			Transform baseTra=tra.parent;
+			while(baseTra.gameObject.tag != baseTag) {
+				baseTra = baseTra.parent;
+			}
+			return baseTra.gameObject;
 		}
 	}
 }

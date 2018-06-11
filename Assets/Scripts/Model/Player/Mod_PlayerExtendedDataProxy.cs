@@ -47,7 +47,7 @@ namespace Model {
 			base.EXP += addValue;
 			//经验值达到一定阶段，会自动提升当前等级
 			//***可能还可以改进？***
-			Mod_UpgradeLevelRule.GetInstance().LevelUpCondition(base.EXP);
+			Mod_UpgradeLevelRule.GetInstance().LevelUpCheck(base.EXP);
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace Model {
 			++base.Level;
 			//等级提升，玩家的各种属性都会有所提升。
 			//***肯定需要加以改进***
-			Mod_UpgradeLevelRule.GetInstance().LevelUpOperation((LevelName)base.Level);	//数值型转换成枚举类型
+			Mod_UpgradeLevelRule.GetInstance().LevelUpOperationMgr((LevelName)base.Level);	//数值型转换成枚举类型
 		}
 
 		/// <summary>

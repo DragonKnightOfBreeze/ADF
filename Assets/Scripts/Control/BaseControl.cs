@@ -78,28 +78,26 @@ namespace Control {
 		/// 粒子特效加载的公共方法
 		/// 更好的方式：使用对象缓冲池技术
 		/// </summary>
-		/// <param name="PEName"></param>
-		/// <param name="traPaticalPrefab"></param>
-		/// <param name="PERePosition">相对位置</param>
-		/// <param name="destroyTime"></param>
+		/// <param name="PEName">粒子特效的名字</param>
+		/// <param name="parentTra">父对象的方位</param>
+		/// <param name="PERePosition">对于父对象的相对位置</param>
+		/// <param name="destroyTime">等待破坏时间</param>
 		/// <param name="isCatch"></param>
-		/// <param name="strAudioEffect"></param>
+		/// <param name="strAudioEffect">播放的音频剪辑</param>
 		/// <returns></returns>
-		protected IEnumerator LoadParticalEffect(string PEName,Transform traPaticalPrefab,Vector3 PERePosition, float destroyTime
-			,bool isCatch = true, string strAudioEffect = null) {
+		protected IEnumerator LoadParticalEffect(string PEName,Transform parentTra,Vector3 PERePosition, float destroyTime
+			, bool isCatch = true, string strAudioEffect = null) {
 			// 间隔时间
 			yield return new WaitForSeconds(GlobalParameter.WAIT_FOR_PP);
 
 			//提取的粒子预设
 			GameObject goParticalPrefab = ResourceMgr.GetInstance().LoadAsset(PEName, isCatch);
 			//设置父子对象
-			goParticalPrefab.transform.parent = traPaticalPrefab;
-			//设置特效的位置
-			goParticalPrefab.transform.position = traPaticalPrefab.position + traPaticalPrefab.TransformDirection(PERePosition);
-			//对齐方向
-			goParticalPrefab.transform.rotation = traPaticalPrefab.rotation;
-			
-			
+			goParticalPrefab.transform.parent = parentTra;
+			//设置特效的生成位置
+			goParticalPrefab.transform.position = parentTra.position + parentTra.TransformDirection(PERePosition);
+			//设置特效的生成方向
+			goParticalPrefab.transform.rotation = parentTra.rotation;
 			//特效音频（这里调用的方法，应该和主角音效播放调用的方法不同）
 			AudioManager.PlayAudioEffectB(strAudioEffect);
 
@@ -108,7 +106,136 @@ namespace Control {
 			Destroy(goParticalPrefab, destroyTime);
 			}
 		}
-	
-		
+
+
+
+		/// <summary>
+		/// 粒子特效加载的公共方法（重载）
+		/// 更好的方式：使用对象缓冲池技术
+		/// </summary>
+		/// <param name="PEName">粒子特效的名字</param>
+		/// <param name="parentTra">父对象的位置</param>
+		/// <param name="position">生成位置</param>
+		/// <param name="quaternion">生成方向</param>
+		/// <param name="destroyTime">等待销毁时间</param>
+		/// <param name="isCatch">是否缓存</param>
+		/// <param name="strAudioEffect">播放的音频剪辑</param>
+		/// <returns></returns>
+		protected IEnumerator LoadParticalEffect(string PEName,Transform parentTra, Vector3 position,Quaternion quaternion,float createTime = 0.02f, float destroyTime = 10f, bool isCatch = true, string strAudioEffect = null) {
+			// 间隔时间
+			yield return new WaitForSeconds(createTime);
+			//提取的粒子预设
+			GameObject goParticalPrefab = ResourceMgr.GetInstance().LoadAsset(PEName, isCatch);
+			//设置父子对象
+			if (parentTra != null) {
+				goParticalPrefab.transform.parent = parentTra;
+			}
+			//设置特效的生成位置
+			goParticalPrefab.transform.position = position;
+			//设置特效的生成方向（粒子预设的旋转）
+			goParticalPrefab.transform.rotation = quaternion;
+
+			//可选：播放特效音频（这里调用的方法，应该和主角音效播放调用的方法不同）
+			AudioManager.PlayAudioEffectB(strAudioEffect);
+			//定义销毁时间
+			if (destroyTime > 0) {
+				Destroy(goParticalPrefab, destroyTime);
+			}
+		}
+
+
+
+
+
+
+
+
+
+		/// <summary>
+		/// 飘字特效方法，缓冲池加载
+		/// </summary>
+		/// <param name="internalTime">间隔时间</param>
+		/// <param name="goPEPrefab">粒子预设特效</param>
+		/// <param name="position">位置</param>
+		/// <param name="quaternion">旋转</param>
+		/// <param name="goTargetObj">目标对象</param>
+		/// <param name="displayNum">显示的数值（HP减少值）</param>
+		/// <param name="traParent">父节点</param>
+		/// <param name="audioEffect">播放的音效</param>
+		/// <returns></returns>
+		protected IEnumerator LoadPEInPool_MoveUpLabel(float internalTime, GameObject goPEPrefab, Vector3 position, Quaternion quaternion, GameObject goTargetObj, int displayNum, Transform traParent, AudioClip audioEffect = null) {
+			//克隆出的对象
+			GameObject goPEClone;
+
+			//间隔时间
+			yield return new WaitForSeconds(internalTime);
+
+			//在缓冲池中激活指定的对象
+			goPEClone = PoolManager.PoolsArray["_ParticalSys"].GetGameObject(goPEPrefab, position, quaternion);
+			//参数赋值
+			if (goPEClone != null) {
+				goPEClone.GetComponent<MoveUpLabel>().SetTargetEnemy(goTargetObj);
+				goPEClone.GetComponent<MoveUpLabel>().SetSubHPValue(displayNum);
+			}
+
+			//确定父节点
+			if (traParent != null) {
+				goPEClone.transform.parent = traParent;
+			}
+			//特效音频
+			if (audioEffect != null) {
+				AudioManager.PlayAudioEffectB(audioEffect);
+			}
+		}
+
+
+
+
+		/// <summary>
+		/// 生成敌人（加入对象缓冲池技术）
+		/// </summary>
+		/// <param name="enemy">生成的敌人的预置体</param>
+		/// <param name="spawnNum">生成敌人的数量</param>
+		/// <param name="spawnTras">生成地点数组</param>
+		/// <param name="isRaodom">是否随机生成（未写好）</param>
+		/// <param name="hasHPBar">是否挂载血条</param>
+		/// <returns></returns>
+		public IEnumerator SpawnEnemy(GameObject enemy,int spawnNum,Transform[] spawnTras,bool isRaodom = true,bool hasHPBar = true) {
+			yield return new WaitForSeconds(1f);
+
+			for (int i = 1; i <= spawnNum; i++) {
+				//克隆的对象
+				GameObject goClone;
+
+				//定义克隆体随机出现的位置
+				Transform traEnemySpawnPosition = GetRandomEnemySpawnPosition(spawnTras);
+				//在“对象缓冲池“”中激活指定的对象
+				//***待优化：随机旋转，或者面向玩家出现***
+				 goClone =  PoolManager.PoolsArray["_Enemys"].GetGameObject(enemy, traEnemySpawnPosition.position, Quaternion.identity);
+
+				//如果需要挂载血条
+				if (hasHPBar) {
+					//调用预设
+					GameObject goEnemyHP = ResourceMgr.GetInstance().LoadAsset("Prefabs/UI/UI_Enemy_HPBar", true);
+					//确定父节点
+					goEnemyHP.transform.parent = GameObject.FindGameObjectWithTag("Tag_UIPlayerInfo").transform;
+					//参数赋值
+					goEnemyHP.GetComponent<Enemy_HPBar>().SetTargetEnemy(goClone);
+				}
+
+				yield return new WaitForSeconds(2f);
+			}
+		}
+
+
+		/// <summary>
+		/// 得到敌人的随机出生点位置
+		/// </summary>
+		/// <param name="spawnTras">敌人位置数组</param>
+		/// <returns></returns>
+		public Transform GetRandomEnemySpawnPosition(Transform[] spawnTras) {
+			int randomNum = UnityHelper.GetInstance().GetRandomNum(0, spawnTras.Length - 1);
+			return spawnTras[randomNum];
+		}
 	}
 }

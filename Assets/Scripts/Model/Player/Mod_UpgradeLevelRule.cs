@@ -26,10 +26,10 @@ namespace Model {
 		}
 
 		/// <summary>
-		/// 升级条件（达到多少经验时升级）
+		/// 升级判定（达到多少经验时升级）
 		/// </summary>
 		/// <param name="experience">升级需要的经验值</param>
-		public void LevelUpCondition(int experience) {
+		public void LevelUpCheck(int experience) {
 			int currentLevel = 1;		//当前等级
 
 			//这个算法本身应该可以简化
@@ -57,47 +57,47 @@ namespace Model {
 
 
 		/// <summary>
-		/// 升级时的操作（玩家属性的提升）
+		/// 升级规则的总管理器（玩家属性的提升）
 		/// 1：所有的核心最大数值的增加。
 		/// 2：对应的核心数值当前值，加到最大数值。（升级时会回复HP和MP）
 		/// </summary>
-		public void LevelUpOperation(LevelName levelName) {
+		public void LevelUpOperationMgr(LevelName levelName) {
 			switch (levelName) {
 				case LevelName.Level_1:
 					//定义一个方法来处理这些
 					//具体的数据后期应该存储到XML设置文档中。
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_2:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_3:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_4:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_5:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_6:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_7:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_8:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_9:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 				case LevelName.Level_10:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 
 				default:
-					WhenLevelUp(10, 10, 2, 1, 10);
+					LevelUpOperation(10, 10, 2, 1, 10);
 					break;
 			}
 
@@ -111,7 +111,7 @@ namespace Model {
 		/// <param name="atk">攻击力增量</param>
 		/// <param name="def">防御力增量</param>
 		/// <param name="dex">敏捷度增量</param>
-		public void WhenLevelUp(float maxhp,float maxmp,float atk,float def,float dex) {
+		public void LevelUpOperation(float maxhp,float maxmp,float atk,float def,float dex) {
 
 			//所有的核心最大数值增加
 			Mod_PlayerKernelDataProxy.GetInstance().AddMaxHP(maxhp);

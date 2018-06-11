@@ -310,9 +310,13 @@
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasyTouchInspector.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasyTouchMenu.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\HTGUILayout.cs" />
+    <Compile Include="Assets\Plugin\WallVisionOutlineEffect\Editor\CustomFields.cs" />
+    <Compile Include="Assets\Plugin\WallVisionOutlineEffect\Editor\WallVisionOutlineEffectEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyTouch\Readme_first.txt" />
+    <None Include="Assets\Plugin\WallVisionOutlineEffect\WallVisionOutlineEffectCombine.shader" />
+    <None Include="Assets\Plugin\WallVisionOutlineEffect\WallVisionOutlineEffectOccluder.shader" />
     <None Include="Assets\Resources\ParticleProps\FightingParticalSystem\ToolResources\DefaultShaderMaterials Unlisted\Caizhi\EffectShader\FXMaker_Mask Additive.shader" />
     <None Include="Assets\Resources\ParticleProps\FireBall\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
     <None Include="Assets\Scenes\Maps\VW_ActionRPG_AssetPack\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />

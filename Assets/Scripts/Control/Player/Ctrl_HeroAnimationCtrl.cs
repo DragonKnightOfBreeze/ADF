@@ -301,6 +301,7 @@ namespace Control {
 		/// </summary>
 		private void LevelUp(KeyValuesUpdate kv) {
 			if (kv.Key.Equals("Level")) {
+				//跳过第一次，之后每次等级改变时，都会调用升级方法
 				if (_IsSingleTime) {
 					_IsSingleTime = false;
 				}

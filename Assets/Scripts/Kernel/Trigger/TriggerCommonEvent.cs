@@ -19,12 +19,15 @@ namespace Kernel {
 		NPC2_Dialog,    //NPC2对话
 		NPC3_Dialog,    //NPC3对话
 
-		Enemy1_Dialog,  //敌人1对话
-		Enemy2_Dialog,  //敌人2对话
-		Enemy3_Dialog,  //敌人3对话
+		Enemy1_Spawn,  //敌人生成1
+		Enemy2_Spawn,  //敌人生成2
+		Enemy3_Spawn,  //敌人生成3
+		EnemyBOSS_Spawn,	//敌人生成：BOSS区域
 
 		EnableScript1,  //启用脚本1
 		EnableScript2,  //启用脚本2
+
+		Enemy_Show1,
 
 		SaveDataOrScenes,   //保持
 		LoadDataOrScenes,   //加载

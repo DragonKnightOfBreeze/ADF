@@ -12,7 +12,7 @@ using Kernel;
 
 namespace Control {
 
-	public class Ctrl_SkeletonWarrior_AI : BaseControl {
+	public class Ctrl_SkeletonWarrior_AI_Old : BaseControl {
 		//使用随机数，实现个体差异性（简易版）
 		public float FloMinAlertDist = 2.5f; //最小警戒距离（再小就会攻击）
 		public float FloMinIdleDist = 5f;   //最小空闲距离
@@ -26,7 +26,7 @@ namespace Control {
 
 		private GameObject _GoHero;     //主角
 		private Transform _MyTransform; //当前敌人的方位
-		private Ctrl_BaseEnemy_Prop _MyProperty;  //得到当前敌人的属性脚本
+		private Ctrl_BaseEnemy_Prop_Old _MyProperty;  //得到当前敌人的属性脚本
 		private Animator _MyAnimator;
 
 		private CharacterController _cc;    //当前敌人的角色控制器
@@ -56,7 +56,7 @@ namespace Control {
 			//当前范围
 			_MyTransform = this.gameObject.transform;
 			//得到“属性”实例
-			_MyProperty = this.gameObject.GetComponent<Ctrl_BaseEnemy_Prop>();
+			_MyProperty = this.gameObject.GetComponent<Ctrl_BaseEnemy_Prop_Old>();
 			_MyAnimator = this.gameObject.GetComponent<Animator>();
 			//得到角色控制器
 			_cc = this.gameObject.GetComponent<CharacterController>();

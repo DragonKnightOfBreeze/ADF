@@ -6,10 +6,10 @@ using Global;
 using Kernel;
 
 namespace Control{
-	public class Ctrl_SkeletonWarrior_Ani : BaseControl {
-		private Ctrl_BaseEnemy_Prop _MyProperty;      //本身的属性
+	public class Ctrl_SkeletonWarrior_Ani_Old : BaseControl {
+		private Ctrl_BaseEnemy_Prop_Old _MyProperty;      //本身的属性
 		private Ctrl_HeroProperty _HeroProperty;        //英雄的属性
-		private Ctrl_SkeletonWarrior_AI _MyAI;
+		private Ctrl_SkeletonWarrior_AI_Old _MyAI;
 
 		private Animator _MyAnimator;             //骷髅战士的动画状态机
 		private CharacterController _cc;    //当前敌人的角色控制器
@@ -52,8 +52,8 @@ namespace Control{
 
 
 		void Start() {
-			_MyProperty = gameObject.GetComponent<Ctrl_BaseEnemy_Prop>();   //得到本身属性
-			_MyAI = gameObject.GetComponent<Ctrl_SkeletonWarrior_AI>();
+			_MyProperty = gameObject.GetComponent<Ctrl_BaseEnemy_Prop_Old>();   //得到本身属性
+			_MyAI = gameObject.GetComponent<Ctrl_SkeletonWarrior_AI_Old>();
 			_MyAnimator = gameObject.GetComponent<Animator>();    //得到动画状态机
 			goHero = GameObject.FindGameObjectWithTag(Tag.Tag_Player);
 			_cc = this.gameObject.GetComponent<CharacterController>();
