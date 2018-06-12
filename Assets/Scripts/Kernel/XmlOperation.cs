@@ -1,4 +1,8 @@
-﻿//   核心层，XML操作类
+﻿//核心层，XML操作类
+
+//使用方法：
+//存储：将字符串序列化，然后写入XML
+//读取：读取XML，然后反序列化
 
 using System.Collections;
 using System.Xml;

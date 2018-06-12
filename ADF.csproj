@@ -623,6 +623,7 @@
     <None Include="Assets\Scripts\Test\XMLDemo.xml" />
     <None Include="Assets\StreamingAssets\SystemConfigInfo.xml" />
     <None Include="Assets\StreamingAssets\SystemDialogsInfo.xml" />
+    <None Include="ToDoList.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
